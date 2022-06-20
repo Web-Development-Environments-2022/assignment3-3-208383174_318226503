@@ -87,22 +87,24 @@
         label="Password:"
         label-for="password"
       >
+        <!-- v-model="$v.form.password.$model" -->
         <b-form-input
           id="password"
           type="password"
           v-model="$v.form.password.$model"
           :state="validateState('password')"
         ></b-form-input>
+        <password-meter :password="$v.form.password.$model" />
         <b-form-invalid-feedback v-if="!$v.form.password.required">
           Password is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.password.valid">
+          Need to contain at least one number and one special character
         </b-form-invalid-feedback>
         <b-form-invalid-feedback
           v-if="$v.form.password.required && !$v.form.password.length"
         >
           Length need to be between 5-10 characters long
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.password.valid">
-          Need to contain at least one letter and one special character
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -177,6 +179,7 @@
 </template>
 
 <script>
+import passwordMeter from "vue-simple-password-meter";
 import countries from "../assets/countries";
 import {
   required,
@@ -188,6 +191,7 @@ import {
 } from "vuelidate/lib/validators";
 
 export default {
+  components: { passwordMeter },
   name: "Register",
   data() {
     return {
@@ -196,7 +200,7 @@ export default {
         firstname: "",
         lastname: "",
         country: null,
-        password: "",
+        password: null,
         confirmedPassword: "",
         email: "",
         submitError: undefined,
@@ -308,5 +312,31 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
+}
+.po-password-strength-bar {
+  border-radius: 2px;
+  transition: all 0.2s linear;
+  height: 5px;
+  margin-top: 8px;
+}
+
+.po-password-strength-bar.risky {
+  background-color: #f95e68;
+}
+
+.po-password-strength-bar.guessable {
+  background-color: #fb964d;
+}
+
+.po-password-strength-bar.weak {
+  background-color: #fdd244;
+}
+
+.po-password-strength-bar.safe {
+  background-color: #b0dc53;
+}
+
+.po-password-strength-bar.secure {
+  background-color: #35cc62;
 }
 </style>
