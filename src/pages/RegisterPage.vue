@@ -42,12 +42,6 @@
         <b-form-invalid-feedback v-if="!$v.form.firstname.alpha">
           first name should include letters only
         </b-form-invalid-feedback>
-        <!-- <b-form-invalid-feedback v-else-if="!$v.form.firstname.required">
-          First name is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.firstname.length">
-          First name length should be between 2-20 characters long
-        </b-form-invalid-feedback> -->
       </b-form-group>
 
       <!-- last name -->
@@ -63,12 +57,6 @@
           type="text"
           :state="validateState('lastname')"
         ></b-form-input>
-        <!-- <b-form-invalid-feedback v-if="!$v.form.firstname.required">
-          Last name is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.firstname.length">
-          Last name length should be between 2-20 characters long
-        </b-form-invalid-feedback> -->
         <b-form-invalid-feedback v-if="!$v.form.username.alpha">
           last name should include letters only
         </b-form-invalid-feedback>
@@ -182,12 +170,9 @@
       dismissible
       show
     >
+      <!-- show the error message as returns from the server -->
       Register failed: {{ form.submitError }}
     </b-alert>
-    <!-- <b-card class="mt-3 md-3" header="Form Data Result">
-      <pre class="m-0"><strong>form:</strong> {{ form }}</pre>
-      <pre class="m-0"><strong>$v.form:</strong> {{ $v.form }}</pre>
-    </b-card> -->
   </div>
 </template>
 
@@ -229,13 +214,9 @@ export default {
         alpha,
       },
       firstname: {
-        // required,
-        // length: (f) => minLength(2)(f) && maxLength(20)(f),
         alpha,
       },
       lastname: {
-        // required,
-        // length: (l) => minLength(2)(l) && maxLength(20)(l),
         alpha,
       },
       country: {
@@ -290,6 +271,7 @@ export default {
             email: this.form.email,
           }
         );
+        console.log(response);
         this.$router.push("/login");
         // console.log(response);
       } catch (err) {
