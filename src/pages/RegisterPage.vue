@@ -256,7 +256,7 @@ export default {
       return $dirty ? !$error : null;
     },
     async Register() {
-      const DOMAIN_PATH = "http://localhost:3000/Register";
+      const DOMAIN_PATH = "http://localhost:3000";
       console.log("register function");
       try {
         const response = await this.axios.post(

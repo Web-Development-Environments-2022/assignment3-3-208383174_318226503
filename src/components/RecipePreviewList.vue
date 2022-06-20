@@ -17,40 +17,40 @@ import RecipePreview from "./RecipePreview.vue";
 export default {
   name: "RecipePreviewList",
   components: {
-    RecipePreview
+    RecipePreview,
   },
   props: {
     title: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      recipes: []
+      recipes: [],
     };
   },
   mounted() {
+    console.log("recipe preview list mounted");
     this.updateRecipes();
   },
   methods: {
     async updateRecipes() {
+      const DOMAIN_PATH = "http://localhost:3000";
       try {
         const response = await this.axios.get(
-          this.$root.store.server_domain + "/recipes/random",
+          DOMAIN_PATH + "/recipes/random"
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
-
-        // console.log(response);
-        const recipes = response.data.recipes;
+        const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
-        // console.log(this.recipes);
       } catch (error) {
-        console.log(error);
+        console.dir("error at recipe preview list");
+        console.dir(error);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
