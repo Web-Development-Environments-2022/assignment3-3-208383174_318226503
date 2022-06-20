@@ -256,15 +256,13 @@ export default {
       return $dirty ? !$error : null;
     },
     async Register() {
-      const REGISTER_PATH = "http://localhost:3000/Register";
+      const DOMAIN_PATH = "http://localhost:3000/Register";
       console.log("register function");
       try {
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           // this.$root.store.server_domain + "/Register",
-          // this.$root.store.state.server_domain + "/Register",
-
-          REGISTER_PATH,
+          DOMAIN_PATH + "/Register",
           {
             username: this.form.username,
             password: this.form.password,
