@@ -2,6 +2,7 @@
   <div class="container">
     <h1 class="title">Register</h1>
     <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
+      <!-- username -->
       <b-form-group
         id="input-group-username"
         label-cols-sm="3"
@@ -21,10 +22,47 @@
           Username length should be between 3-8 characters long
         </b-form-invalid-feedback>
         <b-form-invalid-feedback v-if="!$v.form.username.alpha">
-          Username alpha
+          Username should include letters only
         </b-form-invalid-feedback>
       </b-form-group>
 
+      <!-- first name -->
+      <b-form-group
+        id="input-group-firstname"
+        label-cols-sm="3"
+        label="First Name:"
+        label-for="firstname"
+      >
+        <b-form-input
+          id="firstname"
+          v-model="$v.form.firstname.$model"
+          type="text"
+          :state="validateState('firstname')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.firstname.alpha">
+          first name should include letters only
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <!-- last name -->
+      <b-form-group
+        id="input-group-lasttname"
+        label-cols-sm="3"
+        label="Last Name:"
+        label-for="lastname"
+      >
+        <b-form-input
+          id="lastname"
+          v-model="$v.form.lastname.$model"
+          type="text"
+          :state="validateState('lastname')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.username.alpha">
+          last name should include letters only
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <!-- country -->
       <b-form-group
         id="input-group-country"
         label-cols-sm="3"
@@ -42,32 +80,35 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
+      <!-- password -->
       <b-form-group
         id="input-group-Password"
         label-cols-sm="3"
         label="Password:"
         label-for="password"
       >
+        <!-- v-model="$v.form.password.$model" -->
         <b-form-input
           id="password"
           type="password"
           v-model="$v.form.password.$model"
           :state="validateState('password')"
         ></b-form-input>
+        <password-meter :password="$v.form.password.$model" />
         <b-form-invalid-feedback v-if="!$v.form.password.required">
           Password is required
         </b-form-invalid-feedback>
-        <b-form-text v-else-if="$v.form.password.$error" text-variant="info">
-          Your password should be <strong>strong</strong>. <br />
-          For that, your password should be also:
-        </b-form-text>
+        <b-form-invalid-feedback v-else-if="!$v.form.password.valid">
+          Need to contain at least one number and one special character
+        </b-form-invalid-feedback>
         <b-form-invalid-feedback
           v-if="$v.form.password.required && !$v.form.password.length"
         >
-          Have length between 5-10 characters long
+          Length need to be between 5-10 characters long
         </b-form-invalid-feedback>
       </b-form-group>
 
+      <!-- confirm password -->
       <b-form-group
         id="input-group-confirmedPassword"
         label-cols-sm="3"
@@ -87,6 +128,27 @@
           v-else-if="!$v.form.confirmedPassword.sameAsPassword"
         >
           The confirmed password is not equal to the original password
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <!-- email -->
+      <b-form-group
+        id="input-group-email"
+        label-cols-sm="3"
+        label="Email:"
+        label-for="email"
+      >
+        <b-form-input
+          id="email"
+          v-model="$v.form.email.$model"
+          type="email"
+          :state="validateState('email')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.email.required">
+          email e is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.firstname.email">
+          Please insert a valid email address
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -110,16 +172,14 @@
       dismissible
       show
     >
+      <!-- show the error message as returns from the server -->
       Register failed: {{ form.submitError }}
     </b-alert>
-    <!-- <b-card class="mt-3 md-3" header="Form Data Result">
-      <pre class="m-0"><strong>form:</strong> {{ form }}</pre>
-      <pre class="m-0"><strong>$v.form:</strong> {{ $v.form }}</pre>
-    </b-card> -->
   </div>
 </template>
 
 <script>
+import passwordMeter from "vue-simple-password-meter";
 import countries from "../assets/countries";
 import {
   required,
@@ -127,26 +187,27 @@ import {
   maxLength,
   alpha,
   sameAs,
-  email
+  email,
 } from "vuelidate/lib/validators";
 
 export default {
+  components: { passwordMeter },
   name: "Register",
   data() {
     return {
       form: {
         username: "",
-        firstName: "",
-        lastName: "",
+        firstname: "",
+        lastname: "",
         country: null,
-        password: "",
+        password: null,
         confirmedPassword: "",
         email: "",
-        submitError: undefined
+        submitError: undefined,
       },
       countries: [{ value: null, text: "", disabled: true }],
       errors: [],
-      validated: false
+      validated: false,
     };
   },
   validations: {
@@ -154,23 +215,38 @@ export default {
       username: {
         required,
         length: (u) => minLength(3)(u) && maxLength(8)(u),
-        alpha
+        alpha,
+      },
+      firstname: {
+        alpha,
+      },
+      lastname: {
+        alpha,
       },
       country: {
-        required
+        required,
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        length: (p) => minLength(5)(p) && maxLength(10)(p),
+        valid: function(value) {
+          const containsNumber = /[0-9]/.test(value);
+          const containsSpecial = /[#?!@$%^&*-]/.test(value);
+          return containsNumber && containsSpecial;
+        },
       },
       confirmedPassword: {
         required,
-        sameAsPassword: sameAs("password")
-      }
-    }
+        sameAsPassword: sameAs("password"),
+      },
+      email: {
+        required,
+        email,
+      },
+    },
   },
   mounted() {
-    // console.log("mounted");
+    console.log("mounted");
     this.countries.push(...countries);
     // console.log($v);
   },
@@ -180,16 +256,24 @@ export default {
       return $dirty ? !$error : null;
     },
     async Register() {
+      const DOMAIN_PATH = "http://localhost:3000/Register";
+      console.log("register function");
       try {
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
-          this.$root.store.server_domain + "/Register",
-
+          // this.$root.store.server_domain + "/Register",
+          DOMAIN_PATH + "/Register",
           {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
+            firstname: this.form.firstname,
+            lastname: this.form.lastname,
+            country: this.form.country,
+            password: this.form.password,
+            email: this.form.email,
           }
         );
+        console.log(response);
         this.$router.push("/login");
         // console.log(response);
       } catch (err) {
@@ -198,12 +282,12 @@ export default {
       }
     },
     onRegister() {
-      // console.log("register method called");
+      console.log("register method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      // console.log("register method go");
+      console.log("register method go");
       this.Register();
     },
     onReset() {
@@ -214,17 +298,43 @@ export default {
         country: null,
         password: "",
         confirmedPassword: "",
-        email: ""
+        email: "",
       };
       this.$nextTick(() => {
         this.$v.$reset();
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
+}
+.po-password-strength-bar {
+  border-radius: 2px;
+  transition: all 0.2s linear;
+  height: 5px;
+  margin-top: 8px;
+}
+
+.po-password-strength-bar.risky {
+  background-color: #f95e68;
+}
+
+.po-password-strength-bar.guessable {
+  background-color: #fb964d;
+}
+
+.po-password-strength-bar.weak {
+  background-color: #fdd244;
+}
+
+.po-password-strength-bar.safe {
+  background-color: #b0dc53;
+}
+
+.po-password-strength-bar.secure {
+  background-color: #35cc62;
 }
 </style>

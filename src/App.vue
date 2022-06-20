@@ -13,13 +13,20 @@
         {{ $root.store.username }}: <button @click="Logout">Logout</button>|
       </span>
     </div>
+    <Header></Header>
+
     <router-view />
   </div>
 </template>
 
 <script>
+import Header from "./components/Header.vue";
+
 export default {
   name: "App",
+  components: {
+    Header,
+  },
   methods: {
     Logout() {
       this.$root.store.logout();
@@ -28,8 +35,8 @@ export default {
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
