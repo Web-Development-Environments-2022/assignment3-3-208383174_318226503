@@ -22,7 +22,7 @@
           Username length should be between 3-8 characters long
         </b-form-invalid-feedback>
         <b-form-invalid-feedback v-if="!$v.form.username.alpha">
-          Username alpha
+          Username should include letters only
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -30,7 +30,7 @@
       <b-form-group
         id="input-group-firstname"
         label-cols-sm="3"
-        label="first name:"
+        label="First Name:"
         label-for="firstname"
       >
         <b-form-input
@@ -39,19 +39,22 @@
           type="text"
           :state="validateState('firstname')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.firstname.required">
+        <b-form-invalid-feedback v-if="!$v.form.firstname.alpha">
+          first name should include letters only
+        </b-form-invalid-feedback>
+        <!-- <b-form-invalid-feedback v-else-if="!$v.form.firstname.required">
           First name is required
         </b-form-invalid-feedback>
         <b-form-invalid-feedback v-else-if="!$v.form.firstname.length">
           First name length should be between 2-20 characters long
-        </b-form-invalid-feedback>
+        </b-form-invalid-feedback> -->
       </b-form-group>
 
       <!-- last name -->
       <b-form-group
         id="input-group-lasttname"
         label-cols-sm="3"
-        label="last name:"
+        label="Last Name:"
         label-for="lastname"
       >
         <b-form-input
@@ -60,11 +63,14 @@
           type="text"
           :state="validateState('lastname')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.firstname.required">
+        <!-- <b-form-invalid-feedback v-if="!$v.form.firstname.required">
           Last name is required
         </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.firstname.length">
+        <b-form-invalid-feedback v-if="!$v.form.firstname.length">
           Last name length should be between 2-20 characters long
+        </b-form-invalid-feedback> -->
+        <b-form-invalid-feedback v-if="!$v.form.username.alpha">
+          last name should include letters only
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -140,7 +146,7 @@
       <b-form-group
         id="input-group-email"
         label-cols-sm="3"
-        label="email:"
+        label="Email:"
         label-for="email"
       >
         <b-form-input
@@ -224,13 +230,13 @@ export default {
         alpha,
       },
       firstname: {
-        required,
-        length: (f) => minLength(2)(f) && maxLength(20)(f),
+        // required,
+        // length: (f) => minLength(2)(f) && maxLength(20)(f),
         alpha,
       },
       lastname: {
-        required,
-        length: (l) => minLength(2)(l) && maxLength(20)(l),
+        // required,
+        // length: (l) => minLength(2)(l) && maxLength(20)(l),
         alpha,
       },
       country: {
