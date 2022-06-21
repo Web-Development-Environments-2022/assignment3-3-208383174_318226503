@@ -48,11 +48,14 @@ export default {
             },
           }
         );
+        recipe.isFavorite = true;
       } catch (error) {
+        if (error.response.status == 401) {
+          this.$router.push("/login");
+        }
         console.dir("error at marking as favorite");
         console.dir(error);
       }
-      recipe.isFavorite = true;
     },
     async unmarkFavorite(recipe) {
       console.log("unmarking as favorite");
@@ -65,14 +68,18 @@ export default {
             personal: recipe.isPersonal,
           },
         });
+        recipe.isFavorite = false;
       } catch (error) {
         console.dir("error at unmarking as favorite");
         console.dir(error);
       }
-      recipe.isFavorite = false;
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.b-icon {
+  cursor: pointer;
+}
+</style>
