@@ -18,7 +18,7 @@
             {{ recipe.readyInMinutes }} minutes | {{ recipe.popularity }} likes
           </p>
           <p id="viewed_recipe" v-if="recipe.isViewed === true">
-            you already viewed this recipe
+            you have viewed this recipe
           </p>
           <div class="food_icons">
             <b-icon
@@ -36,6 +36,14 @@
               font-scale="2"
             ></b-icon>
             <img
+              id="glutenFree"
+              v-if="recipe.glutenFree === true"
+              src="../../resources/gluten-free.png"
+              height="30px"
+              width="30px"
+              title="gluten free"
+            />
+            <img
               id="vegetarian"
               v-if="recipe.vegetarian === true"
               src="../../resources/vegeterian.png"
@@ -50,14 +58,6 @@
               height="30px"
               width="30px"
               title="vegan"
-            />
-            <img
-              id="glutenFree"
-              v-if="recipe.glutenFree === true"
-              src="../../resources/gluten-free.png"
-              height="30px"
-              width="30px"
-              title="gluten free"
             />
           </div>
         </ul>
@@ -98,7 +98,7 @@ export default {
 }
 
 .card-img-top:hover {
-  opacity: 0.85;
+  opacity: 0.8;
 }
 
 .food_icons {
@@ -107,7 +107,7 @@ export default {
 }
 
 .food_icons img {
-  margin-right: 10px;
+  margin-right: 14px;
   position: relative;
 }
 
