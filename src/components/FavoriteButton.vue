@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-icon
+      @click="markFavorite(recipe)"
       v-if="recipe.isFavorite === false"
       class="heart_icon"
       icon="heart"
@@ -8,6 +9,7 @@
     ></b-icon>
 
     <b-icon
+      @click="unmarkFavorite(recipe)"
       v-if="recipe.isFavorite === true"
       class="heart_icon"
       icon="heart-fill"
@@ -30,7 +32,47 @@ export default {
     return {};
   },
   mounted() {},
-  methods: {},
+
+  methods: {
+    async markFavorite(recipe) {
+      console.log("marking as favorite");
+      console.log("is personal " + recipe.isPersonal);
+      const DOMAIN_PATH = "http://localhost:3000";
+      try {
+        await this.axios.post(
+          DOMAIN_PATH + "/users/favorites",
+          { recipeId: recipe.id },
+          {
+            params: {
+              personal: recipe.isPersonal,
+            },
+          }
+        );
+      } catch (error) {
+        console.dir("error at marking as favorite");
+        console.dir(error);
+      }
+      recipe.isFavorite = true;
+    },
+    async unmarkFavorite(recipe) {
+      console.log("unmarking as favorite");
+      console.log("is personal " + recipe.isPersonal);
+
+      const DOMAIN_PATH = "http://localhost:3000";
+      try {
+        await this.axios.delete(DOMAIN_PATH + "/users/favorites", {
+          data: {
+            recipeId: recipe.id,
+            personal: recipe.isPersonal,
+          },
+        });
+      } catch (error) {
+        console.dir("error at unmarking as favorite");
+        console.dir(error);
+      }
+      recipe.isFavorite = false;
+    },
+  },
 };
 </script>
 

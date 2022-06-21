@@ -121,7 +121,7 @@ export default {
   padding-top: 4px;
   position: absolute;
   top: 285px;
-  padding: 1.25rem 1.2rem 1.25rem 1.2rem;
+  /* padding: 1.25rem 1.2rem 1.25rem 1.2rem; */
 }
 
 .card .card-title {
