@@ -1,65 +1,68 @@
 <template>
   <div>
-    <router-link
-      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-      class="recipe-preview"
-    >
-      <div class="card" style="width: 20rem; height: 25rem;">
+    <div class="card" style="width: 20rem; height: 25rem;">
+      <router-link
+        :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+        id="recipe-preview"
+      >
         <div class="recipe-body">
           <img v-if="image_load" :src="recipe.image" class="card-img-top" />
         </div>
-        <div class="card-body">
-          <h5 class="card-title">
-            {{ recipe.title }}
-          </h5>
-          <ul class="list-group list-group-flush">
-            <p id="recipe_info">
-              {{ recipe.readyInMinutes }} minutes |
-              {{ recipe.popularity }} likes
-            </p>
-            <p id="viewed_recipe" v-if="recipe.isViewed === true">
-              you already viewed this recipe
-            </p>
-            <div class="food_icons">
-              <b-icon
-                v-if="recipe.isFavorite === false"
-                class="heart_icon"
-                icon="heart"
-                font-scale="2"
-              ></b-icon>
-              <b-icon
-                v-if="recipe.isFavorite === true"
-                class="heart_icon"
-                icon="heart-fill"
-                variant="danger"
-                font-scale="2"
-              ></b-icon>
-              <img
-                id="vegetarian"
-                v-if="recipe.vegetarian === true"
-                src="../../resources/vegeterian.png"
-                height="30px"
-                width="30px"
-              />
-              <img
-                id="vegan"
-                v-if="recipe.vegan === true"
-                src="../../resources/vegan.png"
-                height="30px"
-                width="30px"
-              />
-              <img
-                id="glutenFree"
-                v-if="recipe.glutenFree === true"
-                src="../../resources/gluten-free.png"
-                height="30px"
-                width="30px"
-              />
-            </div>
-          </ul>
-        </div>
+        <h5 class="card-title">
+          {{ recipe.title }}
+        </h5>
+      </router-link>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <p id="recipe_info">
+            {{ recipe.readyInMinutes }} minutes | {{ recipe.popularity }} likes
+          </p>
+          <p id="viewed_recipe" v-if="recipe.isViewed === true">
+            you have viewed this recipe
+          </p>
+          <div class="food_icons">
+            <b-icon
+              v-if="recipe.isFavorite === false"
+              class="heart_icon"
+              icon="heart"
+              font-scale="2"
+            ></b-icon>
+
+            <b-icon
+              v-if="recipe.isFavorite === true"
+              class="heart_icon"
+              icon="heart-fill"
+              variant="danger"
+              font-scale="2"
+            ></b-icon>
+            <img
+              id="glutenFree"
+              v-if="recipe.glutenFree === true"
+              src="../../resources/gluten-free.png"
+              height="30px"
+              width="30px"
+              title="gluten free"
+            />
+            <img
+              id="vegetarian"
+              v-if="recipe.vegetarian === true"
+              src="../../resources/vegeterian.png"
+              height="30px"
+              width="30px"
+              title="vegetarian"
+            />
+            <img
+              id="vegan"
+              v-if="recipe.vegan === true"
+              src="../../resources/vegan.png"
+              height="30px"
+              width="30px"
+              title="vegan"
+            />
+          </div>
+        </ul>
       </div>
-    </router-link>
+    </div>
   </div>
 </template>
 
@@ -86,30 +89,31 @@ export default {
 </script>
 
 <style scoped>
-/* .heart_icon { */
-/* position: absolute; */
-/* text-align: right; */
-/* right: 7px; */
-/* bottom: 8px; */
-/* top: 4px; */
-/* } */
+#recipe-preview {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  text-decoration: none;
+}
+
+.card-img-top:hover {
+  opacity: 0.8;
+}
 
 .food_icons {
   position: absolute;
-  bottom: 8px;
+  top: 73px;
 }
 
 .food_icons img {
-  margin-right: 10px;
+  margin-right: 14px;
+  position: relative;
 }
 
 .food_icons .heart_icon {
   position: absolute;
-  /* text-align: right; */
   left: 257px;
-  /* right: 2px; */
-  /* bottom: 350px; */
-  /* top: 4px; */
 }
 
 #vegetarian {
@@ -117,16 +121,15 @@ export default {
   bottom: 0px;
 }
 
-.recipe-preview {
-  display: inline-block;
-  width: 90%;
-  height: 100%;
-  position: relative;
-  margin: 10px 10px;
-}
-
 .card {
   color: black;
+}
+
+.card-body {
+  padding-top: 4px;
+  position: absolute;
+  top: 285px;
+  padding-left: 1.2rem;
 }
 
 .card .card-title {
@@ -137,7 +140,20 @@ export default {
   max-width: 20rem;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  padding: 0.6rem 1.2rem 0 1.2rem;
+  color: black;
 }
+
+.card .card-title:hover {
+  text-decoration: none;
+  color: rgb(100, 100, 100);
+}
+
+.recipe-body {
+  position: relative;
+  width: 100%;
+}
+
 #recipe_info {
   margin-bottom: 2px;
   margin-top: 0px;
