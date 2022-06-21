@@ -1,39 +1,36 @@
 <template>
-  <div
-    id="app"
-    :style="{
-      background: 'url(' + require('@/../resources/b6.jpg') + ') no-repeat',
-      backgroundSize: '300px',
-      right: 0,
-    }"
-  >
+  <div id="app">
     <div id="nav">
-      <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
-      <router-link :to="{ name: 'search' }">Search</router-link>|
-      {{ !$root.store.username }}
-      <span v-if="!$root.store.username">
-        Guest:
-        <router-link :to="{ name: 'register' }">Register</router-link>|
-        <router-link :to="{ name: 'login' }">Login</router-link>|
-      </span>
-      <span v-else>
-        {{ $root.store.username }}: <button @click="Logout">Logout</button>|
-      </span>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <router-link class="navbar-brand" :to="{ name: 'main' }"
+          ><b>Peachy Recipes</b></router-link
+        >|
+        <router-link class="navbar-brand" :to="{ name: 'search' }"
+          >Search</router-link
+        >|
+        <span v-if="!$root.store.username">
+          <router-link class="navbar-brand" :to="{ name: 'register' }"
+            >Register</router-link
+          >|
+          <router-link class="navbar-brand" :to="{ name: 'login' }"
+            >Login</router-link
+          >|
+        </span>
+        <span v-else id="logged-in-user">
+          <span>Hello {{ $root.store.username }}</span>
+          <button @click="Logout">Logout</button>
+        </span>
+      </nav>
     </div>
-    <Header></Header>
 
     <router-view />
   </div>
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-
 export default {
   name: "App",
-  components: {
-    Header,
-  },
+  components: {},
   methods: {
     Logout() {
       this.$root.store.logout();
@@ -50,10 +47,6 @@ export default {
 <style lang="scss">
 @import "@/scss/form-style.scss";
 
-body {
-  background-color: red;
-}
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -61,18 +54,28 @@ body {
   color: #2c3e50;
   min-height: 100vh;
   background-image: "../resources/b2.jpg";
+  background-color: #e5edf0;
 }
 
-#nav {
-  padding: 30px;
+.navbar-brand {
+  margin: 0 10px 0 10px;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+#logged-in-user {
+  position: absolute;
+  right: 0px;
+  font-size: 1.25rem;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+#logged-in-user span {
+  margin-right: 15px;
+  font-size: 1.15rem;
+}
+
+#logged-in-user button {
+  background-color: rgb(249, 236, 208);
+  border: 0px;
+  border-radius: 4px;
+  margin-right: 4px;
 }
 </style>
