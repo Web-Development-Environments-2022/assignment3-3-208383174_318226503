@@ -5,16 +5,16 @@
       v-if="recipe.isFavorite === false"
       class="heart_icon"
       icon="heart"
-      font-scale="2"
+      font-scale="1.8"
     ></b-icon>
 
     <b-icon
+      id="favorite"
       @click="unmarkFavorite(recipe)"
       v-if="recipe.isFavorite === true"
       class="heart_icon"
       icon="heart-fill"
-      variant="danger"
-      font-scale="2"
+      font-scale="1.8"
     ></b-icon>
   </div>
 </template>
@@ -81,5 +81,9 @@ export default {
 <style scoped>
 .b-icon {
   cursor: pointer;
+}
+
+#favorite {
+  color: rgb(234, 174, 64);
 }
 </style>

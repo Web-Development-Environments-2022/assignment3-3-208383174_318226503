@@ -1,9 +1,9 @@
 <template>
   <b-container>
-    <h3>
-      {{ title }}:
+    <h4>
+      {{ title }}
       <slot></slot>
-    </h3>
+    </h4>
     <b-row>
       <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
@@ -45,7 +45,6 @@ export default {
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
-
       } catch (error) {
         console.dir("error at recipe preview list");
         console.dir(error);
@@ -58,5 +57,10 @@ export default {
 <style lang="scss" scoped>
 .container {
   min-height: 400px;
+  max-width: 980px;
+  margin: auto;
+}
+.col {
+  padding-right: 0;
 }
 </style>
