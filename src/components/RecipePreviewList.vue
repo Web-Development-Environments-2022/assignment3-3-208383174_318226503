@@ -45,6 +45,7 @@ export default {
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
+
       } catch (error) {
         console.dir("error at recipe preview list");
         console.dir(error);
