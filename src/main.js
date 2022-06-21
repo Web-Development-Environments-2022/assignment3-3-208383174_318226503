@@ -24,6 +24,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  BootstrapVue,
+  BootstrapVueIcons,
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -36,6 +38,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  BootstrapVue,
+  BootstrapVueIcons,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
