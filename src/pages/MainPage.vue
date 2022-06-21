@@ -1,25 +1,34 @@
 <template>
-  <div class="container">
-    <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
-    <router-link v-if="!$root.store.username" to="/login" tag="button"
-      >You need to Login to vue this</router-link
-    >
-    {{ !$root.store.username }}
-    <RecipePreviewList
-      title="Last Viewed Recipes"
-      :class="{
-        RandomRecipes: true,
-        blur: !$root.store.username,
-        center: true,
-      }"
-      disabled
-    ></RecipePreviewList>
-    <!-- <div
+  <!-- <div
+    class="mainPage"
+    :style="{
+      background: 'url(' + require('@/../resources/b1.jpg') + ')  no-repeat',
+      backgroundSize: '800px',
+    }"
+  > -->
+  <div class="mainPage">
+    <div class="container">
+      <h1 class="title">Main Page</h1>
+      <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
+      <router-link v-if="!$root.store.username" to="/login" tag="button"
+        >You need to Login to vue this</router-link
+      >
+      {{ !$root.store.username }}
+      <RecipePreviewList
+        title="Last Viewed Recipes"
+        :class="{
+          RandomRecipes: true,
+          blur: !$root.store.username,
+          center: true,
+        }"
+        disabled
+      ></RecipePreviewList>
+      <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
     >
       Centeredasdasdad
     </div>-->
+    </div>
   </div>
 </template>
 
@@ -36,6 +45,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// .mainPage {
+//   width: 200%;
+// }
+
+container {
+  padding: 20px;
+  font-family: Helvetica;
+}
+
 .RandomRecipes {
   margin: 10px 0 10px;
 }

@@ -1,5 +1,12 @@
 <template>
-  <div id="app">
+  <div
+    id="app"
+    :style="{
+      background: 'url(' + require('@/../resources/b6.jpg') + ') no-repeat',
+      backgroundSize: '300px',
+      right: 0,
+    }"
+  >
     <div id="nav">
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
@@ -43,12 +50,17 @@ export default {
 <style lang="scss">
 @import "@/scss/form-style.scss";
 
+body {
+  background-color: red;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
+  background-image: "../resources/b2.jpg";
 }
 
 #nav {
