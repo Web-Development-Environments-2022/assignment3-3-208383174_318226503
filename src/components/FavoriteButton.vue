@@ -56,7 +56,6 @@ export default {
     },
     async unmarkFavorite(recipe) {
       console.log("unmarking as favorite");
-      console.log("is personal " + recipe.isPersonal);
 
       const DOMAIN_PATH = "http://localhost:3000";
       try {
