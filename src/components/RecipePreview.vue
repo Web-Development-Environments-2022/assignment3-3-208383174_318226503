@@ -18,31 +18,10 @@
             {{ recipe.readyInMinutes }} minutes | {{ recipe.popularity }} likes
           </p>
           <p id="viewed_recipe" v-if="recipe.isViewed === true">
-            you have viewed this recipe
+            you already viewed this recipe
           </p>
           <div class="food_icons">
-            <b-icon
-              v-if="recipe.isFavorite === false"
-              class="heart_icon"
-              icon="heart"
-              font-scale="2"
-            ></b-icon>
-
-            <b-icon
-              v-if="recipe.isFavorite === true"
-              class="heart_icon"
-              icon="heart-fill"
-              variant="danger"
-              font-scale="2"
-            ></b-icon>
-            <img
-              id="glutenFree"
-              v-if="recipe.glutenFree === true"
-              src="../../resources/gluten-free.png"
-              height="30px"
-              width="30px"
-              title="gluten free"
-            />
+            <FavoriteButton class="favoriteButton" :recipe="recipe" />
             <img
               id="vegetarian"
               v-if="recipe.vegetarian === true"
@@ -59,6 +38,14 @@
               width="30px"
               title="vegan"
             />
+            <img
+              id="glutenFree"
+              v-if="recipe.glutenFree === true"
+              src="../../resources/gluten-free.png"
+              height="30px"
+              width="30px"
+              title="gluten free"
+            />
           </div>
         </ul>
       </div>
@@ -67,7 +54,12 @@
 </template>
 
 <script>
+import FavoriteButton from "./FavoriteButton.vue";
 export default {
+  name: "RecipePreview",
+  components: {
+    FavoriteButton,
+  },
   mounted() {
     console.log("recipe preview mounted");
     this.axios.get(this.recipe.image).then((i) => {
@@ -98,7 +90,7 @@ export default {
 }
 
 .card-img-top:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .food_icons {
@@ -107,11 +99,11 @@ export default {
 }
 
 .food_icons img {
-  margin-right: 14px;
+  margin-right: 10px;
   position: relative;
 }
 
-.food_icons .heart_icon {
+.favoriteButton {
   position: absolute;
   left: 257px;
 }
@@ -124,7 +116,7 @@ export default {
   padding-top: 4px;
   position: absolute;
   top: 285px;
-  padding-left: 1.2rem;
+  /* padding: 1.25rem 1.2rem 1.25rem 1.2rem; */
 }
 
 .card .card-title {
