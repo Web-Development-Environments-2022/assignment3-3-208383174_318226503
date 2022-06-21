@@ -129,6 +129,7 @@ export default {
   padding-top: 4px;
   position: absolute;
   top: 285px;
+  padding-left: 1.2rem;
 }
 
 .card .card-title {
@@ -139,7 +140,7 @@ export default {
   max-width: 20rem;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  padding: 0.6rem 1.25rem 0 1.25rem;
+  padding: 0.6rem 1.2rem 0 1.2rem;
   color: black;
 }
 
