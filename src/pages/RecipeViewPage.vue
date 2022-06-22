@@ -3,6 +3,7 @@
     <div class="container">
       <div v-if="recipe">
         <img id="recipe-image" :src="recipe.image" class="center" />
+        <FavoriteButton id="favoriteButton" :recipe="recipe" />
       </div>
       <div class="recipe-body">
         <h2>{{ recipe.title }}</h2>
@@ -66,7 +67,12 @@
 </template>
 
 <script>
+import FavoriteButton from "../components/FavoriteButton.vue";
+
 export default {
+  components: {
+    FavoriteButton,
+  },
   data() {
     return {
       recipe: null,
@@ -76,7 +82,6 @@ export default {
     console.log("getting recipe");
     try {
       let response;
-      // response = this.$route.params.response;
 
       try {
         console.log("recipe id " + this.$route.params.recipeId);
@@ -213,5 +218,12 @@ h2 {
   font-size: 23px;
   display: flex;
   margin-left: 85px;
+}
+
+#favoriteButton {
+  position: absolute;
+  right: 600px;
+  top: 375px;
+  font-size: 21px;
 }
 </style>
