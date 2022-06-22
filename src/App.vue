@@ -8,7 +8,12 @@
         <router-link class="navbar-brand" :to="{ name: 'search' }"
           >Search</router-link
         >|
+        <router-link class="navbar-brand" :to="{ name: 'about' }"
+          >About</router-link
+        >|
         <span v-if="!$root.store.username">
+          <span id="welcome-guest">Hello Guest!</span>
+
           <router-link class="navbar-brand" :to="{ name: 'register' }"
             >Register</router-link
           >|
@@ -16,9 +21,11 @@
             >Login</router-link
           >|
         </span>
-        <span v-else id="logged-in-user">
-          <span>Hello {{ $root.store.username }}</span>
-          <button @click="Logout">Logout</button>|
+        <span v-else>
+          <span id="logged-in-user">
+            <span>Hello {{ $root.store.username }}</span>
+            <button @click="Logout">Logout</button>|
+          </span>
         </span>
       </nav>
     </div>
@@ -51,7 +58,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: black;
   min-height: 100vh;
   background-image: "../resources/b2.jpg";
   background-color: #e5edf0;
@@ -61,10 +68,17 @@ export default {
   margin: 0 10px 0 10px;
 }
 
-#logged-in-user {
+#logged-in-user,
+#welcome-guest {
   position: absolute;
   right: 0px;
   font-size: 1.25rem;
+  padding: 0.3125rem 1rem 0.3125rem;
+}
+
+#welcome-guest {
+  margin-right: 5px;
+  color: orange;
 }
 
 #logged-in-user span {
