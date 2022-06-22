@@ -1,5 +1,5 @@
 export default [
-    "",
+  'All Cuisines',
     "African",
     "American",
     "British",
