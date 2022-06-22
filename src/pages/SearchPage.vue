@@ -149,6 +149,7 @@ export default {
     this.cuisines.push(...cuisines);
     this.diets.push(...diets);
     this.intolerances.push(...intolerances);
+    console.log("localStorage.username: "+localStorage.username );
   },
   components: {
     SearchResultsPreview,
