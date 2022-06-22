@@ -17,12 +17,13 @@
           >
           <router-link class="navbar-brand" :to="{ name: 'login' }"
             >Login</router-link
-          >
+          >|
           <span id="welcome-guest">Hello Guest!</span>
         </span>
         <span v-else>
-          <span id="logged-in-user">
-            <span id="welcome-user">Hello {{ $root.store.username }}</span>
+          <span id="logged-in-user"
+            >| <span id="welcome-user">Hello {{ $root.store.username }}</span
+            >|
             <button @click="Logout">Logout</button>
           </span>
           <div>
@@ -109,30 +110,31 @@ export default {
 }
 
 #welcome-user {
-  margin-right: 5px;
+  margin-right: 15px;
 }
 
 #welcome-guest,
 #welcome-guest .navbar-brand {
   padding: 0.3125rem 0 0.3125rem 0;
-  margin: 0 15px 0 5px;
+  margin: 0 15px 0 10px;
 }
 
 #guest {
   position: absolute;
-  // right: 25px;
-  // position: absolute;
   right: 0px;
   font-size: 1.25rem;
   padding: 0.3125rem 0 0.3125rem 0;
 }
 
+#guest .navbar-brand {
+  margin-right: 15px;
+  margin-left: 5px;
+}
+
 #logged-in-user button {
   background-color: #f8f9fa;
-  // font-weight: bold;
   color: back;
   padding: 0 10px 0 10px;
-  margin-left: 5px;
   margin-right: 5px;
   border: none;
   border-radius: 4px;
