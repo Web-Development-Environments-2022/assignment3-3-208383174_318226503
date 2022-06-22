@@ -5,16 +5,16 @@
       v-if="recipe.isFavorite === false"
       class="heart_icon"
       icon="heart"
-      font-scale="2"
+      font-scale="1.8"
     ></b-icon>
 
     <b-icon
+      id="favorite"
       @click="unmarkFavorite(recipe)"
       v-if="recipe.isFavorite === true"
       class="heart_icon"
       icon="heart-fill"
-      variant="danger"
-      font-scale="2"
+      font-scale="1.8"
     ></b-icon>
   </div>
 </template>
@@ -48,11 +48,14 @@ export default {
             },
           }
         );
+        recipe.isFavorite = true;
       } catch (error) {
+        if (error.response.status == 401) {
+          this.$router.push("/login");
+        }
         console.dir("error at marking as favorite");
         console.dir(error);
       }
-      recipe.isFavorite = true;
     },
     async unmarkFavorite(recipe) {
       console.log("unmarking as favorite");
@@ -65,14 +68,22 @@ export default {
             personal: recipe.isPersonal,
           },
         });
+        recipe.isFavorite = false;
       } catch (error) {
         console.dir("error at unmarking as favorite");
         console.dir(error);
       }
-      recipe.isFavorite = false;
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.b-icon {
+  cursor: pointer;
+}
+
+#favorite {
+  color: rgb(234, 174, 64);
+}
+</style>

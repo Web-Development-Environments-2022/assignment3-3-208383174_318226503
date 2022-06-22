@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card" style="width: 20rem; height: 25rem;">
+    <div class="card" style="width: 18rem; height: 24rem;">
       <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
         id="recipe-preview"
@@ -26,24 +26,24 @@
               id="vegetarian"
               v-if="recipe.vegetarian === true"
               src="../../resources/vegeterian.png"
-              height="30px"
-              width="30px"
+              height="28px"
+              width="28px"
               title="vegetarian"
             />
             <img
               id="vegan"
               v-if="recipe.vegan === true"
               src="../../resources/vegan.png"
-              height="30px"
-              width="30px"
+              height="28px"
+              width="28px"
               title="vegan"
             />
             <img
               id="glutenFree"
               v-if="recipe.glutenFree === true"
               src="../../resources/gluten-free.png"
-              height="30px"
-              width="30px"
+              height="28px"
+              width="28px"
               title="gluten free"
             />
           </div>
@@ -105,29 +105,29 @@ export default {
 
 .favoriteButton {
   position: absolute;
-  left: 257px;
+  left: 220px;
 }
 
 .card {
-  color: black;
+  border-color: #e0c0a6;
 }
 
 .card-body {
   padding-top: 4px;
   position: absolute;
-  top: 285px;
+  top: 270px;
   /* padding: 1.25rem 1.2rem 1.25rem 1.2rem; */
 }
 
 .card .card-title {
-  margin-top: 0px;
-  margin-bottom: 10px;
+  margin: 6px 0 0 0;
+  font-size: 19.5px;
   overflow: hidden;
   display: -webkit-box;
   max-width: 20rem;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  padding: 0.6rem 1.2rem 0 1.2rem;
+  padding: 0.6rem 1.1rem 0 1.1rem;
   color: black;
 }
 
