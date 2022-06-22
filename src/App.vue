@@ -18,7 +18,7 @@
         </span>
         <span v-else id="logged-in-user">
           <span>Hello {{ $root.store.username }}</span>
-          <button @click="Logout">Logout</button>
+          <button @click="Logout">Logout</button>|
         </span>
       </nav>
     </div>
@@ -73,9 +73,8 @@ export default {
 }
 
 #logged-in-user button {
-  background-color: rgb(249, 236, 208);
-  border: 0px;
+  background-color: rgb(239, 221, 186);
+  border: 1px solid;
   border-radius: 4px;
-  margin-right: 4px;
 }
 </style>
