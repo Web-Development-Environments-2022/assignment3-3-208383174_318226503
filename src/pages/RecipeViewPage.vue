@@ -18,6 +18,48 @@
             </div>
           </span>
         </div>
+        <div class="icons">
+          <img
+            id="vegetarian"
+            v-if="recipe.vegetarian === true"
+            src="../../resources/vegeterian.png"
+            height="50px"
+            width="50px"
+            title="vegetarian"
+          />
+          <img
+            id="vegan"
+            v-if="recipe.vegan === true"
+            src="../../resources/vegan.png"
+            height="50px"
+            width="50px"
+            title="vegan"
+          />
+          <img
+            id="glutenFree"
+            v-if="recipe.glutenFree === true"
+            src="../../resources/gluten-free2.png"
+            height="50px"
+            width="50px"
+            title="gluten free"
+          />
+          <img
+            id="viewed"
+            v-if="recipe.isViewed === true"
+            src="../../resources/viewed.png"
+            height="50px"
+            width="50px"
+            title="you have viewed this recipe"
+          />
+          <img
+            id="viewed"
+            v-else-if="recipe.isViewed === false"
+            src="../../resources/new.png"
+            height="50px"
+            width="50px"
+            title="this is the first time you're viewing this recipe"
+          />
+        </div>
       </div>
     </div>
   </b-card>
@@ -126,10 +168,20 @@ export default {
   left: 200px;
 }
 
+.icons {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.icons img {
+  margin: 0 22px 0 22px;
+}
+
 h2 {
   color: rgb(207, 97, 50);
   font-size: 35px;
   margin-left: 0;
+  text-align: center;
 }
 
 #recipe-info {
@@ -160,6 +212,6 @@ h2 {
 #recipe-info span {
   font-size: 23px;
   display: flex;
-  margin-left: 45px;
+  margin-left: 85px;
 }
 </style>
