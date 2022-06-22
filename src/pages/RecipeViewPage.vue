@@ -1,46 +1,26 @@
 <template>
-  <div class="container">
-    <div v-if="recipe">
-      <div class="recipe-header mt-3 mb-4">
-        <h1>{{ recipe.title }}</h1>
-        <img :src="recipe.image" class="center" />
+  <b-card no-body class="overflow-hidden" style="max-width: 80%; height:800px">
+    <div class="container">
+      <div v-if="recipe">
+        <img id="recipe-image" :src="recipe.image" class="center" />
       </div>
       <div class="recipe-body">
-        <div class="wrapper">
-          <div class="wrapped">
-            <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.popularity }} likes</div>
+        <h2>{{ recipe.title }}</h2>
+        <div id="recipe-info">
+          <span
+            ><div class="info" id="minutes">
+              <div class="number">{{ recipe.readyInMinutes }}</div>
+              <div class="description">minutes</div>
             </div>
-            Ingredients:
-            <ul>
-              <li
-                v-for="(r, index) in recipe.extendedIngredients"
-                :key="index + '_' + r.id"
-              >
-                {{ r.originalName }}
-                {{ r.amount }}
-                {{ r.unit }}
-              </li>
-            </ul>
-          </div>
-          <div class="wrapped">
-            Instructions:
-            <ol>
-              <li v-for="s in recipe._instructions" :key="s.number">
-                {{ s.step }}
-              </li>
-            </ol>
-          </div>
+            <div class="info">
+              <div class="number">{{ recipe.popularity }}</div>
+              <div class="description">likes</div>
+            </div>
+          </span>
         </div>
       </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
     </div>
-  </div>
+  </b-card>
 </template>
 
 <script>
@@ -122,19 +102,64 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-  display: flex;
+#recipe-image {
+  height: 380px;
+  /* width: auto; */
+  margin-top: 20px;
+  border-radius: 4%;
+  position: absolute;
+  right: 80px;
 }
-.wrapped {
-  width: 50%;
-}
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-/* .recipe-header{
 
-} */
+.container {
+  margin-top: 20px;
+}
+
+.overflow-hidden {
+  margin: auto;
+}
+
+.recipe-body {
+  width: 600px;
+  margin-top: 50px;
+  position: absolute;
+  left: 200px;
+}
+
+h2 {
+  color: rgb(207, 97, 50);
+  font-size: 35px;
+  margin-left: 0;
+}
+
+#recipe-info {
+  padding-top: 40px;
+  position: relative;
+  margin: auto;
+  left: 100px;
+}
+
+.info {
+  margin: 0 20px 0 20px;
+  text-align: center;
+}
+
+#minutes {
+  border-right: 1px solid #da541a;
+  padding-right: 30px;
+}
+
+.number {
+  font-size: 32px;
+}
+
+.description {
+  font-size: 20px;
+}
+
+#recipe-info span {
+  font-size: 23px;
+  display: flex;
+  margin-left: 45px;
+}
 </style>
