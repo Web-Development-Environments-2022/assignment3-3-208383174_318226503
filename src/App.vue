@@ -12,14 +12,13 @@
           >About</router-link
         >|
         <span id="guest" v-if="!$root.store.username">
-          <span id="welcome-guest">Hello Guest!</span>
-
           <router-link class="navbar-brand" :to="{ name: 'register' }"
             >Register</router-link
           >|
           <router-link class="navbar-brand" :to="{ name: 'login' }"
             >Login</router-link
           >|
+          <span id="welcome-guest">Hello Guest!</span>
         </span>
         <span v-else>
           <span id="logged-in-user">
@@ -88,7 +87,7 @@ export default {
 }
 
 #nav .navbar-light .navbar-brand:hover {
-  color: orange;
+  color: rgb(234, 121, 0);
 }
 
 .navbar-brand,
@@ -96,8 +95,7 @@ export default {
   margin: 0 10px 0 10px;
 }
 
-#logged-in-user,
-#welcome-guest {
+#logged-in-user {
   position: absolute;
   right: 0px;
   font-size: 1.25rem;
@@ -107,13 +105,28 @@ export default {
 #welcome-guest,
 #welcome-user {
   margin-right: 5px;
-  color: rgb(254, 152, 43);
+  color: rgb(234, 121, 0);
 }
 
 #welcome-user {
   margin-right: 5px;
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
+}
+
+#welcome-guest,
+#welcome-guest .navbar-brand {
+  padding: 0.3125rem 0 0.3125rem 0;
+  margin: 0 5px 0 5px;
+}
+
+#guest {
+  position: absolute;
+  // right: 25px;
+  // position: absolute;
+  right: 0px;
+  font-size: 1.25rem;
+  padding: 0.3125rem 1rem 0.3125rem 0;
 }
 
 #logged-in-user button {
