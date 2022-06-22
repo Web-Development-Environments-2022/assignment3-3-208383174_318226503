@@ -4,21 +4,51 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <router-link class="navbar-brand" :to="{ name: 'main' }"
           ><b>Peachy Recipes</b></router-link
-        >|
+        >
         <router-link class="navbar-brand" :to="{ name: 'search' }"
           >Search</router-link
-        >|
-        <span v-if="!$root.store.username">
+        >
+        <router-link class="navbar-brand" :to="{ name: 'about' }"
+          >About</router-link
+        >
+        <span id="guest" v-if="!$root.store.username">
           <router-link class="navbar-brand" :to="{ name: 'register' }"
             >Register</router-link
-          >|
+          >
           <router-link class="navbar-brand" :to="{ name: 'login' }"
             >Login</router-link
           >|
+          <span id="welcome-guest">Hello Guest!</span>
         </span>
-        <span v-else id="logged-in-user">
-          <span>Hello {{ $root.store.username }}</span>
-          <button @click="Logout">Logout</button>
+        <span v-else>
+          <span id="logged-in-user"
+            >| <span id="welcome-user">Hello {{ $root.store.username }}</span
+            >|
+            <button @click="Logout">Logout</button>
+          </span>
+          <div>
+            <b-dropdown id="nav-dropdown" text="Personal Area" class="m-md-2">
+              <b-dropdown-item
+                ><router-link class="navbar-brand" :to="{ name: 'favorites' }"
+                  >My Favorite Recipes</router-link
+                ></b-dropdown-item
+              >
+              <b-dropdown-item
+                ><router-link
+                  class="navbar-brand"
+                  :to="{ name: 'personalRecipes' }"
+                  >My Recipes</router-link
+                ></b-dropdown-item
+              >
+              <b-dropdown-item
+                ><router-link
+                  class="navbar-brand"
+                  :to="{ name: 'familyRecipes' }"
+                  >Family Recipes</router-link
+                ></b-dropdown-item
+              >
+            </b-dropdown>
+          </div>
         </span>
       </nav>
     </div>
@@ -51,31 +81,92 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: black;
   min-height: 100vh;
   background-image: "../resources/b2.jpg";
   background-color: #e5edf0;
 }
 
-.navbar-brand {
-  margin: 0 10px 0 10px;
+#nav .navbar-light .navbar-brand:hover {
+  color: rgb(234, 121, 0);
+}
+
+#nav .navbar-brand {
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 #logged-in-user {
   position: absolute;
   right: 0px;
   font-size: 1.25rem;
+  padding: 0.3125rem 1rem 0.3125rem;
 }
 
-#logged-in-user span {
+#welcome-guest,
+#welcome-user,
+#logged-in-user button:hover {
+  color: rgb(234, 121, 0);
+}
+
+#welcome-user {
   margin-right: 15px;
-  font-size: 1.15rem;
+}
+
+#welcome-guest,
+#welcome-guest .navbar-brand {
+  padding: 0.3125rem 0 0.3125rem 0;
+  margin: 0 15px 0 10px;
+}
+
+#guest {
+  position: absolute;
+  right: 0px;
+  font-size: 1.25rem;
+  padding: 0.3125rem 0 0.3125rem 0;
+}
+
+#guest .navbar-brand {
+  margin-right: 15px;
+  margin-left: 5px;
 }
 
 #logged-in-user button {
-  background-color: rgb(249, 236, 208);
-  border: 0px;
+  background-color: #f8f9fa;
+  color: back;
+  padding: 0 10px 0 10px;
+  margin-right: 5px;
+  border: none;
   border-radius: 4px;
-  margin-right: 4px;
+}
+
+#nav-dropdown .navbar-brand {
+  font-size: 17px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+#nav-dropdown__BV_toggle_:hover {
+  color: rgb(234, 121, 0);
+}
+
+.dropdown-menu {
+  width: 215px;
+}
+
+.dropdown-menu .dropdown-item {
+  padding-left: 13px;
+}
+
+.dropdown-menu .dropdown-item:active {
+  background-color: #d6d6d6;
+}
+
+#nav-dropdown__BV_toggle_ {
+  background-color: #f8f9fa;
+  color: rgba(0, 0, 0, 0.9);
+  border: 0px;
+  font-size: 1.25rem;
+  padding: 0;
 }
 </style>
