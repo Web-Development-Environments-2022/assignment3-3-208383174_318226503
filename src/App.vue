@@ -4,20 +4,20 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <router-link class="navbar-brand" :to="{ name: 'main' }"
           ><b>Peachy Recipes</b></router-link
-        >|
+        >
         <router-link class="navbar-brand" :to="{ name: 'search' }"
           >Search</router-link
-        >|
+        >
         <router-link class="navbar-brand" :to="{ name: 'about' }"
           >About</router-link
-        >|
+        >
         <span id="guest" v-if="!$root.store.username">
           <router-link class="navbar-brand" :to="{ name: 'register' }"
             >Register</router-link
-          >|
+          >
           <router-link class="navbar-brand" :to="{ name: 'login' }"
             >Login</router-link
-          >|
+          >
           <span id="welcome-guest">Hello Guest!</span>
         </span>
         <span v-else>
@@ -90,9 +90,9 @@ export default {
   color: rgb(234, 121, 0);
 }
 
-.navbar-brand,
-#nav-dropdown__BV_toggle_ {
-  margin: 0 10px 0 10px;
+#nav .navbar-brand {
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 #logged-in-user {
@@ -103,21 +103,19 @@ export default {
 }
 
 #welcome-guest,
-#welcome-user {
-  margin-right: 5px;
+#welcome-user,
+#logged-in-user button:hover {
   color: rgb(234, 121, 0);
 }
 
 #welcome-user {
   margin-right: 5px;
-  padding-top: 0.3125rem;
-  padding-bottom: 0.3125rem;
 }
 
 #welcome-guest,
 #welcome-guest .navbar-brand {
   padding: 0.3125rem 0 0.3125rem 0;
-  margin: 0 5px 0 5px;
+  margin: 0 15px 0 5px;
 }
 
 #guest {
@@ -126,14 +124,16 @@ export default {
   // position: absolute;
   right: 0px;
   font-size: 1.25rem;
-  padding: 0.3125rem 1rem 0.3125rem 0;
+  padding: 0.3125rem 0 0.3125rem 0;
 }
 
 #logged-in-user button {
-  background-color: #d8d8d8;
+  background-color: #f8f9fa;
+  // font-weight: bold;
+  color: back;
   padding: 0 10px 0 10px;
-  margin-left: 15px;
-  margin-right: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
   border: none;
   border-radius: 4px;
 }
@@ -142,6 +142,10 @@ export default {
   font-size: 17px;
   padding-right: 0px;
   padding-left: 0px;
+}
+
+#nav-dropdown__BV_toggle_:hover {
+  color: rgb(234, 121, 0);
 }
 
 .dropdown-menu {
