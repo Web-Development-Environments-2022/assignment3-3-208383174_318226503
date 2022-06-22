@@ -65,6 +65,8 @@
             title="this is the first time you're viewing this recipe"
           />
         </div>
+        <hr class="solid" />
+
         <div id="ingredients">
           <Ingredients :ingredients="recipe.extendedIngredients" />
         </div>
@@ -237,7 +239,11 @@ h2 {
   font-size: 21px;
 }
 
+hr {
+  margin-top: 40px;
+}
+
 #ingredients {
-  margin-top: 60px;
+  margin-top: 30px;
 }
 </style>

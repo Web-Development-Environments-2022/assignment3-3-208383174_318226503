@@ -1,13 +1,35 @@
 <template>
   <div>
     <h1>Ingredients:</h1>
-    <ul>
-      <li v-for="(r, index) in ingredients" :key="index + '_' + r.id">
-        {{ r.originalName }},
-        {{ r.amount }}
-        {{ r.unit }}
-      </li>
-    </ul>
+    <div class="list">
+      <span class="list-item">
+        <div
+          class="info"
+          v-for="(r, index) in ingredients"
+          :key="index + '_' + r.id"
+        >
+          <a>
+            <img
+              class="bullet"
+              src="../../resources/peach.png"
+              style="height:28px"
+            />
+            <img
+              class="bullet"
+              src="../../resources/peach-hover.png"
+              style="height:28px"
+            />
+          </a>
+          <div class="item-text">
+            <div>
+              {{ r.name }}<span id="divider">|</span>
+              <span id="amount">{{ r.amount }}</span>
+              {{ r.unit }}
+            </div>
+          </div>
+        </div>
+      </span>
+    </div>
   </div>
 </template>
 
@@ -28,18 +50,35 @@ export default {
 
 <style scoped>
 h1 {
-  font-size: 25px;
+  font-size: 23px;
+  margin-bottom: 25px;
 }
 
-ul {
-  list-style-image: url("../../resources/peach.png");
+a .bullet:last-child {
+  display: none;
 }
 
-li:hover {
-  list-style-image: url("../../resources/peach-hover.png");
+a:hover .bullet:last-child {
+  display: block;
 }
 
-li:before {
-  font-size: 100px;
+a:hover img:first-child {
+  display: none;
+}
+
+.item-text {
+  font-size: 17px;
+  position: relative;
+  bottom: 25.5px;
+  margin-left: 40px;
+  /* margin: 10px 0 10px 0; */
+}
+
+#amount {
+  color: rgb(225, 118, 11);
+}
+
+#divider {
+  margin: 0 10px 0 10px;
 }
 </style>
