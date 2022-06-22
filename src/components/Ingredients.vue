@@ -9,16 +9,8 @@
           :key="index + '_' + r.id"
         >
           <a>
-            <img
-              class="bullet"
-              src="../../resources/peach.png"
-              style="height:28px"
-            />
-            <img
-              class="bullet"
-              src="../../resources/peach-hover.png"
-              style="height:28px"
-            />
+            <img class="bullet" src="../../resources/peach.png" />
+            <img class="bullet" src="../../resources/peach-hover.png" />
           </a>
           <div class="item-text">
             <div>
@@ -80,5 +72,9 @@ a:hover img:first-child {
 
 #divider {
   margin: 0 10px 0 10px;
+}
+img.bullet {
+  height: 28px;
+  width: auto;
 }
 </style>

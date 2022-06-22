@@ -1,10 +1,10 @@
 <template>
-  <b-card no-body class="overflow-hidden" style="max-width: 80%; height:800px">
+  <b-card
+    no-body
+    class="overflow-hidden"
+    style="max-width: 1200px; min-width: 1000px;"
+  >
     <div class="container">
-      <div v-if="recipe">
-        <img id="recipe-image" :src="recipe.image" class="center" />
-        <FavoriteButton id="favoriteButton" :recipe="recipe" />
-      </div>
       <div class="recipe-body">
         <h2>{{ recipe.title }}</h2>
         <div id="recipe-info">
@@ -28,49 +28,43 @@
             id="vegetarian"
             v-if="recipe.vegetarian === true"
             src="../../resources/vegeterian.png"
-            height="50px"
-            width="50px"
             title="vegetarian"
           />
           <img
             id="vegan"
             v-if="recipe.vegan === true"
             src="../../resources/vegan.png"
-            height="50px"
-            width="50px"
             title="vegan"
           />
           <img
             id="glutenFree"
             v-if="recipe.glutenFree === true"
             src="../../resources/gluten-free2.png"
-            height="50px"
-            width="50px"
             title="gluten free"
           />
           <img
             id="viewed"
             v-if="recipe.isViewed === true"
             src="../../resources/viewed.png"
-            height="50px"
-            width="50px"
             title="you have viewed this recipe"
           />
           <img
             id="viewed"
             v-else-if="recipe.isViewed === false"
             src="../../resources/new.png"
-            height="50px"
-            width="50px"
             title="this is the first time you're viewing this recipe"
           />
         </div>
-        <hr class="solid" />
-
-        <div id="ingredients">
-          <Ingredients :ingredients="recipe.extendedIngredients" />
-        </div>
       </div>
+      <div v-if="recipe" class="recipe-img-container">
+        <img id="recipe-image" :src="recipe.image" class="center" />
+        <FavoriteButton id="favoriteButton" :recipe="recipe" />
+      </div>
+    </div>
+    <div class="divider div-transparent"></div>
+
+    <div id="ingredients">
+      <Ingredients :ingredients="recipe.extendedIngredients" />
     </div>
   </b-card>
 </template>
@@ -160,15 +154,16 @@ export default {
 </script>
 
 <style scoped>
-#recipe-image {
-  height: 380px;
-  /* width: auto; */
-  margin-top: 20px;
-  border-radius: 4%;
-  position: absolute;
-  right: 80px;
+.recipe-img-container {
+  width: 40%;
+  float: right;
+  position: relative;
+  margin-top: 15px;
 }
-
+#recipe-image {
+  border-radius: 4%;
+  width: 100%;
+}
 .container {
   margin-top: 20px;
 }
@@ -178,10 +173,9 @@ export default {
 }
 
 .recipe-body {
-  width: 600px;
-  margin-top: 50px;
-  position: absolute;
-  left: 200px;
+  width: 57%;
+  margin-top: 40px;
+  display: inline-block;
 }
 
 .icons {
@@ -191,6 +185,7 @@ export default {
 
 .icons img {
   margin: 0 22px 0 22px;
+  width: 50px;
 }
 
 h2 {
@@ -234,16 +229,40 @@ h2 {
 
 #favoriteButton {
   position: absolute;
-  right: 600px;
-  top: 375px;
+  bottom: 0px;
+  left: 0px;
   font-size: 21px;
 }
 
-hr {
-  margin-top: 40px;
+.divider {
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  height: 1px;
+}
+
+.div-transparent:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  width: 90%;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    rgb(174, 168, 165),
+    transparent
+  );
 }
 
 #ingredients {
-  margin-top: 30px;
+  /* margin-top: 30px;
+  position: relative;
+  top: 50px;
+  left: 680px; */
+  float: left;
+  margin-left: 60%;
 }
 </style>
