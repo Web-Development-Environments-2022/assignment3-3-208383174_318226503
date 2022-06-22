@@ -23,9 +23,32 @@
         </span>
         <span v-else>
           <span id="logged-in-user">
-            <span>Hello {{ $root.store.username }}</span>
-            <button @click="Logout">Logout</button>|
+            <span id="welcome-user">Hello {{ $root.store.username }}</span>
+            <button @click="Logout">Logout</button>
           </span>
+          <div>
+            <b-dropdown id="nav-dropdown" text="Personal Area" class="m-md-2">
+              <b-dropdown-item
+                ><router-link class="navbar-brand" :to="{ name: 'favorites' }"
+                  >My Favorite Recipes</router-link
+                ></b-dropdown-item
+              >
+              <b-dropdown-item
+                ><router-link
+                  class="navbar-brand"
+                  :to="{ name: 'personalRecipes' }"
+                  >My Recipes</router-link
+                ></b-dropdown-item
+              >
+              <b-dropdown-item
+                ><router-link
+                  class="navbar-brand"
+                  :to="{ name: 'familyRecipes' }"
+                  >Family Recipes</router-link
+                ></b-dropdown-item
+              >
+            </b-dropdown>
+          </div>
         </span>
       </nav>
     </div>
@@ -64,7 +87,8 @@ export default {
   background-color: #e5edf0;
 }
 
-.navbar-brand {
+.navbar-brand,
+#nav-dropdown__BV_toggle_ {
   margin: 0 10px 0 10px;
 }
 
@@ -76,19 +100,50 @@ export default {
   padding: 0.3125rem 1rem 0.3125rem;
 }
 
-#welcome-guest {
+#welcome-guest,
+#welcome-user {
   margin-right: 5px;
-  color: orange;
+  color: rgb(254, 152, 43);
 }
 
-#logged-in-user span {
-  margin-right: 15px;
-  font-size: 1.15rem;
+#welcome-user {
+  margin-right: 5px;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
 }
 
 #logged-in-user button {
-  background-color: rgb(239, 221, 186);
-  border: 1px solid;
+  background-color: #d8d8d8;
+  padding: 0 10px 0 10px;
+  margin-left: 15px;
+  margin-right: 10px;
+  border: none;
   border-radius: 4px;
+}
+
+#nav-dropdown .navbar-brand {
+  font-size: 17px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.dropdown-menu {
+  width: 215px;
+}
+
+.dropdown-menu .dropdown-item {
+  padding-left: 13px;
+}
+
+.dropdown-menu .dropdown-item:active {
+  background-color: #d6d6d6;
+}
+
+#nav-dropdown__BV_toggle_ {
+  background-color: #f8f9fa;
+  color: rgba(0, 0, 0, 0.9);
+  border: 0px;
+  font-size: 1.25rem;
+  padding: 0;
 }
 </style>
