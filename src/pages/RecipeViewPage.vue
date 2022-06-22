@@ -72,13 +72,22 @@ export default {
         return;
       }
 
-      let { analyzedInstructions, extendedIngredients } = response.data;
+      let {
+        analyzedInstructions,
+        extendedIngredients,
+        servingSize,
+      } = response.data;
 
       let {
         popularity,
         readyInMinutes,
         image,
         title,
+        vegan,
+        vegetarian,
+        glutenFree,
+        isFavorite,
+        isViewed,
       } = response.data.previewInfo;
 
       let _instructions = analyzedInstructions
@@ -96,6 +105,12 @@ export default {
         readyInMinutes,
         image,
         title,
+        vegan,
+        vegetarian,
+        glutenFree,
+        isFavorite,
+        isViewed,
+        servingSize,
       };
 
       this.recipe = _recipe;
