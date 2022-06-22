@@ -13,9 +13,13 @@
               <div class="number">{{ recipe.readyInMinutes }}</div>
               <div class="description">minutes</div>
             </div>
-            <div class="info">
+            <div class="info" id="likes">
               <div class="number">{{ recipe.popularity }}</div>
               <div class="description">likes</div>
+            </div>
+            <div class="info">
+              <div class="number">{{ recipe.servingSize }}</div>
+              <div class="description">Dishes</div>
             </div>
           </span>
         </div>
@@ -201,7 +205,8 @@ h2 {
   text-align: center;
 }
 
-#minutes {
+#minutes,
+#likes {
   border-right: 1px solid #da541a;
   padding-right: 30px;
 }
@@ -217,7 +222,7 @@ h2 {
 #recipe-info span {
   font-size: 23px;
   display: flex;
-  margin-left: 85px;
+  margin-left: 20px;
 }
 
 #favoriteButton {
