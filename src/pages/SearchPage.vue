@@ -20,6 +20,9 @@
             ></b-form-input>
           </b-col>
           <b-form-invalid-feedback v-if="$v.form.search.length"></b-form-invalid-feedback>
+        <b-col>
+          <b-button variant="outline-success" class="my-2 my-sm-0" type="submit" @click="onSearch" size="lg">Search</b-button>
+        </b-col>
           </b-row>
           <b-row>
           <b-col>
@@ -72,20 +75,29 @@
             </b-dropdown>
           </b-col>
           </b-row>
-          <b-row>
-        <b-col>
-          <b-button variant="outline-success" class="my-2 my-sm-0" type="submit" @click="onSearch">Search</b-button>
-        </b-col>
-          </b-row>
         </b-container>
       </b-nav-form>
     <!-- </b-navbar> -->
-        <b-row cols="3">
+    <b-row  v-if="this.isEmpty==0" >
+      <b-form-group  label="Sort by:">
+        <b-form-radio
+        value="cooking_duration"
+        name="sortOpt"
+        @change.native="sortByCookingDuration($event)"
+        >Cooking Duration</b-form-radio>
+        <b-form-radio
+        value="popularity"
+        name="sortOpt"
+        @change.native="sortByPopularity($event)"
+        >Popularity</b-form-radio>
+    </b-form-group>
+      </b-row>
+        <b-row v-if="this.isEmpty==0" cols="3">
           <b-col v-for="item in results" :key="item.previewInfo.id">
             <SearchResultsPreview class="searchResultsPreview" :recipe="item" />
           </b-col>
           <!-- <h1 v-if=this.isEmpty>Oops! Nothing matches your search. <br> please try again</h1> -->
-          <b-alert v-if=this.isEmpty show variant="danger"><a class="alert-link">Oops! Nothing matches your search. 
+          <b-alert v-if="this.isEmpty==1" show variant="danger"><a class="alert-link">Oops! Nothing matches your search. 
             <br> Please try again.</a></b-alert>
         </b-row>
   </div>
@@ -119,7 +131,7 @@ export default {
       diet: "",
       intolerance: "",
       numberOfResults_text:"Number of search results",
-      isEmpty: false,
+      isEmpty: 5,
       };
     },
     validations: {
@@ -169,7 +181,10 @@ export default {
         console.log(response);
         console.log(response.status)
         if(response.status==204 && response.statusText=="No Content"){
-          this.isEmpty = true;
+          this.isEmpty = 1;
+        }
+        else if(response.status==200){
+          this.isEmpty = 0;
         }
         const recipes = response.data;
         this.results = [];
@@ -191,7 +206,7 @@ export default {
     },
     numSearchResult(num){
       this.numberOfSearchResults = num.toString();
-      this.numberOfResults_text = num
+      this.numberOfResults_text = num;
     },
     setCuisine(cType){
       console.log(cType);
@@ -223,6 +238,16 @@ export default {
         this.selectedIntolerance = null;
       }
     },
+    sortByCookingDuration: function(){
+      this.isEmpty= 1; //to stop show of recipes
+      this.results.sort(function(x,y){return x.previewInfo.readyInMinutes-y.previewInfo.readyInMinutes;});
+      this.isEmpty = 0; //show after sort
+    },
+    sortByPopularity: function(){
+      this.isEmpty= 1; //to stop show of recipes
+      this.results.sort(function(x,y){return y.previewInfo.popularity-x.previewInfo.popularity;});
+      this.isEmpty = 0; //show after sort
+    }
   },
 };
 </script>
@@ -238,5 +263,8 @@ container {
   margin: auto;
 }
 
+.alert {
+   width:900px;    
+}
 
 </style>
