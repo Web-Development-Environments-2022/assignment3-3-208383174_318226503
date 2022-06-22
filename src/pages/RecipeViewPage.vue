@@ -65,6 +65,9 @@
             title="this is the first time you're viewing this recipe"
           />
         </div>
+        <div id="ingredients">
+          <Ingredients :ingredients="recipe.extendedIngredients" />
+        </div>
       </div>
     </div>
   </b-card>
@@ -72,10 +75,12 @@
 
 <script>
 import FavoriteButton from "../components/FavoriteButton.vue";
+import Ingredients from "../components/Ingredients.vue";
 
 export default {
   components: {
     FavoriteButton,
+    Ingredients,
   },
   data() {
     return {
@@ -187,7 +192,7 @@ export default {
 }
 
 h2 {
-  color: rgb(207, 97, 50);
+  color: rgb(225, 118, 11);
   font-size: 35px;
   margin-left: 0;
   text-align: center;
@@ -207,7 +212,7 @@ h2 {
 
 #minutes,
 #likes {
-  border-right: 1px solid #da541a;
+  border-right: 1px solid rgb(225, 118, 11);
   padding-right: 30px;
 }
 
@@ -230,5 +235,9 @@ h2 {
   right: 600px;
   top: 375px;
   font-size: 21px;
+}
+
+#ingredients {
+  margin-top: 60px;
 }
 </style>
