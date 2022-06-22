@@ -11,7 +11,7 @@
         <router-link class="navbar-brand" :to="{ name: 'about' }"
           >About</router-link
         >|
-        <span v-if="!$root.store.username">
+        <span id="guest" v-if="!$root.store.username">
           <span id="welcome-guest">Hello Guest!</span>
 
           <router-link class="navbar-brand" :to="{ name: 'register' }"
@@ -85,6 +85,10 @@ export default {
   min-height: 100vh;
   background-image: "../resources/b2.jpg";
   background-color: #e5edf0;
+}
+
+#nav .navbar-light .navbar-brand:hover {
+  color: orange;
 }
 
 .navbar-brand,
