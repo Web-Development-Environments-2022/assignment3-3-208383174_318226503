@@ -76,23 +76,17 @@
         <b-col>
           <b-button variant="outline-success" class="my-2 my-sm-0" type="submit" @click="onSearch">Search</b-button>
         </b-col>
-
           </b-row>
-
-
         </b-container>
-
-
-
-
       </b-nav-form>
-              
-
     <!-- </b-navbar> -->
         <b-row cols="3">
           <b-col v-for="item in results" :key="item.previewInfo.id">
             <SearchResultsPreview class="searchResultsPreview" :recipe="item" />
           </b-col>
+          <!-- <h1 v-if=this.isEmpty>Oops! Nothing matches your search. <br> please try again</h1> -->
+          <b-alert v-if=this.isEmpty show variant="danger"><a class="alert-link">Oops! Nothing matches your search. 
+            <br> Please try again.</a></b-alert>
         </b-row>
   </div>
 </template>
@@ -125,7 +119,7 @@ export default {
       diet: "",
       intolerance: "",
       numberOfResults_text:"Number of search results",
-
+      isEmpty: false,
       };
     },
     validations: {
@@ -158,13 +152,13 @@ export default {
       console.log("search function");
       try {
         let path_to_exe = DOMAIN_PATH + "/recipes/search?term="+this.userSearchTerm + "&numOfResults="+this.numberOfSearchResults;
-        if ( this.selectedCuisine != null){
+        if ( this.selectedCuisine != null && this.selectedCuisine != "Cuisine"){
           path_to_exe += "&cuisine="+this.selectedCuisine;
         }
-        if(this.selectedDiet != null){
+        if(this.selectedDiet != null && this.selectedDiet != "Diet"){
           path_to_exe += "&diet="+this.selectedDiet;
         }
-        if(this.selectedIntolerance != null){
+        if(this.selectedIntolerance != null && this.selectedIntolerance != "Intolerance"){
           path_to_exe += "&intolerance="+this.selectedIntolerance;
         }
         const response = await this.axios.get(
@@ -173,6 +167,10 @@ export default {
           path_to_exe,
         );
         console.log(response);
+        console.log(response.status)
+        if(response.status==204 && response.statusText=="No Content"){
+          this.isEmpty = true;
+        }
         const recipes = response.data;
         this.results = [];
         this.results.push(...recipes);
@@ -224,7 +222,7 @@ export default {
       else{
         this.selectedIntolerance = null;
       }
-    }
+    },
   },
 };
 </script>
