@@ -11,7 +11,7 @@
       <div class="container">
         <h1 class="title">-- LOGO --</h1>
         <RecipePreviewList
-          title="Try a new recipe"
+          title="Try a new recipe!"
           class="RandomRecipes center"
         />
         <router-link v-if="!$root.store.username" to="/login" tag="button"

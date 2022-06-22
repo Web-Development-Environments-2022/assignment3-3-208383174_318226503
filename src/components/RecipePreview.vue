@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card" style="width: 18rem; height: 24rem;">
+    <div class="card" style="width: 18rem; height: 23.24rem;">
       <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
         id="recipe-preview"
@@ -95,7 +95,7 @@ export default {
 
 .food_icons {
   position: absolute;
-  top: 73px;
+  top: 65px;
 }
 
 .food_icons img {
@@ -116,7 +116,6 @@ export default {
   padding-top: 4px;
   position: absolute;
   top: 270px;
-  /* padding: 1.25rem 1.2rem 1.25rem 1.2rem; */
 }
 
 .card .card-title {
