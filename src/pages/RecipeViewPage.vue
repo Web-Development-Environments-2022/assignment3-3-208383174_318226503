@@ -10,7 +10,7 @@
           <div class="wrapped">
             <div class="mb-3">
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
+              <div>Likes: {{ recipe.popularity }} likes</div>
             </div>
             Ingredients:
             <ul>
@@ -18,7 +18,9 @@
                 v-for="(r, index) in recipe.extendedIngredients"
                 :key="index + '_' + r.id"
               >
-                {{ r.original }}
+                {{ r.originalName }}
+                {{ r.amount }}
+                {{ r.unit }}
               </li>
             </ul>
           </div>
@@ -70,15 +72,14 @@ export default {
         return;
       }
 
+      let { analyzedInstructions, extendedIngredients } = response.data;
+
       let {
-        analyzedInstructions,
-        instructions,
-        extendedIngredients,
-        aggregateLikes,
+        popularity,
         readyInMinutes,
         image,
         title,
-      } = response.data;
+      } = response.data.previewInfo;
 
       let _instructions = analyzedInstructions
         .map((fstep) => {
@@ -88,11 +89,10 @@ export default {
         .reduce((a, b) => [...a, ...b], []);
 
       let _recipe = {
-        instructions,
         _instructions,
         analyzedInstructions,
         extendedIngredients,
-        aggregateLikes,
+        popularity,
         readyInMinutes,
         image,
         title,
