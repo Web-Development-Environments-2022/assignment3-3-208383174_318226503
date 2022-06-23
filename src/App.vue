@@ -85,6 +85,7 @@ export default {
   min-height: 100vh;
   background-image: "../resources/b2.jpg";
   background-color: #e5edf0;
+  padding-bottom: 10px;
 }
 
 #nav .navbar-light .navbar-brand:hover {
