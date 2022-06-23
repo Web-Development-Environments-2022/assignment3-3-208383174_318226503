@@ -54,7 +54,7 @@
                 ></b-dropdown-item
               >
             </b-dropdown>
-            <div>
+            <div class="add-button">
               <b-button v-b-modal.modal-1>Add Recipe</b-button>
               <NewRecipe id="modal-1" />
             </div>
@@ -209,5 +209,21 @@ export default {
   border: 0px;
   font-size: 1.25rem;
   padding: 0;
+}
+
+.add-button button,
+.add-button button:hover {
+  align-self: center;
+  font-size: 1.25rem;
+  color: rgba(0, 0, 0, 0.9);
+  background-color: #f8f9fa;
+  padding: 0;
+  // padding: 0.3125rem 1rem 0.3125rem;
+  margin: 0.5rem;
+  border: none;
+}
+
+.add-button button:hover {
+  color: rgb(234, 121, 0);
 }
 </style>
