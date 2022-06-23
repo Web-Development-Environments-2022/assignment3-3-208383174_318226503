@@ -39,7 +39,7 @@ export default {
       const DOMAIN_PATH = "http://localhost:3000";
       try {
         const response = await this.axios.get(
-          DOMAIN_PATH + "/recipes/random"
+          DOMAIN_PATH + "/recipes/random" ,{ withCredentials: true }
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
         const recipes = response.data;

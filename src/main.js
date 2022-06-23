@@ -72,10 +72,14 @@ Vue.config.productionTip = false;
 
 const shared_data = {
   username: localStorage.username,
-  login(username) {
+  user_id: localStorage.user_id,
+  login(username,user_id) {
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
+    localStorage.setItem("user_id", user_id);
+    this.user_id = user_id;
+    console.log("login user_id", this.user_id);
   },
   logout() {
     console.log("logout");

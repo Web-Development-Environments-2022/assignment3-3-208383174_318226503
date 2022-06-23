@@ -150,6 +150,7 @@ export default {
     this.diets.push(...diets);
     this.intolerances.push(...intolerances);
     console.log("localStorage.username: "+localStorage.username );
+    // console.log(req.session.user_id);
   },
   components: {
     SearchResultsPreview,
@@ -177,7 +178,7 @@ export default {
         const response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           // this.$root.store.server_domain + "/Register",
-          path_to_exe,
+          path_to_exe, { withCredentials: true }
         );
         console.log(response);
         console.log(response.status)
