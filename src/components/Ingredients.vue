@@ -15,7 +15,7 @@
           <div class="item-text">
             <div>
               {{ r.name }}<span id="divider">|</span>
-              <span id="amount">{{ r.amount }}</span>
+              <span id="amount">{{ Math.floor(r.amount * 100) / 100 }}</span>
               {{ r.unit }}
             </div>
           </div>
@@ -64,7 +64,6 @@ a:hover img:first-child {
   position: relative;
   bottom: 25.5px;
   margin-left: 40px;
-  /* margin: 10px 0 10px 0; */
 }
 
 #amount {

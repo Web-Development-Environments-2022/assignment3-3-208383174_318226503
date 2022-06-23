@@ -62,9 +62,13 @@
       </div>
     </div>
     <div class="divider div-transparent"></div>
-
-    <div id="ingredients">
-      <Ingredients :ingredients="recipe.extendedIngredients" />
+    <div class="recipe-full">
+      <div id="instructions">
+        <Instructions :instructions="recipe._instructions" />
+      </div>
+      <div id="ingredients">
+        <Ingredients :ingredients="recipe.extendedIngredients" />
+      </div>
     </div>
   </b-card>
 </template>
@@ -72,11 +76,13 @@
 <script>
 import FavoriteButton from "../components/FavoriteButton.vue";
 import Ingredients from "../components/Ingredients.vue";
+import Instructions from "../components/Instructions.vue";
 
 export default {
   components: {
     FavoriteButton,
     Ingredients,
+    Instructions,
   },
   data() {
     return {
@@ -259,11 +265,12 @@ h2 {
 }
 
 #ingredients {
-  /* margin-top: 30px;
-  position: relative;
-  top: 50px;
-  left: 680px; */
   float: left;
-  margin-left: 60%;
+}
+
+#instructions {
+  float: left;
+  width: 69%;
+  padding: 0 50px 0 50px;
 }
 </style>
