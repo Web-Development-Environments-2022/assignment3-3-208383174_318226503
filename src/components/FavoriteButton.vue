@@ -84,6 +84,6 @@ export default {
 }
 
 #favorite {
-  color: rgb(234, 174, 64);
+  color: rgb(231, 143, 56);
 }
 </style>
