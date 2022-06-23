@@ -33,6 +33,10 @@
             <button @click="Logout">Logout</button>
           </span>
           <span class="logged-in">
+            <div class="add-button">
+              <b-button v-b-modal.modal-1>Add Recipe</b-button>
+              <NewRecipe id="modal-1" />
+            </div>
             <b-dropdown id="nav-dropdown" text="Personal Area" class="m-md-2">
               <b-dropdown-item
                 ><router-link class="navbar-brand" :to="{ name: 'favorites' }"
@@ -54,10 +58,6 @@
                 ></b-dropdown-item
               >
             </b-dropdown>
-            <div class="add-button">
-              <b-button v-b-modal.modal-1>Add Recipe</b-button>
-              <NewRecipe id="modal-1" />
-            </div>
           </span>
         </span>
       </nav>
@@ -212,7 +212,13 @@ export default {
 }
 
 .add-button button,
-.add-button button:hover {
+.add-button button:hover,
+.add-button button:not(:disabled):not(.disabled):active,
+.add-button button:not(:disabled):not(.disabled).active,
+.add-button button:not(:disabled):not(.disabled):active:focus,
+.add-button button:not(:disabled):not(.disabled).active:focus,
+.add-button button:focus,
+.add-button button.focus {
   align-self: center;
   font-size: 1.25rem;
   color: rgba(0, 0, 0, 0.9);
@@ -221,9 +227,14 @@ export default {
   // padding: 0.3125rem 1rem 0.3125rem;
   margin: 0.5rem;
   border: none;
+  box-shadow: none;
 }
 
-.add-button button:hover {
+.add-button button:hover,
+.add-button button:hover:active,
+.add-button button:not(:disabled):not(.disabled):hover,
+.add-button button:not(:disabled):not(.disabled):hover.active,
+.add-button button:not(:disabled):not(.disabled):hover:active {
   color: rgb(234, 121, 0);
 }
 </style>
