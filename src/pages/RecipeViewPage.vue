@@ -238,7 +238,7 @@ h2 {
   position: absolute;
   bottom: 2px;
   left: 8px;
-  font-size: 21px;
+  font-size: 22.5px;
 }
 
 .divider {
