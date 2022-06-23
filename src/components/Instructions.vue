@@ -19,7 +19,7 @@ export default {
   name: "Instructions",
   props: {
     instructions: {
-      type: Object,
+      type: Array,
       required: true,
     },
   },

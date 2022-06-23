@@ -39,15 +39,14 @@ export default {
       console.log("is personal " + recipe.isPersonal);
       const DOMAIN_PATH = "http://localhost:3000";
       try {
-        await this.axios.post(
+        await this.axios.create({ withCredentials: true }).post(
           DOMAIN_PATH + "/users/favorites",
           { recipeId: recipe.id },
           {
             params: {
               personal: recipe.isPersonal,
             },
-          },
-          { withCredentials: true }
+          }
         );
         recipe.isFavorite = true;
       } catch (error) {
@@ -63,16 +62,14 @@ export default {
 
       const DOMAIN_PATH = "http://localhost:3000";
       try {
-        await this.axios.delete(
-          DOMAIN_PATH + "/users/favorites",
-          {
+        await this.axios
+          .create({ withCredentials: true })
+          .delete(DOMAIN_PATH + "/users/favorites", {
             data: {
               recipeId: recipe.id,
               personal: recipe.isPersonal,
             },
-          },
-          { withCredentials: true }
-        );
+          });
         recipe.isFavorite = false;
       } catch (error) {
         console.dir("error at unmarking as favorite");

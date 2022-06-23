@@ -30,7 +30,7 @@ export default {
   name: "Ingredients",
   props: {
     ingredients: {
-      type: Object,
+      type: Array,
       required: true,
     },
   },
