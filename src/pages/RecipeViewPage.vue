@@ -50,7 +50,7 @@
           />
           <img
             id="viewed"
-            v-else-if="recipe.first_time === true"
+            v-else-if="recipe.isViewed === true"
             src="../../resources/new.png"
             title="this is the first time you're viewing this recipe"
           />
