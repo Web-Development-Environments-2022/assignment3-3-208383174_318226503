@@ -44,6 +44,7 @@ export default {
 h1 {
   font-size: 23px;
   margin-bottom: 25px;
+  font-family: FreeMono, monospace;
 }
 
 a .bullet:last-child {
@@ -76,5 +77,9 @@ a:hover img:first-child {
 img.bullet {
   height: 28px;
   width: auto;
+}
+
+.list {
+  margin-left: 3px;
 }
 </style>

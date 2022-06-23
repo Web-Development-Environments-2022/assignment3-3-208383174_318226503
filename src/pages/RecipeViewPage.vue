@@ -193,10 +193,11 @@ h2 {
   font-size: 35px;
   margin-left: 0;
   text-align: center;
+  font-family: FreeMono, monospace;
 }
 
 #recipe-info {
-  padding-top: 40px;
+  padding-top: 30px;
   position: relative;
   margin: auto;
   left: 100px;
@@ -229,8 +230,8 @@ h2 {
 
 #favoriteButton {
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  bottom: 2px;
+  left: 8px;
   font-size: 21px;
 }
 
