@@ -32,7 +32,10 @@
             >|
             <button @click="Logout">Logout</button>
           </span>
-          <div>
+          <span class="logged-in">
+            <router-link class="navbar-brand" :to="{ name: 'login' }"
+              >Add New Recipe</router-link
+            >
             <b-dropdown id="nav-dropdown" text="Personal Area" class="m-md-2">
               <b-dropdown-item
                 ><router-link class="navbar-brand" :to="{ name: 'favorites' }"
@@ -54,7 +57,7 @@
                 ></b-dropdown-item
               >
             </b-dropdown>
-          </div>
+          </span>
         </span>
       </nav>
     </div>
@@ -114,6 +117,10 @@ export default {
   margin: 0;
 }
 
+.logged-in {
+  display: flex;
+}
+
 #nav-title {
   font-family: Andale Mono, monospace;
   font-size: 20px;
@@ -124,8 +131,8 @@ export default {
 }
 
 #nav .navbar-brand {
-  margin-right: 10px;
-  margin-left: 10px;
+  margin-right: 13px;
+  margin-left: 13px;
 }
 
 #logged-in-user {
