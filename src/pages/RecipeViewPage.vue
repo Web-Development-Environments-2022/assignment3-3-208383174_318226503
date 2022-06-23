@@ -44,13 +44,13 @@
           />
           <img
             id="viewed"
-            v-if="recipe.isViewed === true"
+            v-if="recipe.first_time === false"
             src="../../resources/viewed.png"
             title="you have viewed this recipe"
           />
           <img
             id="viewed"
-            v-else-if="recipe.isViewed === false"
+            v-else-if="recipe.first_time === true"
             src="../../resources/new.png"
             title="this is the first time you're viewing this recipe"
           />
@@ -100,7 +100,8 @@ export default {
 
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
-          DOMAIN_PATH + "/recipes/" + this.$route.params.recipeId
+          DOMAIN_PATH + "/recipes/" + this.$route.params.recipeId,
+          { withCredentials: true }
         );
 
         if (response.status !== 200) this.$router.replace("/NotFound");
@@ -114,6 +115,7 @@ export default {
         analyzedInstructions,
         extendedIngredients,
         servingSize,
+        first_time,
       } = response.data;
 
       let {
@@ -126,6 +128,7 @@ export default {
         glutenFree,
         isFavorite,
         isViewed,
+        id,
       } = response.data.previewInfo;
 
       let _instructions = analyzedInstructions
@@ -149,6 +152,8 @@ export default {
         isFavorite,
         isViewed,
         servingSize,
+        first_time,
+        id,
       };
 
       this.recipe = _recipe;
