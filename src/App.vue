@@ -22,7 +22,7 @@
         </span>
         <span v-else>
           <span id="logged-in-user"
-            >| <span id="welcome-user">Hello {{ $root.store.username }}</span
+            ><span id="welcome-user">Hello {{ $root.store.username }}</span
             >|
             <button @click="Logout">Logout</button>
           </span>
