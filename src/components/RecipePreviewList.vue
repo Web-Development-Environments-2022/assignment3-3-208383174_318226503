@@ -39,7 +39,8 @@ export default {
       const DOMAIN_PATH = "http://localhost:3000";
       try {
         const response = await this.axios.get(
-          DOMAIN_PATH + "/recipes/random" ,{ withCredentials: true }
+          DOMAIN_PATH + "/recipes/random",
+          { withCredentials: true }
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
         const recipes = response.data;
@@ -60,6 +61,12 @@ export default {
   max-width: 980px;
   margin: auto;
 }
+h4 {
+  font-size: 27px;
+  font-family: Andale Mono, monospace;
+  margin-bottom: 10px;
+}
+
 .col {
   padding-right: 0;
 }

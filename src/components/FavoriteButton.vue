@@ -46,7 +46,8 @@ export default {
             params: {
               personal: recipe.isPersonal,
             },
-          }
+          },
+          { withCredentials: true }
         );
         recipe.isFavorite = true;
       } catch (error) {
@@ -62,12 +63,16 @@ export default {
 
       const DOMAIN_PATH = "http://localhost:3000";
       try {
-        await this.axios.delete(DOMAIN_PATH + "/users/favorites", {
-          data: {
-            recipeId: recipe.id,
-            personal: recipe.isPersonal,
+        await this.axios.delete(
+          DOMAIN_PATH + "/users/favorites",
+          {
+            data: {
+              recipeId: recipe.id,
+              personal: recipe.isPersonal,
+            },
           },
-        });
+          { withCredentials: true }
+        );
         recipe.isFavorite = false;
       } catch (error) {
         console.dir("error at unmarking as favorite");
