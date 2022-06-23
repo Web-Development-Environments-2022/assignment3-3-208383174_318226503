@@ -187,10 +187,11 @@ export default {
         }
         else if(response.status==200){
           this.isEmpty = 0;
+          const recipes = response.data;
+          this.results = [];
+          this.results.push(...recipes);
         }
-        const recipes = response.data;
-        this.results = [];
-        this.results.push(...recipes);
+
       } catch (err) {
         console.log(err.response);
       }
