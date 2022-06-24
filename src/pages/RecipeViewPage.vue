@@ -58,8 +58,6 @@
       </div>
       <div v-if="recipe" class="recipe-img-container">
         <img id="recipe-image" :src="recipe.image" class="center" />
-        {{ this.previewInfo }}
-        <!-- {{ recipe }} -->
         <FavoriteButton id="favoriteButton" :recipe="recipe.previewInfo" />
       </div>
     </div>
@@ -90,10 +88,6 @@ export default {
     return {
       recipe: null,
     };
-  },
-  mounted() {
-    console.log("!!!!!!!!!!!!!!!!");
-    console.log(this.recipe.recipePreview);
   },
   async created() {
     console.log("getting recipe");
@@ -136,13 +130,6 @@ export default {
         isViewed,
       } = response.data.previewInfo;
 
-      // let previewInfo = response.data.previewInfo;
-
-      console.log("??????????????????????????");
-      console.log(recipePreview);
-
-      console.log(this.recipe.recipePreview);
-
       let _instructions = analyzedInstructions
         .map((fstep) => {
           fstep.steps[0].step = fstep.name + fstep.steps[0].step;
@@ -168,8 +155,6 @@ export default {
       };
 
       this.recipe = _recipe;
-      console.log(this.recipe);
-      console.log(previewInfo);
     } catch (error) {
       console.log(error);
     }

@@ -356,9 +356,7 @@ export default {
           "success"
         );
         this.onReset();
-        console.log(response);
       } catch (err) {
-        console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
@@ -401,13 +399,11 @@ export default {
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
 
-      console.log(this.ingridents);
       this.ingridents.push({
         ingredientName: this.form.ingredientName,
         amount: this.form.amount,
         unit: this.form.unit,
       });
-      console.log(this.ingridents);
       (this.form.ingredientName = ""),
         (this.form.amount = null),
         (this.form.unit = "");
@@ -419,16 +415,12 @@ export default {
       }
       this.showInstructionMeesage = true;
 
-      console.log(this.form.step);
       this.form.step = this.form.step.replace("'", "");
-      console.log(this.form.step);
 
       this.instructionsArray.push({
         number: this.instructionsArray.length + 1,
         step: this.form.step,
       });
-      console.log(this.instructionsArray);
-      console.log(this.instructionsArray.length);
       this.form.step = "";
     },
   },

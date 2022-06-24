@@ -64,12 +64,10 @@ export default {
         event.preventDefault()
         alert(JSON.stringify(this.form))
         console.log("emitting")
-        console.log(this.ingridents);
         this.ingridents.push(9);
         this.ingridents.push({
           name:this.form.name, amount:this.form.amount, unit:this.form.unit,
         })
-        console.log(this.ingridents);
         this.$emit(
           this.form.name, this.form.amount, this.form.unit,
         )
