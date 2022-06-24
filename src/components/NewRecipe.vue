@@ -84,9 +84,22 @@
               id="checkboxes-4"
               :aria-describedby="ariaDescribedby"
             >
-              <b-form-checkbox value="vegan">Vegan</b-form-checkbox>
-              <b-form-checkbox value="vegeterian">Vegeterian</b-form-checkbox>
-              <b-form-checkbox value="gluten-free">Gluten Free</b-form-checkbox>
+              <b-form-checkbox
+                v-model="form.nutritious"
+                value="vegan"
+                unchecked-value="not_vegan"
+                >Vegan</b-form-checkbox
+              >
+              <b-form-checkbox
+                value="vegeterian"
+                unchecked-value="not_vegeterian"
+                >Vegeterian</b-form-checkbox
+              >
+              <b-form-checkbox
+                value="gluten-free"
+                unchecked-value="not_gluten-free"
+                >Gluten Free</b-form-checkbox
+              >
             </b-form-checkbox-group>
 
             <!-- ingredients -->
@@ -278,6 +291,50 @@ export default {
     },
     onSubmit(event) {
       event.preventDefault();
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) {
+        return;
+      }
+      this.AddRecipe();
+    },
+    async AddRecipe() {
+      let vegan = false;
+      let vegeterian = false;
+      let glutenFree = false;
+
+      this.form.nutritious.forEach((item) => {
+        if (item === "vegan") {
+          vegan = true;
+        }
+        if (item === "vegeterian") {
+          vegeterian = true;
+        }
+        if (item === "gluten-free") {
+          glutenFree = true;
+        }
+      });
+
+      console.log(vegan, vegeterian, glutenFree);
+
+      const DOMAIN_PATH = "http://localhost:3000";
+      try {
+        const response = await this.axios.post(DOMAIN_PATH + "/users/add", {
+          title: this.form.title,
+          image: this.form.image,
+          readyInMinutes: this.form.readyInMinutes,
+
+          lastname: this.form.lastname,
+          country: this.form.country,
+          password: this.form.password,
+          email: this.form.email,
+        });
+        console.log(response);
+        this.$router.push("/login");
+        // console.log(response);
+      } catch (err) {
+        console.log(err.response);
+        this.form.submitError = err.response.data.message;
+      }
     },
     onReset(event) {
       event.preventDefault();
