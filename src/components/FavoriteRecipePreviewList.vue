@@ -9,6 +9,9 @@
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
+    <b-row>
+        <b-alert v-if="!this.hasFavorite" show variant="danger"><a class="alert-link">You don't have favorite recipes yet</a></b-alert>
+    </b-row>
   </b-container>
 </template>
 
@@ -28,6 +31,7 @@ export default {
   data() {
     return {
       recipes: [],
+      hasFavorite: true,
     };
   },
   mounted() {
@@ -43,9 +47,16 @@ export default {
           { withCredentials: true }
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
-        const recipes = response.data;
-        this.recipes = [];
-        this.recipes.push(...recipes);
+        if (response.status==200){
+            const recipes = response.data;
+            this.recipes = [];
+            this.recipes.push(...recipes);
+        }
+        else if(response.status==204){
+            // no fav recipes
+            this.hasFavorite = false;
+        }
+
       } catch (error) {
         console.dir("error at FavoriteRecipePreviewList");
         console.dir(error);
