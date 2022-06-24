@@ -58,7 +58,7 @@
       </div>
       <div v-if="recipe" class="recipe-img-container">
         <img id="recipe-image" :src="recipe.image" class="center" />
-        <FavoriteButton id="favoriteButton" :recipe="recipe" />
+        <FavoriteButton id="favoriteButton" :recipe="recipe.previewInfo" />
       </div>
     </div>
     <div class="divider div-transparent"></div>
@@ -116,6 +116,7 @@ export default {
         extendedIngredients,
         servingSize,
         first_time,
+        previewInfo,
       } = response.data;
 
       let {
@@ -154,6 +155,7 @@ export default {
         servingSize,
         first_time,
         id,
+        previewInfo,
       };
 
       this.recipe = _recipe;
