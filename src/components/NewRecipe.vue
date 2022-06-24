@@ -75,7 +75,7 @@
 
           <!-- nutritious -->
           <b-form-group
-            label="Select if the following maches your recipe"
+            label="Select if the following matches your recipe:"
             id="input-group-4"
             v-slot="{ ariaDescribedby }"
           >
@@ -419,6 +419,10 @@ export default {
       }
       this.showInstructionMeesage = true;
 
+      console.log(this.form.step);
+      this.form.step = this.form.step.replace("'", "");
+      console.log(this.form.step);
+
       this.instructionsArray.push({
         number: this.instructionsArray.length + 1,
         step: this.form.step,
@@ -432,15 +436,18 @@ export default {
 </script>
 
 <style scope>
-.btn.btn-primary,
-.btn.btn-primary:hover,
-.btn.btn-primary:active {
+.btn.btn-primary {
   background-color: #68a376;
   border-color: #68a376;
 }
 
+input.form-control {
+  padding-right: calc(1.5em + 0.75rem) !important;
+}
 .btn.btn-primary:hover,
-.btn.btn-primary:active {
+.btn.btn-primary:focus,
+.btn.btn-primary,
+.btn.btn-primary:not(:disabled):not(.disabled):active {
   background-color: #84bd91;
   border-color: #84bd91;
 }
@@ -505,7 +512,8 @@ export default {
 }
 
 .custom-control-label {
-  font-size: 16px;
+  font-size: 17px;
+  margin: 5px;
 }
 
 .form-control {
@@ -548,6 +556,6 @@ label {
 }
 
 #step-text {
-  width: 638px;
+  width: 91%;
 }
 </style>
