@@ -136,7 +136,7 @@
                   :state="validateState('unit')"
                 ></b-form-input>
 
-                <b-button type="addIngredient" variant="primary">Add</b-button>
+                <b-button type="submit" variant="primary">Add</b-button>
                 <div v-if="showIngridentsMeesage === true">
                   <div>
                     <b-alert show dismissible>
@@ -177,9 +177,7 @@
                   class="mb-2 mr-sm-2 mb-sm-0"
                 ></b-form-textarea>
 
-                <b-button type="addInstructions" variant="primary"
-                  >Add</b-button
-                >
+                <b-button type="submit" variant="primary">Add</b-button>
                 <div v-if="showInstructionMeesage === true">
                   <div>
                     <b-alert show dismissible>
@@ -363,9 +361,9 @@ export default {
         this.$v.$reset();
       });
     },
-    addIngredient(event) {
+    addIngredient() {
       console.log("you sumbitted");
-      event.preventDefault();
+
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
 
@@ -376,15 +374,12 @@ export default {
         unit: this.form.unit,
       });
       console.log(this.ingridents);
-      this.form = {
-        ingredientName: "",
-        amount: null,
-        unit: "",
-      };
+      (this.form.ingredientName = ""),
+        (this.form.amount = null),
+        (this.form.unit = "");
     },
-    addInstructions(event) {
-      console.log(this.instructionsArray.length);
-      event.preventDefault();
+
+    addInstructions() {
       this.showInstructionMeesage = true;
 
       this.instructionsArray.push({
@@ -393,9 +388,7 @@ export default {
       });
       console.log(this.instructionsArray);
       console.log(this.instructionsArray.length);
-      this.form = {
-        step: "",
-      };
+      this.form.step = "";
     },
   },
 };
