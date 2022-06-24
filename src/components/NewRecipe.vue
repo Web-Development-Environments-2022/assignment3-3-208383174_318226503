@@ -91,8 +91,8 @@
                 >Vegan</b-form-checkbox
               >
               <b-form-checkbox
-                value="vegeterian"
-                unchecked-value="not_vegeterian"
+                value="vegetarian"
+                unchecked-value="not_vegetarian"
                 >Vegeterian</b-form-checkbox
               >
               <b-form-checkbox
@@ -208,7 +208,6 @@
 <script>
 import {
   required,
-  minLength,
   maxLength,
   minValue,
   alpha,
@@ -226,20 +225,20 @@ export default {
     this.showInstructionMeesage = false;
     this.IngridentsMeesage = "";
   },
+  destroyed() {
+    this.onReset();
+  },
   data() {
     return {
       form: {
         title: "",
         image: "",
-        first_time: "",
-        readyInMinutes: "",
-        servingSize: "",
+        readyInMinutes: null,
+        servingSize: null,
 
         vegan: null,
         vegetarian: null,
         glutenFree: null,
-        extendedIngredients: [],
-        analyzedInstructions: null,
         checked: [],
         ingredientName: "",
         amount: null,
@@ -299,54 +298,69 @@ export default {
     },
     async AddRecipe() {
       let vegan = false;
-      let vegeterian = false;
+      let vegetarian = false;
       let glutenFree = false;
 
-      this.form.nutritious.forEach((item) => {
-        if (item === "vegan") {
-          vegan = true;
-        }
-        if (item === "vegeterian") {
-          vegeterian = true;
-        }
-        if (item === "gluten-free") {
-          glutenFree = true;
-        }
-      });
-
-      console.log(vegan, vegeterian, glutenFree);
-
+      if (this.form.nutritious != undefined) {
+        this.form.nutritious.forEach((item) => {
+          if (item === "vegan") {
+            vegan = 1;
+          }
+          if (item === "vegetarian") {
+            vegetarian = 1;
+          }
+          if (item === "gluten-free") {
+            glutenFree = 1;
+          }
+        });
+      }
       const DOMAIN_PATH = "http://localhost:3000";
       try {
-        const response = await this.axios.post(DOMAIN_PATH + "/users/add", {
-          title: this.form.title,
-          image: this.form.image,
-          readyInMinutes: this.form.readyInMinutes,
-
-          lastname: this.form.lastname,
-          country: this.form.country,
-          password: this.form.password,
-          email: this.form.email,
-        });
+        const response = await this.axios;
+        await this.axios.create({ withCredentials: true }).post(
+          DOMAIN_PATH + "/users/add",
+          {
+            title: this.form.title,
+            image: this.form.image,
+            readyInMinutes: this.form.readyInMinutes,
+            vegan: vegan,
+            vegetarian: vegetarian,
+            glutenFree: glutenFree,
+            ingredientsAndQuantities: this.form.ingridents,
+            instructions: this.instructionsArray,
+            servingSize: this.form.servingSize,
+          },
+          { withCredentials: true }
+        );
+        this.$root.toast(
+          "Recipe Added",
+          "new recipe added successfully",
+          "success"
+        );
+        this.onReset();
         console.log(response);
-        this.$router.push("/login");
-        // console.log(response);
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
-    onReset(event) {
-      event.preventDefault();
-      // Reset our form values
-      this.form.email = "";
-      this.form.name = "";
-      this.form.food = null;
-      this.form.checked = [];
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
+    onReset() {
+      this.form = {
+        title: "",
+        image: "",
+        readyInMinutes: null,
+        servingSize: null,
+        vegan: null,
+        vegetarian: null,
+        glutenFree: null,
+        checked: [],
+        ingredientName: "",
+        amount: null,
+        unit: "",
+        step: "",
+      };
       this.$nextTick(() => {
-        this.show = true;
+        this.$v.$reset();
       });
     },
     addIngredient(event) {
