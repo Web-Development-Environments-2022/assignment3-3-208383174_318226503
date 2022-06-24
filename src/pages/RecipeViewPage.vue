@@ -58,7 +58,9 @@
       </div>
       <div v-if="recipe" class="recipe-img-container">
         <img id="recipe-image" :src="recipe.image" class="center" />
-        <FavoriteButton id="favoriteButton" :recipe="recipe" />
+        {{ this.previewInfo }}
+        <!-- {{ recipe }} -->
+        <FavoriteButton id="favoriteButton" :recipe="recipe.previewInfo" />
       </div>
     </div>
     <div class="divider div-transparent"></div>
@@ -89,6 +91,10 @@ export default {
       recipe: null,
     };
   },
+  mounted() {
+    console.log("!!!!!!!!!!!!!!!!");
+    console.log(this.recipe.recipePreview);
+  },
   async created() {
     console.log("getting recipe");
     try {
@@ -100,7 +106,8 @@ export default {
 
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
-          DOMAIN_PATH + "/recipes/" + this.$route.params.recipeId
+          DOMAIN_PATH + "/recipes/" + this.$route.params.recipeId,
+          { withCredentials: true }
         );
 
         if (response.status !== 200) this.$router.replace("/NotFound");
@@ -114,6 +121,7 @@ export default {
         analyzedInstructions,
         extendedIngredients,
         servingSize,
+        previewInfo,
       } = response.data;
 
       let {
@@ -127,6 +135,13 @@ export default {
         isFavorite,
         isViewed,
       } = response.data.previewInfo;
+
+      // let previewInfo = response.data.previewInfo;
+
+      console.log("??????????????????????????");
+      console.log(recipePreview);
+
+      console.log(this.recipe.recipePreview);
 
       let _instructions = analyzedInstructions
         .map((fstep) => {
@@ -149,9 +164,12 @@ export default {
         isFavorite,
         isViewed,
         servingSize,
+        previewInfo,
       };
 
       this.recipe = _recipe;
+      console.log(this.recipe);
+      console.log(previewInfo);
     } catch (error) {
       console.log(error);
     }
@@ -270,7 +288,7 @@ h2 {
 
 #instructions {
   float: left;
-  width: 69%;
+  width: 68%;
   padding: 0 50px 0 50px;
 }
 </style>
