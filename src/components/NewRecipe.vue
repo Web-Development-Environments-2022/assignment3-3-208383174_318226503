@@ -19,8 +19,8 @@
             <b-form-invalid-feedback v-else-if="!$v.form.title.length">
               title length should be between up to 100 characters long
             </b-form-invalid-feedback>
-            <b-form-invalid-feedback v-if="!$v.form.title.alpha">
-              title should include letters only
+            <b-form-invalid-feedback v-else-if="!$v.form.title.valid">
+              title can't contain special characters
             </b-form-invalid-feedback>
           </b-form-group>
 
@@ -45,7 +45,7 @@
           <div>
             <b-form inline>
               <label class="mr-sm-2" for="inline-form-custom-select-pref"
-                >Making Time</label
+                >Minutes to make</label
               >
               <b-form-input
                 v-model="$v.form.readyInMinutes.$model"
@@ -55,11 +55,8 @@
                 :state="validateState('readyInMinutes')"
               ></b-form-input>
               <label class="mr-sm-2" for="inline-form-custom-select-pref"
-                >Making Time</label
+                >Serving size</label
               >
-              <b-form-invalid-feedback v-if="!$v.form.readyInMinutes.minValue">
-                Not Good
-              </b-form-invalid-feedback>
 
               <b-form-input
                 v-model="$v.form.servingSize.$model"
@@ -67,15 +64,18 @@
                 type="number"
                 :state="validateState('servingSize')"
               ></b-form-input>
-              <b-form-invalid-feedback v-if="!$v.form.servingSize.minValue">
-                Not Good
+              <b-form-invalid-feedback v-if="!$v.form.servingSize.valid">
+                serving size to make need to be a positive number
+              </b-form-invalid-feedback>
+              <b-form-invalid-feedback v-if="!$v.form.readyInMinutes.valid">
+                minutes to make need to be a positive number
               </b-form-invalid-feedback>
             </b-form>
           </div>
 
           <!-- nutritious -->
           <b-form-group
-            label="select if the following maches your recipe"
+            label="Select if the following maches your recipe"
             id="input-group-4"
             v-slot="{ ariaDescribedby }"
           >
@@ -132,7 +132,7 @@
                   v-model="$v.form.unit.$model"
                   class="mb-2 mr-sm-2 mb-sm-0"
                   placeholder="Unit"
-                  type="number"
+                  type="text"
                   :state="validateState('unit')"
                 ></b-form-input>
 
@@ -207,10 +207,7 @@
 import {
   required,
   maxLength,
-  minValue,
   alpha,
-  sameAs,
-  email,
   url,
   numeric,
 } from "vuelidate/lib/validators";
@@ -252,17 +249,31 @@ export default {
       title: {
         required,
         length: (t) => maxLength(100)(t),
-        alpha,
+        valid: function(value) {
+          return !/[#?@'$%^&*-]/.test(value);
+        },
       },
       image: {
         url,
       },
       readyInMinutes: {
-        minValue: 1,
+        valid: function(value) {
+          if (value == undefined) {
+            return true;
+          }
+          const containsMinus = /[-]/.test(value);
+          return !containsMinus && value >= 1;
+        },
         numeric,
       },
       servingSize: {
-        minValue: 1,
+        valid: function(value) {
+          if (value == undefined) {
+            return true;
+          }
+          const containsMinus = /[-]/.test(value);
+          return !containsMinus && value >= 1;
+        },
         numeric,
       },
       ingredientName: {
@@ -287,6 +298,8 @@ export default {
       return $dirty ? !$error : null;
     },
     onSubmit(event) {
+      console.log("submitted");
+
       event.preventDefault();
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
@@ -315,9 +328,9 @@ export default {
       const DOMAIN_PATH = "http://localhost:3000";
       try {
         const response = await this.axios;
-        await this.axios.create({ withCredentials: true }).post(
-          DOMAIN_PATH + "/users/add",
-          {
+        await this.axios
+          .create({ withCredentials: true })
+          .post(DOMAIN_PATH + "/users/add", {
             title: this.form.title,
             image: this.form.image,
             readyInMinutes: this.form.readyInMinutes,
@@ -327,9 +340,7 @@ export default {
             ingredientsAndQuantities: this.form.ingridents,
             instructions: this.instructionsArray,
             servingSize: this.form.servingSize,
-          },
-          { withCredentials: true }
-        );
+          });
         this.$root.toast(
           "Recipe Added",
           "new recipe added successfully",
@@ -406,8 +417,13 @@ export default {
   max-width: 800px;
 }
 
+#title__BV_label_ {
+  margin-top: 0;
+}
+
 .modal-body {
   margin: auto;
+  width: 99%;
 }
 
 .form-inline {
@@ -421,7 +437,7 @@ export default {
   font-size: 18px;
   font-weight: normal;
 }
-/* 
+/*
 .mb-2.mr-sm-2.mb-sm-0.form-control {
   padding: 0px;
 } */
@@ -441,6 +457,13 @@ export default {
 
 .form-control {
   width: 98.6%;
+  height: calc(1.25em + 0.75rem + 2px);
+}
+
+.form-inline label,
+.mr-sm-2 label,
+.form-inline .mr-sm-2 {
+  margin-bottom: 9px;
 }
 
 label {
@@ -448,8 +471,22 @@ label {
   margin-bottom: 10px;
 }
 
+#ingredient-name,
+#amount,
+#unit {
+  padding: 0;
+}
+
 .invalid-feedback {
   margin-left: 10px;
+}
+
+.form-inline .form-control {
+  width: inherit;
+}
+
+.form-inline.form-control {
+  width: inherit;
 }
 
 #step-text {
