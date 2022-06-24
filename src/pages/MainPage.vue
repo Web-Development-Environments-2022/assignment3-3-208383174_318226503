@@ -9,16 +9,15 @@
   >
     <div class="mainPage">
       <div class="container">
-        <h1 class="title">-- LOGO --</h1>
+        <img id="logo" src="../../resources/logo.jpg" />
         <RecipePreviewList
-          title="Try a new recipe!"
           class="RandomRecipes center"
+          title="Try a new recipe"
         />
         <router-link v-if="!$root.store.username" to="/login" tag="button"
           >You need to Login to vue this</router-link
         >
-        {{ !$root.store.username }}
-        <RecipePreviewList
+        <!-- <RecipePreviewList
           title="Last Viewed Recipes"
           :class="{
             RandomRecipes: true,
@@ -26,7 +25,7 @@
             center: true,
           }"
           disabled
-        ></RecipePreviewList>
+        ></RecipePreviewList> -->
         <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
     >
@@ -66,5 +65,11 @@ container {
 ::v-deep .blur .recipe-preview {
   pointer-events: none;
   cursor: default;
+}
+
+#logo {
+  height: 245px;
+  margin: auto;
+  display: block;
 }
 </style>

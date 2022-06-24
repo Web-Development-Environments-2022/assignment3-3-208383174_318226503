@@ -2,7 +2,13 @@
   <div id="app">
     <div id="nav">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <router-link class="navbar-brand" :to="{ name: 'main' }"
+        <!-- <img id="small-logo" src="../resources/small-logo.png" /> -->
+
+        <router-link class="navbar-brand logo-nav" :to="{ name: 'main' }"
+          ><img id="small-logo" src="../resources/small-logo.png"
+        /></router-link>
+
+        <router-link id="nav-title" class="navbar-brand" :to="{ name: 'main' }"
           ><b>Peachy Recipes</b></router-link
         >
         <router-link class="navbar-brand" :to="{ name: 'search' }"
@@ -22,7 +28,7 @@
         </span>
         <span v-else>
           <span id="logged-in-user"
-            >| <span id="welcome-user">Hello {{ $root.store.username }}</span
+            ><span id="welcome-user">Hello {{ $root.store.username }}</span
             >|
             <button @click="Logout">Logout</button>
           </span>
@@ -86,6 +92,31 @@ export default {
   background-image: "../resources/b2.jpg";
   background-color: #e5edf0;
   padding-bottom: 10px;
+}
+
+.navbar.navbar-expand-lg.navbar-light.bg-light {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+#nav .navbar-brand.logo-nav {
+  margin: 0;
+}
+
+#small-logo {
+  height: 42px;
+  padding: 0px;
+  margin: 0;
+}
+
+.navbar-brand #small-logo {
+  padding: 0px;
+  margin: 0;
+}
+
+#nav-title {
+  font-family: Andale Mono, monospace;
+  font-size: 20px;
 }
 
 #nav .navbar-light .navbar-brand:hover {
