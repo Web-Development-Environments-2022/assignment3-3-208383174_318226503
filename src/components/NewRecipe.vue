@@ -60,7 +60,7 @@
 
             <!-- ingredients -->
             <div class="ingredients">
-              <h5>add the ingredients</h5>
+              <h5 class="input-title">add the ingredients</h5>
               <b-form inline @submit.prevent="addIngredient">
                 <label class="sr-only" for="inline-form-input-name">Name</label>
                 <b-form-input
@@ -102,18 +102,18 @@
 
             <!-- instructions -->
             <div class="instructions">
-              <h5>add the instructions</h5>
+              <h5 class="input-title">add the instructions</h5>
               <b-form inline @submit.prevent="addInstructions">
                 <label class="sr-only" for="inline-form-input-name"
                   >instruction</label
                 >
-                <b-form-input
+                <b-form-textarea
                   placeholder="Instruction Step"
-                  id="instruction-name"
+                  id="step-text"
                   value="instruction"
                   v-model="form.step"
                   class="mb-2 mr-sm-2 mb-sm-0"
-                ></b-form-input>
+                ></b-form-textarea>
 
                 <b-button type="addInstructions" variant="primary"
                   >Add</b-button
@@ -232,12 +232,8 @@ export default {
 </script>
 
 <style scope>
-h5 {
-  font-size: 1rem;
-  font-weight: normal;
-}
-
-.ingredients {
+.ingredients,
+.instructions {
   margin-top: 18px;
 }
 </style>
@@ -245,5 +241,16 @@ h5 {
 <style>
 #modal-1 .modal-dialog {
   max-width: 800px;
+}
+
+.d-block,
+.input-title,
+.bv-no-focus-ring.col-form-label.pt-0 {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+#step-text {
+  width: 638px;
 }
 </style>
