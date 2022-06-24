@@ -68,13 +68,10 @@ export default {
   margin: auto;
 }
 .random-button {
-  // margin: auto;
-  // display: flow-root;
-  margin-top: 24px;
+  margin-top: 15px;
   padding: 5px 13px 5px 13px;
   font-size: 19px;
-  border: 0.2px solid rgb(255, 255, 255);
-  // border: none;
+  border: none;
   border-radius: 5px;
   background-color: #dca65e;
   color: white;

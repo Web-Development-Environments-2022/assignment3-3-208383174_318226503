@@ -1,9 +1,9 @@
 <template>
   <b-container>
-    <h4>
+    <!-- <h4>
       {{ title }}
       <slot></slot>
-    </h4>
+    </h4> -->
     <b-row>
       <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
@@ -65,6 +65,7 @@ h4 {
   font-size: 27px;
   font-family: Andale Mono, monospace;
   margin-bottom: 10px;
+  margin-top: 0px;
 }
 
 .col {

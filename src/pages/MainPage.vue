@@ -18,16 +18,22 @@
           />
         </div>
         <div class="bottom-half">
-          <router-link v-if="!$root.store.username" to="/login" tag="button"
+          <h4>Last watched recipes</h4>
+          <router-link
+            id="login"
+            v-if="!$root.store.username"
+            to="/login"
+            tag="button"
             >You need to Login to vue this</router-link
           >
-          <RecipePreviewListLastSeen
-            title="Last watched recipes"
-            :class="{
-              center: true,
-            }"
-            disabled
-          ></RecipePreviewListLastSeen>
+          <div v-if="$root.store.username">
+            <RecipePreviewListLastSeen
+              :class="{
+                center: true,
+              }"
+              disabled
+            ></RecipePreviewListLastSeen>
+          </div>
         </div>
       </div>
     </div>
@@ -75,20 +81,22 @@ container {
   display: block;
 }
 
-.random-button {
-  margin: auto;
-  display: flow-root;
-  margin-top: 20px;
-  padding: 6px 13px 6px 13px;
-  font-size: 19px;
-  border: 1px solid white;
-  border-radius: 6px;
-  background-color: #e69d3c;
-  color: white;
-  font-family: sans-serif;
+h4 {
+  font-size: 27px;
+  font-family: Andale Mono, monospace;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
-.bottom-half {
-  margin-top: 17px;
+#login {
+  display: flex;
+  margin: auto;
+  background-color: #cdf0c4;
+  padding: 4px 15px 4px 15px;
+  border-radius: 36px;
+  width: 30%;
+  place-content: center;
+  font-size: 18px;
+  border: 1px solid white;
 }
 </style>
