@@ -44,13 +44,13 @@
           />
           <img
             id="viewed"
-            v-if="recipe.first_time === false"
+            v-if="recipe.isViewed === true"
             src="../../resources/viewed.png"
             title="you have viewed this recipe"
           />
           <img
             id="viewed"
-            v-else-if="recipe.isViewed === true"
+            v-else-if="recipe.isViewed === false"
             src="../../resources/new.png"
             title="this is the first time you're viewing this recipe"
           />
@@ -115,7 +115,6 @@ export default {
         analyzedInstructions,
         extendedIngredients,
         servingSize,
-        first_time,
         previewInfo,
       } = response.data;
 
@@ -129,7 +128,6 @@ export default {
         glutenFree,
         isFavorite,
         isViewed,
-        id,
       } = response.data.previewInfo;
 
       let _instructions = analyzedInstructions
@@ -153,8 +151,6 @@ export default {
         isFavorite,
         isViewed,
         servingSize,
-        first_time,
-        id,
         previewInfo,
       };
 
@@ -277,7 +273,7 @@ h2 {
 
 #instructions {
   float: left;
-  width: 69%;
+  width: 68%;
   padding: 0 50px 0 50px;
 }
 </style>

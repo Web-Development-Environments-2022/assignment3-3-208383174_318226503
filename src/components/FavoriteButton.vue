@@ -31,12 +31,10 @@ export default {
   data() {
     return {};
   },
-  mounted() {},
 
   methods: {
     async markFavorite(recipe) {
       console.log("marking as favorite");
-      console.log("is personal " + recipe.isPersonal);
       const DOMAIN_PATH = "http://localhost:3000";
       try {
         await this.axios.create({ withCredentials: true }).post(

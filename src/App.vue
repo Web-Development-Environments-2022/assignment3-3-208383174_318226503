@@ -32,7 +32,11 @@
             >|
             <button @click="Logout">Logout</button>
           </span>
-          <div>
+          <span class="logged-in">
+            <div class="add-button">
+              <b-button v-b-modal.modal-1>Add Recipe</b-button>
+              <NewRecipe id="modal-1" />
+            </div>
             <b-dropdown id="nav-dropdown" text="Personal Area" class="m-md-2">
               <b-dropdown-item
                 ><router-link class="navbar-brand" :to="{ name: 'favorites' }"
@@ -54,7 +58,7 @@
                 ></b-dropdown-item
               >
             </b-dropdown>
-          </div>
+          </span>
         </span>
       </nav>
     </div>
@@ -64,9 +68,10 @@
 </template>
 
 <script>
+import NewRecipe from "./components/NewRecipe.vue";
 export default {
   name: "App",
-  components: {},
+  components: { NewRecipe },
   methods: {
     Logout() {
       this.$root.store.logout();
@@ -114,6 +119,10 @@ export default {
   margin: 0;
 }
 
+.logged-in {
+  display: flex;
+}
+
 #nav-title {
   font-family: Andale Mono, monospace;
   font-size: 20px;
@@ -124,8 +133,8 @@ export default {
 }
 
 #nav .navbar-brand {
-  margin-right: 10px;
-  margin-left: 10px;
+  margin-right: 13px;
+  margin-left: 13px;
 }
 
 #logged-in-user {
@@ -200,5 +209,32 @@ export default {
   border: 0px;
   font-size: 1.25rem;
   padding: 0;
+}
+
+.add-button button,
+.add-button button:hover,
+.add-button button:not(:disabled):not(.disabled):active,
+.add-button button:not(:disabled):not(.disabled).active,
+.add-button button:not(:disabled):not(.disabled):active:focus,
+.add-button button:not(:disabled):not(.disabled).active:focus,
+.add-button button:focus,
+.add-button button.focus {
+  align-self: center;
+  font-size: 1.25rem;
+  color: rgba(0, 0, 0, 0.9);
+  background-color: #f8f9fa;
+  padding: 0;
+  // padding: 0.3125rem 1rem 0.3125rem;
+  margin: 0.5rem;
+  border: none;
+  box-shadow: none;
+}
+
+.add-button button:hover,
+.add-button button:hover:active,
+.add-button button:not(:disabled):not(.disabled):hover,
+.add-button button:not(:disabled):not(.disabled):hover.active,
+.add-button button:not(:disabled):not(.disabled):hover:active {
+  color: rgb(234, 121, 0);
 }
 </style>
