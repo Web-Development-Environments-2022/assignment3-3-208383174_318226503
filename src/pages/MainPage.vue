@@ -10,23 +10,30 @@
     <div class="mainPage">
       <div class="container">
         <img id="logo" src="../../resources/logo.jpg" />
-        <RecipePreviewList
-          class="RandomRecipes center"
-          title="Try a new recipe"
-        />
+        <div>
+          <RecipePreviewListRandom
+            :key="componentKey"
+            class="RandomRecipes center"
+            title="Explore this recipes"
+          />
+        </div>
         <div class="bottom-half">
-          <router-link v-if="!$root.store.username" to="/login" tag="button"
+          <h4>Last watched recipes</h4>
+          <router-link
+            id="login"
+            v-if="!$root.store.username"
+            to="/login"
+            tag="button"
             >You need to Login to vue this</router-link
           >
-          <RecipePreviewList
-            title="Last Viewed Recipes"
-            :class="{
-              RandomRecipes: true,
-              blur: !$root.store.username,
-              center: true,
-            }"
-            disabled
-          ></RecipePreviewList>
+          <div v-if="$root.store.username">
+            <RecipePreviewListLastSeen
+              :class="{
+                center: true,
+              }"
+              disabled
+            ></RecipePreviewListLastSeen>
+          </div>
         </div>
       </div>
     </div>
@@ -34,13 +41,18 @@
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList";
+import RecipePreviewListRandom from "../components/RecipePreviewListRandom.vue";
+import RecipePreviewListLastSeen from "../components/RecipePreviewListLastSeen.vue";
 export default {
+  data() {
+    return {};
+  },
   mounted() {
     console.log("main page mounted");
   },
   components: {
-    RecipePreviewList,
+    RecipePreviewListLastSeen,
+    RecipePreviewListRandom,
   },
 };
 </script>
@@ -69,7 +81,22 @@ container {
   display: block;
 }
 
-.bottom-half {
-  margin-top: 35px;
+h4 {
+  font-size: 27px;
+  font-family: Andale Mono, monospace;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#login {
+  display: flex;
+  margin: auto;
+  background-color: #cdf0c4;
+  padding: 4px 15px 4px 15px;
+  border-radius: 36px;
+  width: 30%;
+  place-content: center;
+  font-size: 18px;
+  border: 1px solid white;
 }
 </style>
