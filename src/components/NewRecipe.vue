@@ -123,7 +123,6 @@
                   v-model="$v.form.amount.$model"
                   class="mb-2 mr-sm-2 mb-sm-0"
                   placeholder="Amount"
-                  @keypress="onlyNumber"
                   type="text"
                   :state="validateState('amount')"
                 ></b-form-input>
@@ -193,13 +192,14 @@
               </b-form>
             </div>
           </b-form-group>
-
-          <b-button type="submit" variant="primary">Submit</b-button>
-          <b-button type="reset" variant="danger">Reset</b-button>
+          <div class="buttons">
+            <b-button type="submit" variant="primary">Submit</b-button>
+            <b-button type="reset" variant="danger">Reset</b-button>
+          </div>
         </b-form>
       </div>
       <template #modal-footer="{ cancel }">
-        <b-button size="sm" @click="cancel()">
+        <b-button id="close-button" size="sm" @click="cancel()">
           close
         </b-button>
       </template>
@@ -427,17 +427,41 @@ export default {
       console.log(this.instructionsArray.length);
       this.form.step = "";
     },
-    onlyNumber($event) {
-      let keyCode = $event.keyCode ? $event.keyCode : $event.which;
-      if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) {
-        $event.preventDefault();
-      }
-    },
   },
 };
 </script>
 
 <style scope>
+.btn.btn-primary,
+.btn.btn-primary:hover,
+.btn.btn-primary:active {
+  background-color: #68a376;
+  border-color: #68a376;
+}
+
+.btn.btn-primary:hover,
+.btn.btn-primary:active {
+  background-color: #84bd91;
+  border-color: #84bd91;
+}
+
+.btn-danger {
+  background-color: #c54b57;
+  border-color: #c54b57;
+  margin-left: 20px;
+}
+
+.buttons {
+  text-align: center;
+}
+
+#close-button {
+  font-size: 18px;
+  margin-right: 15px;
+  background-color: rgb(161, 171, 171);
+  border-color: rgb(161, 171, 171);
+}
+
 .ingredients,
 .instructions {
   margin-top: 18px;
@@ -460,6 +484,7 @@ export default {
 
 .form-inline {
   justify-content: space-around;
+  display: inline-flex;
 }
 
 .d-block,
@@ -516,6 +541,10 @@ label {
 
 .form-inline.form-control {
   width: inherit;
+}
+
+.alert-info {
+  margin-top: 10px;
 }
 
 #step-text {
