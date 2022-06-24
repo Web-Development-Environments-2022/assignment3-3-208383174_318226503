@@ -33,10 +33,6 @@
             <button @click="Logout">Logout</button>
           </span>
           <span class="logged-in">
-            <div class="add-button">
-              <b-button v-b-modal.modal-1>Add Recipe</b-button>
-              <NewRecipe id="modal-1" />
-            </div>
             <b-dropdown id="nav-dropdown" text="Personal Area" class="m-md-2">
               <b-dropdown-item
                 ><router-link class="navbar-brand" :to="{ name: 'favorites' }"
@@ -58,6 +54,10 @@
                 ></b-dropdown-item
               >
             </b-dropdown>
+            <div class="add-button">
+              <b-button v-b-modal.modal-1>Add Recipe</b-button>
+              <NewRecipe id="modal-1" />
+            </div>
           </span>
         </span>
       </nav>

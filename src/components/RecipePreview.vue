@@ -18,7 +18,7 @@
             {{ recipe.readyInMinutes }} minutes | {{ recipe.popularity }} likes
           </p>
           <p id="viewed_recipe" v-if="recipe.isViewed === true">
-            you already viewed this recipe
+            you have watched this recipe
           </p>
           <div class="food_icons">
             <FavoriteButton class="favoriteButton" :recipe="recipe" />
@@ -90,7 +90,7 @@ export default {
 }
 
 .card-img-top:hover {
-  opacity: 0.85;
+  opacity: 0.65;
 }
 
 .food_icons {

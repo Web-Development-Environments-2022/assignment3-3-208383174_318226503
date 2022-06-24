@@ -14,23 +14,20 @@
           class="RandomRecipes center"
           title="Try a new recipe"
         />
-        <router-link v-if="!$root.store.username" to="/login" tag="button"
-          >You need to Login to vue this</router-link
-        >
-        <!-- <RecipePreviewList
-          title="Last Viewed Recipes"
-          :class="{
-            RandomRecipes: true,
-            blur: !$root.store.username,
-            center: true,
-          }"
-          disabled
-        ></RecipePreviewList> -->
-        <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
+        <div class="bottom-half">
+          <router-link v-if="!$root.store.username" to="/login" tag="button"
+            >You need to Login to vue this</router-link
+          >
+          <RecipePreviewList
+            title="Last Viewed Recipes"
+            :class="{
+              RandomRecipes: true,
+              blur: !$root.store.username,
+              center: true,
+            }"
+            disabled
+          ></RecipePreviewList>
+        </div>
       </div>
     </div>
   </div>
@@ -55,11 +52,10 @@ container {
 }
 
 .RandomRecipes {
-  // margin: 10px 0 10px;
   margin: auto;
 }
 .blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+  -webkit-filter: blur(5px);
   filter: blur(2px);
 }
 ::v-deep .blur .recipe-preview {
@@ -71,5 +67,9 @@ container {
   height: 245px;
   margin: auto;
   display: block;
+}
+
+.bottom-half {
+  margin-top: 35px;
 }
 </style>

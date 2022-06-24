@@ -133,4 +133,19 @@ export default {
 .container {
   max-width: 400px;
 }
+
+.title {
+  font-family: Andale Mono, monospace;
+  font-size: 37px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.form-row.form-group {
+  align-items: baseline;
+}
+
+.mx-auto.w-100 {
+  margin-bottom: 15px;
+}
 </style>
