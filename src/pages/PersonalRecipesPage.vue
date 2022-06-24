@@ -1,17 +1,17 @@
 <template>
   <div
-    class="FavoritePage"
+    class="PersonalPage"
     :style="{
       background:
         'url(' + require('@/../resources/background.jpg') + ')  no-repeat',
       backgroundSize: '410px',
     }"
   >
-    <div class="FavoritePage">
+    <div class="PersonalPage">
       <div class="container">
-        <FavoriteRecipePreviewList
-          class="FavoriteRecipes center"
-          title="Your Favorite Recipes"
+        <PersonalRecipePreviewList
+          class="PersonalRecipes center"
+          title="Your Personal Recipes"
         />
         <router-link v-if="!$root.store.username" to="/login" tag="button"
           >You need to Login to view this</router-link
@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import FavoriteRecipePreviewList from "../components/FavoriteRecipePreviewList";
+import PersonalRecipePreviewList from "../components/PersonalRecipePreviewList";
 export default {
   mounted() {
-    console.log("favorite page mounted");
+    console.log("Personal page mounted");
   },
   components: {
-    FavoriteRecipePreviewList,
+    PersonalRecipePreviewList,
   },
 };
 </script>
@@ -39,7 +39,7 @@ container {
   font-family: Helvetica;
 }
 
-.FavoriteRecipes {
+.PersonalRecipes {
   // margin: 10px 0 10px;
   margin: auto;
 }
