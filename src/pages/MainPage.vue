@@ -10,23 +10,24 @@
     <div class="mainPage">
       <div class="container">
         <img id="logo" src="../../resources/logo.jpg" />
-        <RecipePreviewList
-          class="RandomRecipes center"
-          title="Try a new recipe"
-        />
+        <div>
+          <RecipePreviewListRandom
+            :key="componentKey"
+            class="RandomRecipes center"
+            title="Explore this recipes"
+          />
+        </div>
         <div class="bottom-half">
           <router-link v-if="!$root.store.username" to="/login" tag="button"
             >You need to Login to vue this</router-link
           >
-          <RecipePreviewList
-            title="Last Viewed Recipes"
+          <RecipePreviewListLastSeen
+            title="Last watched recipes"
             :class="{
-              RandomRecipes: true,
-              blur: !$root.store.username,
               center: true,
             }"
             disabled
-          ></RecipePreviewList>
+          ></RecipePreviewListLastSeen>
         </div>
       </div>
     </div>
@@ -34,13 +35,18 @@
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList";
+import RecipePreviewListRandom from "../components/RecipePreviewListRandom.vue";
+import RecipePreviewListLastSeen from "../components/RecipePreviewListLastSeen.vue";
 export default {
+  data() {
+    return {};
+  },
   mounted() {
     console.log("main page mounted");
   },
   components: {
-    RecipePreviewList,
+    RecipePreviewListLastSeen,
+    RecipePreviewListRandom,
   },
 };
 </script>
@@ -69,7 +75,20 @@ container {
   display: block;
 }
 
+.random-button {
+  margin: auto;
+  display: flow-root;
+  margin-top: 20px;
+  padding: 6px 13px 6px 13px;
+  font-size: 19px;
+  border: 1px solid white;
+  border-radius: 6px;
+  background-color: #e69d3c;
+  color: white;
+  font-family: sans-serif;
+}
+
 .bottom-half {
-  margin-top: 35px;
+  margin-top: 17px;
 }
 </style>
