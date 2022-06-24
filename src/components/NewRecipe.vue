@@ -123,7 +123,8 @@
                   v-model="$v.form.amount.$model"
                   class="mb-2 mr-sm-2 mb-sm-0"
                   placeholder="Amount"
-                  type="number"
+                  @keypress="onlyNumber"
+                  type="text"
                   :state="validateState('amount')"
                 ></b-form-input>
                 <label class="sr-only" for="inline-form-input-name">Unit</label>
@@ -153,6 +154,9 @@
                 >
                   ingredient name should include letters only
                 </b-form-invalid-feedback>
+                <b-form-invalid-feedback v-if="!$v.form.amount.valid">
+                  amount should be a positive number
+                </b-form-invalid-feedback>
                 <b-form-invalid-feedback v-if="!$v.form.unit.alpha">
                   unit should contain letters only
                 </b-form-invalid-feedback>
@@ -180,7 +184,7 @@
                 <b-button type="submit" variant="primary">Add</b-button>
                 <div v-if="showInstructionMeesage === true">
                   <div>
-                    <b-alert show dismissible>
+                    <b-alert v-if="showMessages == true" show dismissible>
                       Successfully added number
                       {{ instructionsArray.length }} step to the recipe
                     </b-alert>
@@ -219,6 +223,7 @@ export default {
     this.showIngridentsMeesage = false;
     this.showInstructionMeesage = false;
     this.IngridentsMeesage = "";
+    this.showMessages = true;
   },
   destroyed() {
     this.onReset();
@@ -281,8 +286,14 @@ export default {
         alpha,
       },
       amount: {
-        minValue: 0,
+        valid: function(value) {
+          if (value == undefined) {
+            return true;
+          }
+          return value >= 1;
+        },
       },
+
       unit: {
         alpha,
         length: (t) => maxLength(100)(45),
@@ -298,8 +309,6 @@ export default {
       return $dirty ? !$error : null;
     },
     onSubmit(event) {
-      console.log("submitted");
-
       event.preventDefault();
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
@@ -337,7 +346,7 @@ export default {
             vegan: vegan,
             vegetarian: vegetarian,
             glutenFree: glutenFree,
-            ingredientsAndQuantities: this.form.ingridents,
+            ingredientsAndQuantities: this.ingridents,
             instructions: this.instructionsArray,
             servingSize: this.form.servingSize,
           });
@@ -368,12 +377,26 @@ export default {
         unit: "",
         step: "",
       };
+      this.instructionsArray = [];
+      this.ingridents = [];
+
       this.$nextTick(() => {
         this.$v.$reset();
       });
+      this.showIngridentsMeesage = false;
+      this.showInstructionMeesage = false;
     },
     addIngredient() {
-      console.log("you sumbitted");
+      if (
+        this.$v.form.amount.$anyError ||
+        this.$v.form.unit.$anyError ||
+        this.$v.form.ingredientName.$anyError
+      ) {
+        return;
+      }
+      if (this.form.amount != null && this.form.ingredientName == "") {
+        return;
+      }
 
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
@@ -391,6 +414,9 @@ export default {
     },
 
     addInstructions() {
+      if (this.$v.form.step.$anyError) {
+        return;
+      }
       this.showInstructionMeesage = true;
 
       this.instructionsArray.push({
@@ -400,6 +426,12 @@ export default {
       console.log(this.instructionsArray);
       console.log(this.instructionsArray.length);
       this.form.step = "";
+    },
+    onlyNumber($event) {
+      let keyCode = $event.keyCode ? $event.keyCode : $event.which;
+      if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) {
+        $event.preventDefault();
+      }
     },
   },
 };
@@ -437,10 +469,6 @@ export default {
   font-size: 18px;
   font-weight: normal;
 }
-/*
-.mb-2.mr-sm-2.mb-sm-0.form-control {
-  padding: 0px;
-} */
 
 #inline-form-input-readyTime {
   padding-top: 0px;
@@ -474,7 +502,8 @@ label {
 #ingredient-name,
 #amount,
 #unit {
-  padding: 0;
+  padding-left: 4px;
+  padding-right: 0px;
 }
 
 .invalid-feedback {
