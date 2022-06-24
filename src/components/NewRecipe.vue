@@ -57,13 +57,77 @@
               <b-form-checkbox value="vegeterian">Vegeterian</b-form-checkbox>
               <b-form-checkbox value="gluten-free">Gluten Free</b-form-checkbox>
             </b-form-checkbox-group>
-            <h2>ingredients</h2>
-            <AddIngredients
-              ref="ing"
-              v-model="form.extendedIngredients"
-              :key="1"
-            />
-            <template v-if="mounted">{{ $refs.ing.value }}</template>
+
+            <!-- ingredients -->
+            <div class="ingredients">
+              <h5>add the ingredients</h5>
+              <b-form inline @submit.prevent="addIngredient">
+                <label class="sr-only" for="inline-form-input-name">Name</label>
+                <b-form-input
+                  id="ingredient-name"
+                  v-model="form.ingredientName"
+                  class="mb-2 mr-sm-2 mb-sm-0"
+                  placeholder="Name"
+                ></b-form-input>
+
+                <label class="sr-only" for="inline-form-input-name"
+                  >Amount</label
+                >
+                <b-form-input
+                  id="amount"
+                  v-model="form.amount"
+                  class="mb-2 mr-sm-2 mb-sm-0"
+                  placeholder="Amount"
+                  type="number"
+                ></b-form-input>
+                <label class="sr-only" for="inline-form-input-name">Unit</label>
+                <b-form-input
+                  id="unit"
+                  v-model="form.unit"
+                  class="mb-2 mr-sm-2 mb-sm-0"
+                  placeholder="Unit"
+                  type="number"
+                ></b-form-input>
+
+                <b-button type="addIngredient" variant="primary">Add</b-button>
+                <div v-if="showIngridentsMeesage === true">
+                  <div>
+                    <b-alert show dismissible>
+                      Successfully added {{ IngridentsMeesage }} to the recipe
+                    </b-alert>
+                  </div>
+                </div>
+              </b-form>
+            </div>
+
+            <!-- instructions -->
+            <div class="instructions">
+              <h5>add the instructions</h5>
+              <b-form inline @submit.prevent="addInstructions">
+                <label class="sr-only" for="inline-form-input-name"
+                  >instruction</label
+                >
+                <b-form-input
+                  placeholder="Instruction Step"
+                  id="instruction-name"
+                  value="instruction"
+                  v-model="form.step"
+                  class="mb-2 mr-sm-2 mb-sm-0"
+                ></b-form-input>
+
+                <b-button type="addInstructions" variant="primary"
+                  >Add</b-button
+                >
+                <div v-if="showInstructionMeesage === true">
+                  <div>
+                    <b-alert show dismissible>
+                      Successfully added number
+                      {{ instructionsArray.length }} step to the recipe
+                    </b-alert>
+                  </div>
+                </div>
+              </b-form>
+            </div>
           </b-form-group>
 
           <b-button type="submit" variant="primary">Submit</b-button>
@@ -80,14 +144,14 @@
 </template>
 
 <script>
-import AddIngredients from "./AddIngredients.vue";
 export default {
-  components: { AddIngredients },
   name: "NewRecipe",
-  props: {
-    name: Text,
-    amount: Number,
-    unit: Number,
+  created() {
+    this.ingridents = [];
+    this.instructionsArray = [];
+    this.showIngridentsMeesage = false;
+    this.showInstructionMeesage = false;
+    this.IngridentsMeesage = "";
   },
   data() {
     return {
@@ -103,6 +167,10 @@ export default {
         extendedIngredients: [],
         analyzedInstructions: null,
         checked: [],
+        ingredientName: "",
+        amount: null,
+        unit: "",
+        step: "",
       },
 
       show: true,
@@ -111,7 +179,6 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      alert(JSON.stringify(this.form));
     },
     onReset(event) {
       event.preventDefault();
@@ -126,11 +193,54 @@ export default {
         this.show = true;
       });
     },
+    addIngredient(event) {
+      console.log("you sumbitted");
+      event.preventDefault();
+      this.showIngridentsMeesage = true;
+      this.IngridentsMeesage = this.form.ingredientName;
+
+      console.log(this.ingridents);
+      this.ingridents.push({
+        ingredientName: this.form.ingredientName,
+        amount: this.form.amount,
+        unit: this.form.unit,
+      });
+      console.log(this.ingridents);
+      this.form = {
+        ingredientName: "",
+        amount: null,
+        unit: "",
+      };
+    },
+    addInstructions(event) {
+      console.log(this.instructionsArray.length);
+      event.preventDefault();
+      this.showInstructionMeesage = true;
+
+      this.instructionsArray.push({
+        number: this.instructionsArray.length + 1,
+        step: this.form.step,
+      });
+      console.log(this.instructionsArray);
+      console.log(this.instructionsArray.length);
+      this.form = {
+        step: "",
+      };
+    },
   },
 };
 </script>
 
-<style scope></style>
+<style scope>
+h5 {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.ingredients {
+  margin-top: 18px;
+}
+</style>
 
 <style>
 #modal-1 .modal-dialog {

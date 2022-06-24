@@ -1,6 +1,6 @@
 <template>
   <div>
-  <b-form inline @submit.prevent="onSubmit">
+  <b-form inline @submit.prevent="addIngredient">
     <label class="sr-only" for="inline-form-input-name">Name</label>
     <b-form-input
       id="input-name"
@@ -27,7 +27,7 @@
     ></b-form-input>
 
       <b-button
-        type="submit"
+        type="addIngredient"
         variant="primary"
         >Add</b-button
       >
@@ -39,13 +39,11 @@
 export default {
   name: "AddIngredients",
    props: {
-    name: Text,
-    amount: Number,
-    unit: Number,
+   ingridents: {
+      type: Array,
+      required: true,
   },
-  created(){
-    this.ingridents=[];
-  },
+ 
  data() {
       return {
         form: {
@@ -83,6 +81,7 @@ export default {
       },
 
     }
+   }
 };
 </script>
 
