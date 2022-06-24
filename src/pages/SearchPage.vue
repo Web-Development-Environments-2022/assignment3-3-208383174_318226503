@@ -21,7 +21,7 @@
           </b-col>
           <b-form-invalid-feedback v-if="$v.form.search.length"></b-form-invalid-feedback>
         <b-col>
-          <b-button variant="outline-success" class="my-2 my-sm-0" type="submit" @click="onSearch" size="lg">Search</b-button>
+          <b-button variant="outline-success" type="submit" @click="onSearch" size="lg">Search</b-button>
         </b-col>
           </b-row>
           <b-row>

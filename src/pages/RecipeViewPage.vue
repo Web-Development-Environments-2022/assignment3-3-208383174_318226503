@@ -55,6 +55,12 @@
             title="this is the first time you're viewing this recipe"
           />
         </div>
+          <div class="info">
+            <br>
+            <br>
+            <!-- <b-button pill variant="outline-success" type="submit" @click="onMake" size="lg">Make Now</b-button> -->
+            <router-link to="/makeRecipe" tag="button" class="makeNowButton">Make Now</router-link>
+          </div>
       </div>
       <div v-if="recipe" class="recipe-img-container">
         <img id="recipe-image" :src="recipe.image" class="center" />
@@ -268,7 +274,11 @@ h2 {
     transparent
   );
 }
-
+.makeNowButton{
+  font-size: 20px;
+  background-color: rgb(235, 222, 195);
+  border-color: rgb(255, 195, 127);
+}
 #ingredients {
   float: left;
 }
