@@ -24,7 +24,6 @@
                 stacked
             >
             <b-form-invalid-feedback :state="state">Please stick to the order of the steps</b-form-invalid-feedback>
-            <b-form-valid-feedback :state="state">Good Job!</b-form-valid-feedback>
             </b-form-checkbox-group>
         </b-form-group>
       </div>
