@@ -89,17 +89,25 @@ export default {
       recipe: null,
     };
   },
-  async created() {
+  async mounted() {
     console.log("getting recipe");
     try {
       let response;
+      console.log(this.$route);
+
       try {
-        console.log("recipe id " + this.$route.params.recipeId);
-        const DOMAIN_PATH = "http://localhost:3000";
+        let DOMAIN_PATH;
+        if (this.$route.query.isPersonal) {
+          DOMAIN_PATH = "http://localhost:3000/users/personal/";
+          console.log("getting personal");
+        } else {
+          DOMAIN_PATH = "http://localhost:3000/recipes/";
+          console.log("getting not personal");
+        }
 
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
-          DOMAIN_PATH + "/recipes/" + this.$route.params.recipeId,
+          DOMAIN_PATH + this.$route.params.recipeId,
           { withCredentials: true }
         );
 
@@ -109,6 +117,7 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
+      console.log(response);
 
       let {
         analyzedInstructions,
