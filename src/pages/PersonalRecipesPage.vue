@@ -7,7 +7,7 @@
       backgroundSize: '410px',
     }"
   >
-    <div class="PersonalPage">
+    <div class="personal-page">
       <div class="container">
         <PersonalRecipePreviewList
           class="PersonalRecipes center"
@@ -34,27 +34,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-container {
-  padding: 20px;
+.container {
+  padding: 2px;
+  min-height: 800px;
   font-family: Helvetica;
 }
 
-.PersonalRecipes {
-  // margin: 10px 0 10px;
+.personal-page {
+  margin-top: 30px;
   margin: auto;
-}
-.blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(2px);
-}
-::v-deep .blur .recipe-preview {
-  pointer-events: none;
-  cursor: default;
-}
-
-#logo {
-  height: 245px;
-  margin: auto;
-  display: block;
 }
 </style>

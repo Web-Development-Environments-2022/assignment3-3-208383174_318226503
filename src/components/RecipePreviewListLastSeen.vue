@@ -1,18 +1,13 @@
 <template>
   <b-container>
-    <h4>
+    <!-- <h4>
       {{ title }}
       <slot></slot>
-    </h4>
+    </h4> -->
     <b-row>
       <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
-    </b-row>
-    <b-row>
-      <b-alert v-if="!this.hasFavorite" show variant="danger"
-        ><a class="alert-link">You don't have favorite recipes yet</a></b-alert
-      >
     </b-row>
   </b-container>
 </template>
@@ -20,7 +15,7 @@
 <script>
 import RecipePreview from "./RecipePreview.vue";
 export default {
-  name: "FavoriteRecipePreviewList",
+  name: "RecipePreviewListLastSeen",
   components: {
     RecipePreview,
   },
@@ -33,32 +28,26 @@ export default {
   data() {
     return {
       recipes: [],
-      hasFavorite: true,
     };
   },
   mounted() {
-    console.log("FavoriteRecipePreviewList mounted");
+    console.log("recipe preview list mounted");
     this.updateRecipes();
   },
   methods: {
     async updateRecipes() {
       const DOMAIN_PATH = "http://localhost:3000";
       try {
-        const response = await this.axios.get(
-          DOMAIN_PATH + "/users/favorites",
-          { withCredentials: true }
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
-        );
-        if (response.status == 200) {
-          const recipes = response.data;
-          this.recipes = [];
-          this.recipes.push(...recipes);
-        } else if (response.status == 204) {
-          // no fav recipes
-          this.hasFavorite = false;
-        }
+        const response = await this.axios
+          .create({ withCredentials: true })
+          .get(DOMAIN_PATH + "/users/lastThreeViewed", {
+            withCredentials: true,
+          });
+        const recipes = response.data;
+        this.recipes = [];
+        this.recipes.push(...recipes);
       } catch (error) {
-        console.dir("error at FavoriteRecipePreviewList");
+        console.dir("error at recipe preview list");
         console.dir(error);
       }
     },
@@ -76,6 +65,7 @@ h4 {
   font-size: 27px;
   font-family: Andale Mono, monospace;
   margin-bottom: 10px;
+  margin-top: 0px;
 }
 
 .col {

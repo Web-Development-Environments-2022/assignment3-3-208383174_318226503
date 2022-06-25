@@ -97,9 +97,7 @@
             <SearchResultsPreview class="searchResultsPreview" :recipe="item" />
           </b-col>
           <!-- <h1 v-if=this.isEmpty>Oops! Nothing matches your search. <br> please try again</h1> -->
-        </b-row>
-        <b-row>
-            <b-alert v-if="this.isEmpty==1" show variant="danger"><a class="alert-link">Oops! Nothing matches your search. 
+          <b-alert v-if="this.isEmpty==1" show variant="danger"><a class="alert-link">Oops! Nothing matches your search. 
             <br> Please try again.</a></b-alert>
         </b-row>
   </div>
@@ -167,7 +165,7 @@ export default {
       const DOMAIN_PATH = "http://localhost:3000";
       console.log("search function");
       try {
-        let path_to_exe = DOMAIN_PATH + "/recipes/search?term="+this.userSearchTerm + "&numOfResults="+this.numberOfResults;
+        let path_to_exe = DOMAIN_PATH + "/recipes/search?term="+this.userSearchTerm + "&numOfResults="+this.numberOfSearchResults;
         if ( this.selectedCuisine != null && this.selectedCuisine != "Cuisine"){
           path_to_exe += "&cuisine="+this.selectedCuisine;
         }
@@ -189,11 +187,10 @@ export default {
         }
         else if(response.status==200){
           this.isEmpty = 0;
-          const recipes = response.data;
-          this.results = [];
-          this.results.push(...recipes);
         }
-
+        const recipes = response.data;
+        this.results = [];
+        this.results.push(...recipes);
       } catch (err) {
         console.log(err.response);
       }
@@ -210,7 +207,7 @@ export default {
       this.Search();
     },
     numSearchResult(num){
-      this.numberOfResults = num.toString();
+      this.numberOfSearchResults = num.toString();
       this.numberOfResults_text = num;
     },
     setCuisine(cType){

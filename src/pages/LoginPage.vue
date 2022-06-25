@@ -1,4 +1,3 @@
-
 <template>
   <div class="container">
     <h1 class="title">Login</h1>
@@ -73,19 +72,19 @@ export default {
       form: {
         username: "",
         password: "",
-        submitError: undefined
-      }
+        submitError: undefined,
+      },
     };
   },
   validations: {
     form: {
       username: {
-        required
+        required,
       },
       password: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   methods: {
     validateState(param) {
@@ -95,24 +94,21 @@ export default {
     async Login() {
       const DOMAIN_PATH = "http://localhost:3000";
       try {
-        
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Login",
           // this.$root.store.server_domain +"/Login",
-          DOMAIN_PATH +"/Login", 
+          DOMAIN_PATH + "/Login",
           // "http://132.72.65.211:80/Login",
           // "http://132.73.84.100:80/Login",
 
           {
             username: this.form.username,
-            password: this.form.password
-          },{ withCredentials: true }
+            password: this.form.password,
+          },
+          { withCredentials: true }
         );
-        console.log(response);
-        console.log(response.data.user_id);
         // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
-        this.$root.store.login(this.form.username,response.data.user_id);
+        this.$root.store.login(this.form.username, response.data.user_id);
         this.$router.push("/");
       } catch (err) {
         console.log(err.response);
@@ -129,12 +125,27 @@ export default {
       console.log("login method go");
 
       this.Login();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
 .container {
   max-width: 400px;
+}
+
+.title {
+  font-family: Andale Mono, monospace;
+  font-size: 37px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.form-row.form-group {
+  align-items: baseline;
+}
+
+.mx-auto.w-100 {
+  margin-bottom: 15px;
 }
 </style>

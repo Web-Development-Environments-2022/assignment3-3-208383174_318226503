@@ -39,22 +39,16 @@ container {
   font-family: Helvetica;
 }
 
+.container {
+  min-height: 800px;
+}
+
+.FavoritePage {
+  height: 1000px;
+}
+
 .FavoriteRecipes {
   // margin: 10px 0 10px;
   margin: auto;
-}
-.blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(2px);
-}
-::v-deep .blur .recipe-preview {
-  pointer-events: none;
-  cursor: default;
-}
-
-#logo {
-  height: 245px;
-  margin: auto;
-  display: block;
 }
 </style>

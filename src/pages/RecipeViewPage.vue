@@ -44,13 +44,13 @@
           />
           <img
             id="viewed"
-            v-if="recipe.first_time === false"
+            v-if="recipe.isViewed === true"
             src="../../resources/viewed.png"
             title="you have viewed this recipe"
           />
           <img
             id="viewed"
-            v-else-if="recipe.isViewed === true"
+            v-else-if="recipe.isViewed === false"
             src="../../resources/new.png"
             title="this is the first time you're viewing this recipe"
           />
@@ -64,7 +64,7 @@
       </div>
       <div v-if="recipe" class="recipe-img-container">
         <img id="recipe-image" :src="recipe.image" class="center" />
-        <FavoriteButton id="favoriteButton" :recipe="recipe" />
+        <FavoriteButton id="favoriteButton" :recipe="recipe.previewInfo" />
       </div>
     </div>
     <div class="divider div-transparent"></div>
@@ -99,7 +99,6 @@ export default {
     console.log("getting recipe");
     try {
       let response;
-
       try {
         console.log("recipe id " + this.$route.params.recipeId);
         const DOMAIN_PATH = "http://localhost:3000";
@@ -121,7 +120,7 @@ export default {
         analyzedInstructions,
         extendedIngredients,
         servingSize,
-        first_time,
+        previewInfo,
       } = response.data;
 
       let {
@@ -134,7 +133,6 @@ export default {
         glutenFree,
         isFavorite,
         isViewed,
-        id,
       } = response.data.previewInfo;
 
       let _instructions = analyzedInstructions
@@ -158,8 +156,7 @@ export default {
         isFavorite,
         isViewed,
         servingSize,
-        first_time,
-        id,
+        previewInfo,
       };
 
       this.recipe = _recipe;
@@ -285,7 +282,7 @@ h2 {
 
 #instructions {
   float: left;
-  width: 69%;
+  width: 68%;
   padding: 0 50px 0 50px;
 }
 </style>
