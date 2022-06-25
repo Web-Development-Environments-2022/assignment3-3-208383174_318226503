@@ -89,17 +89,30 @@ export default {
       recipe: null,
     };
   },
-  async created() {
-    console.log("getting recipe");
+  async mounted() {
+    // console.log("getting recipe");
+    console.log("!!!! " + this.$route.query.isPersonal);
+    let DOMAIN_PATH;
+
     try {
       let response;
-      try {
-        console.log("recipe id " + this.$route.params.recipeId);
-        const DOMAIN_PATH = "http://localhost:3000";
+      console.log(this.$route);
 
+      if (this.$route.query.isPersonal) {
+        DOMAIN_PATH = "http://localhost:3000/personal/recipes/";
+      } else {
+        DOMAIN_PATH = "http://localhost:3000/recipes/";
+      }
+
+      try {
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
-          DOMAIN_PATH + "/recipes/" + this.$route.params.recipeId,
+          DOMAIN_PATH + this.$route.params.recipeId,
+          {
+            params: {
+              isPersonal: this.$route.query.isPersonal,
+            },
+          },
           { withCredentials: true }
         );
 
@@ -109,6 +122,7 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
+      console.log(response);
 
       let {
         analyzedInstructions,
@@ -272,7 +286,7 @@ h2 {
 
 #instructions {
   float: left;
-  width: 68%;
+  width: 65%;
   padding: 0 50px 0 50px;
 }
 </style>
