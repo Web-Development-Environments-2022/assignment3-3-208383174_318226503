@@ -9,12 +9,6 @@
       </b-progress-bar>
     </b-progress>
     <div class="wrapped">
-      <!-- <div class="step">
-        <div class="specific-step" v-for="s in instructions" :key="s.number">
-          <div id="step-title">step {{ s.number }}:</div>
-          <div id="step-description">{{ s.step }}</div>
-        </div> -->
-         <!-- <ejs-listview id='steps' :dataSource='steps_todo' showCheckBox='true' checkBoxPosition='Right'></ejs-listview> -->
         <b-form-group v-slot="{ ariaDescribedby }">
             <b-form-checkbox-group
                 v-model="selected"
@@ -32,8 +26,6 @@
 </template>
 
 <script>
-// import { ListViewPlugin } from "@syncfusion/ej2-vue-lists";
-// Vue.use(ListViewPlugin);
 export default {
   name: "Instructions",
   props: {
@@ -63,7 +55,9 @@ export default {
   },
   methods: {
     updateValueProgress(){
+      if (this.value<this.max){
         this.value +=1;
+      }
     },
     getValue(){
         return this.value_progress;
@@ -74,35 +68,21 @@ export default {
         console.log("this.selected:"+this.selected);
         console.log("value: "+this.value);
         console.log("max: "+this.max);
-    //     console.log("this.steps_todo:"+this.steps_todo);
-    //     if(this.selected.length<=1){
-    //         return true;
-    //     }
-    //     console.log("this.selected[-1] "+ this.selected[-1]);
-    //     console.log("this.selected[1] "+ this.selected[1]);
-    //     return (this.selected[-1]-this.selected[-2])==1;
-    //   }}
-
-    let len = this.selected.length;
-    if(len==1){
-        this.updateValueProgress();
-        return true;
-    }
-    if(len==0){
-      return true;
-    }
-    console.log(parseInt(this.selected[len-1]));
-    if(parseInt(this.selected[len-1])-parseInt(this.selected[len-2])==1){
-        this.updateValueProgress();
-        return true;
-    }
-    return false;
+        let len = this.selected.length;
+        if(len==1){
+            this.updateValueProgress();
+            return true;
+        }
+        if(len==0){
+          return true;
+        }
+        console.log(parseInt(this.selected[len-1]));
+        if(parseInt(this.selected[len-1])-parseInt(this.selected[len-2])==1){
+            this.updateValueProgress();
+            return true;
+        }
+        return false;
 },
-// state_progress(){
-// this.updateValueProgress();
-// console.log("this.updateValueProgress()");
-// return true;
-// },
 }};
 </script>
 
