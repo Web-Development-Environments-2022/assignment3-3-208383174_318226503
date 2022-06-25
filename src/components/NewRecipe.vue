@@ -282,8 +282,12 @@ export default {
         numeric,
       },
       ingredientName: {
-        length: (t) => maxLength(100)(t),
-        alpha,
+        valid: function(value) {
+          if (value == undefined) {
+            return true;
+          }
+          return maxLength(100)(value) && /^[A-Za-z\s]*$/.test(value);
+        },
       },
       amount: {
         valid: function(value) {
