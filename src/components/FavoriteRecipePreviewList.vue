@@ -76,6 +76,7 @@ h4 {
   font-size: 27px;
   font-family: Andale Mono, monospace;
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .col {
