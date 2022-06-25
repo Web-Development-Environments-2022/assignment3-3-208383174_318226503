@@ -224,7 +224,6 @@ export default {
   color: rgba(0, 0, 0, 0.9);
   background-color: #f8f9fa;
   padding: 0;
-  // padding: 0.3125rem 1rem 0.3125rem;
   margin: 0.5rem;
   border: none;
   box-shadow: none;

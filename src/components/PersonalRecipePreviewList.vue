@@ -77,6 +77,10 @@ export default {
   margin-top: 30px;
 }
 
+.col {
+  flex-grow: 0;
+}
+
 h4 {
   font-size: 27px;
   font-family: Andale Mono, monospace;
