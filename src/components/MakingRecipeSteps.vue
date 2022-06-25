@@ -20,6 +20,7 @@
                 v-model="selected"
                 :options="steps_todo"
                 :aria-describedby="ariaDescribedby"
+                size="lg"
                 name="steps_todo_"
                 stacked
             >
