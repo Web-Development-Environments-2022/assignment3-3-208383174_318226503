@@ -6,6 +6,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@syncfusion/ej2-vue-lists": "^20.1.55",
     "axios": "^0.19.2",
     "bootstrap": "^4.6.1",
     "bootstrap-vue": "^2.22.0",

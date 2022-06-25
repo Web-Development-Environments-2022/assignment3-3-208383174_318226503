@@ -59,7 +59,7 @@
             <br>
             <br>
             <!-- <b-button pill variant="outline-success" type="submit" @click="onMake" size="lg">Make Now</b-button> -->
-            <router-link to="/makeRecipe" tag="button" class="makeNowButton">Make Now</router-link>
+            <b-button variant="outline-success" type="submit" @click="onMakeNow" size="lg">Make Now</b-button>
           </div>
       </div>
       <div v-if="recipe" class="recipe-img-container">
@@ -69,8 +69,11 @@
     </div>
     <div class="divider div-transparent"></div>
     <div class="recipe-full">
-      <div id="instructions">
+      <div v-if="onlypreview" id="instructions">
         <Instructions :instructions="recipe._instructions" />
+      </div>
+      <div v-if="!onlypreview" id="MakingRecipeSteps_div">
+        <MakingRecipeSteps :instructions="recipe._instructions" />
       </div>
       <div id="ingredients">
         <Ingredients :ingredients="recipe.extendedIngredients" />
@@ -83,16 +86,19 @@
 import FavoriteButton from "../components/FavoriteButton.vue";
 import Ingredients from "../components/Ingredients.vue";
 import Instructions from "../components/Instructions.vue";
+import MakingRecipeSteps from "../components/MakingRecipeSteps.vue"
 
 export default {
   components: {
     FavoriteButton,
     Ingredients,
     Instructions,
+    MakingRecipeSteps,
   },
   data() {
     return {
       recipe: null,
+      onlypreview: true,
     };
   },
   async created() {
@@ -162,6 +168,11 @@ export default {
       this.recipe = _recipe;
     } catch (error) {
       console.log(error);
+    }
+  },
+  methods: {
+    onMakeNow(){
+      this.onlypreview = false;
     }
   },
 };
@@ -281,6 +292,11 @@ h2 {
 }
 
 #instructions {
+  float: left;
+  width: 68%;
+  padding: 0 50px 0 50px;
+}
+#MakingRecipeSteps_div{
   float: left;
   width: 68%;
   padding: 0 50px 0 50px;
