@@ -99,7 +99,7 @@ export default {
       console.log(this.$route);
 
       if (this.$route.query.isPersonal) {
-        DOMAIN_PATH = "http://localhost:3000/personal/recipes/";
+        DOMAIN_PATH = "http://localhost:3000/users/personal/";
       } else {
         DOMAIN_PATH = "http://localhost:3000/recipes/";
       }
@@ -108,11 +108,6 @@ export default {
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
           DOMAIN_PATH + this.$route.params.recipeId,
-          {
-            params: {
-              isPersonal: this.$route.query.isPersonal,
-            },
-          },
           { withCredentials: true }
         );
 
