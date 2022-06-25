@@ -9,7 +9,7 @@
   >
     <div class="mainPage">
       <div class="container">
-        <img id="logo" src="../../resources/logo.jpg" />
+        <img id="logo" src="../../resources/logo-with-names.jpg" />
         <div>
           <RecipePreviewListRandom
             :key="componentKey"
