@@ -2,7 +2,10 @@
   <div>
     <div class="card" style="width: 18rem; height: 23.24rem;">
       <router-link
-        :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+        :to="{
+          name: 'recipe',
+          params: { recipeId: recipe.id, isPersonal: recipe.isPersonal },
+        }"
         id="recipe-preview"
       >
         <div class="recipe-body">
@@ -66,14 +69,6 @@ export default {
       this.image_load = true;
     });
   },
-  destroyed() {
-    this.$router
-      .push({
-        name: "recipe",
-        query: { isPersonal: this.recipe.isPersonal },
-      })
-      .catch(() => {});
-  },
   data() {
     return {
       image_load: false,
@@ -83,6 +78,9 @@ export default {
     recipe: {
       type: Object,
       required: true,
+    },
+    created() {
+      console.log(recipe.isPersonal);
     },
   },
 };
@@ -124,6 +122,10 @@ export default {
   padding-top: 4px;
   position: absolute;
   top: 270px;
+}
+
+.col {
+  flex-grow: 0;
 }
 
 .card .card-title {

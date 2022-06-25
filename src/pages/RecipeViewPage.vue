@@ -44,13 +44,13 @@
           />
           <img
             id="viewed"
-            v-if="recipe.isViewed === true"
+            v-if="recipe.isViewed === true && recipe.isPersonal === false"
             src="../../resources/viewed.png"
             title="you have viewed this recipe"
           />
           <img
             id="viewed"
-            v-else-if="recipe.isViewed === false"
+            v-else-if="recipe.isViewed === false && recipe.isPersonal === false"
             src="../../resources/new.png"
             title="this is the first time you're viewing this recipe"
           />
@@ -102,23 +102,22 @@ export default {
     };
   },
   async mounted() {
-    // console.log("getting recipe");
-    console.log("!!!! " + this.$route.query.isPersonal);
     let DOMAIN_PATH;
 
     try {
       let response;
       console.log(this.$route);
 
-      if (this.$route.query.isPersonal) {
+      if (this.$route.params.isPersonal) {
+        console.log("personal");
         DOMAIN_PATH = "http://localhost:3000/users/personal/";
       } else {
+        console.log("not personal");
         DOMAIN_PATH = "http://localhost:3000/recipes/";
       }
 
       try {
         response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/recipes/info",
           DOMAIN_PATH + this.$route.params.recipeId,
           { withCredentials: true }
         );
@@ -134,7 +133,6 @@ export default {
       let {
         analyzedInstructions,
         extendedIngredients,
-        servingSize,
         previewInfo,
       } = response.data;
 
@@ -148,6 +146,7 @@ export default {
         glutenFree,
         isFavorite,
         isViewed,
+        servingSize,
       } = response.data.previewInfo;
 
       let _instructions = analyzedInstructions
@@ -170,9 +169,25 @@ export default {
         glutenFree,
         isFavorite,
         isViewed,
-        servingSize,
         previewInfo,
+        servingSize,
       };
+
+      console.log(this.readyInMinutes);
+      console.log(servingSize);
+
+      if (this.readyInMinutes === null || this.readyInMinutes === undefined) {
+        console.log("true 1");
+        this.readyInMinutes = "0";
+      }
+
+      if (servingSize === null || servingSize === undefined) {
+        console.log("true 2");
+        this.servingSize = 0;
+      }
+
+      console.log(readyInMinutes);
+      console.log(servingSize);
 
       this.recipe = _recipe;
     } catch (error) {
