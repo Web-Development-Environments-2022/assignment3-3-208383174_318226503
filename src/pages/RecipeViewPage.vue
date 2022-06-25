@@ -90,17 +90,17 @@ export default {
     };
   },
   async mounted() {
-    // console.log("getting recipe");
-    console.log("!!!! " + this.$route.query.isPersonal);
     let DOMAIN_PATH;
 
     try {
       let response;
       console.log(this.$route);
 
-      if (this.$route.query.isPersonal) {
+      if (this.$route.params.isPersonal) {
+        console.log("personal");
         DOMAIN_PATH = "http://localhost:3000/users/personal/";
       } else {
+        console.log("not personal");
         DOMAIN_PATH = "http://localhost:3000/recipes/";
       }
 
