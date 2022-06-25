@@ -3,51 +3,54 @@
     <h1 class="title">Search Page</h1>
 
     <!-- <b-navbar type="light" variant="light"> -->
-    <b-nav-form>
-      <b-container>
-        <b-row>
-          <b-col>
-            <b-form-input
-              id="search"
-              placeholder="Search..."
-              v-model="$v.form.search.$model"
-              label-for="search"
-              type="text"
-              :state="validateState('search')"
-              size="lg"
-              style="width: 800px;"
-            ></b-form-input>
-          </b-col>
-          <b-form-invalid-feedback
-            v-if="$v.form.search.length"
-          ></b-form-invalid-feedback>
-          <b-col>
-            <b-button
-              variant="outline-success"
-              type="submit"
-              @click="onSearch"
-              size="lg"
-              >Search</b-button
-            >
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
-            <b-dropdown
-              id="numSearchResult"
-              class="m-2"
-              :text="numberOfResults_text"
-            >
-              <b-dropdown-item @click="numSearchResult('5')">5</b-dropdown-item>
-              <b-dropdown-item @click="numSearchResult('10')"
-                >10</b-dropdown-item
+    <div id="details">
+      <b-nav-form>
+        <b-container>
+          <b-row>
+            <b-col>
+              <b-form-input
+                id="search"
+                placeholder="Search..."
+                v-model="$v.form.search.$model"
+                label-for="search"
+                type="text"
+                :state="validateState('search')"
+                size="lg"
+                style="width: 800px;"
+              ></b-form-input>
+            </b-col>
+            <b-form-invalid-feedback
+              v-if="$v.form.search.length"
+            ></b-form-invalid-feedback>
+            <b-col>
+              <b-button
+                variant="outline-success"
+                type="submit"
+                @click="onSearch"
+                size="lg"
+                >Search</b-button
               >
-              <b-dropdown-item @click="numSearchResult('15')"
-                >15</b-dropdown-item
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <b-dropdown
+                id="numSearchResult"
+                class="m-2"
+                :text="numberOfResults_text"
               >
-            </b-dropdown>
-          </b-col>
-          <!-- <b-col>
+                <b-dropdown-item @click="numSearchResult('5')"
+                  >5</b-dropdown-item
+                >
+                <b-dropdown-item @click="numSearchResult('10')"
+                  >10</b-dropdown-item
+                >
+                <b-dropdown-item @click="numSearchResult('15')"
+                  >15</b-dropdown-item
+                >
+              </b-dropdown>
+            </b-col>
+            <!-- <b-col>
             <b-form-select
             id="cuisine"
             :options="cuisines"
@@ -56,63 +59,64 @@
           ></b-form-select>
           </b-col> -->
 
-          <!--cuisine dropdown box-->
-          <b-col>
-            <b-dropdown id="cuisine" class="m-2" :text="selectedCuisine">
-              <b-dropdown-item-button
-                v-for="c in cuisines"
-                :key="c.text"
-                @click.prevent="setCuisine(c)"
-                >{{ c }}</b-dropdown-item-button
+            <!--cuisine dropdown box-->
+            <b-col>
+              <b-dropdown id="cuisine" class="m-2" :text="selectedCuisine">
+                <b-dropdown-item-button
+                  v-for="c in cuisines"
+                  :key="c.text"
+                  @click.prevent="setCuisine(c)"
+                  >{{ c }}</b-dropdown-item-button
+                >
+              </b-dropdown>
+            </b-col>
+            <!--diet dropdown box-->
+            <b-col>
+              <b-dropdown id="diet" class="m-2" :text="selectedDiet">
+                <b-dropdown-item-button
+                  v-for="c in diets"
+                  :key="c.text"
+                  @click.prevent="setDiet(c)"
+                  >{{ c }}</b-dropdown-item-button
+                >
+              </b-dropdown>
+            </b-col>
+            <!--intolerance dropdown box-->
+            <b-col>
+              <b-dropdown
+                id="intolerance"
+                class="m-2"
+                :text="selectedIntolerance"
               >
-            </b-dropdown>
-          </b-col>
-          <!--diet dropdown box-->
-          <b-col>
-            <b-dropdown id="diet" class="m-2" :text="selectedDiet">
-              <b-dropdown-item-button
-                v-for="c in diets"
-                :key="c.text"
-                @click.prevent="setDiet(c)"
-                >{{ c }}</b-dropdown-item-button
-              >
-            </b-dropdown>
-          </b-col>
-          <!--intolerance dropdown box-->
-          <b-col>
-            <b-dropdown
-              id="intolerance"
-              class="m-2"
-              :text="selectedIntolerance"
-            >
-              <b-dropdown-item-button
-                v-for="c in intolerances"
-                :key="c.text"
-                @click.prevent="setIntolerance(c)"
-                >{{ c }}</b-dropdown-item-button
-              >
-            </b-dropdown>
-          </b-col>
-        </b-row>
-      </b-container>
-    </b-nav-form>
-    <!-- </b-navbar> -->
-    <b-row v-if="this.isEmpty == 0">
-      <b-form-group label="Sort by:">
-        <b-form-radio
-          value="cooking_duration"
-          name="sortOpt"
-          @change.native="sortByCookingDuration($event)"
-          >Cooking Duration</b-form-radio
-        >
-        <b-form-radio
-          value="popularity"
-          name="sortOpt"
-          @change.native="sortByPopularity($event)"
-          >Popularity</b-form-radio
-        >
-      </b-form-group>
-    </b-row>
+                <b-dropdown-item-button
+                  v-for="c in intolerances"
+                  :key="c.text"
+                  @click.prevent="setIntolerance(c)"
+                  >{{ c }}</b-dropdown-item-button
+                >
+              </b-dropdown>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-nav-form>
+      <!-- </b-navbar> -->
+      <b-row v-if="this.isEmpty == 0">
+        <b-form-group label="Sort by:">
+          <b-form-radio
+            value="cooking_duration"
+            name="sortOpt"
+            @change.native="sortByCookingDuration($event)"
+            >Cooking Duration</b-form-radio
+          >
+          <b-form-radio
+            value="popularity"
+            name="sortOpt"
+            @change.native="sortByPopularity($event)"
+            >Popularity</b-form-radio
+          >
+        </b-form-group>
+      </b-row>
+    </div>
     <b-row v-if="this.isEmpty == 0" cols="3">
       <b-col v-for="item in results" :key="item.previewInfo.id">
         <SearchResultsPreview class="searchResultsPreview" :recipe="item" />
@@ -155,7 +159,7 @@ export default {
       cusine: "",
       diet: "",
       intolerance: "",
-      numberOfResults_text: "Number of search results",
+      numberOfResults_text: "Number of results",
       isEmpty: 5,
     };
   },
@@ -292,6 +296,40 @@ export default {
 container {
   padding: 20px;
   font-family: Helvetica;
+}
+
+.container {
+  max-width: 1600px;
+}
+
+#details,
+.custom-control-label {
+  font-size: 900px;
+}
+
+.title {
+  font-family: Andale Mono, monospace;
+  font-size: 37px;
+  margin-bottom: 15px;
+  padding-top: 10px;
+  text-align: center;
+  color: rgb(234, 121, 0);
+}
+
+.col {
+  display: contents;
+}
+
+.row {
+  margin-top: 15px;
+}
+
+form-group {
+  text-align: -webkit-center;
+}
+
+.bv-no-focus-ring.col-form-label.pt-0 {
+  font-size: 40px;
 }
 
 .SearchRecipes {

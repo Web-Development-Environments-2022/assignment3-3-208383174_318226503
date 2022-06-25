@@ -6,7 +6,11 @@
         id="recipe-preview"
       >
         <div class="recipe-body">
-          <img v-if="image_load" :src="recipe.previewInfo.image" class="card-img-top" />
+          <img
+            v-if="image_load"
+            :src="recipe.previewInfo.image"
+            class="card-img-top"
+          />
         </div>
         <h5 class="card-title">
           {{ recipe.previewInfo.title }}
@@ -15,13 +19,17 @@
       <div class="card-body">
         <ul class="list-group list-group-flush">
           <p id="recipe_info">
-            {{ recipe.previewInfo.readyInMinutes }} minutes | {{ recipe.previewInfo.popularity }} likes
+            {{ recipe.previewInfo.readyInMinutes }} minutes |
+            {{ recipe.previewInfo.popularity }} likes
           </p>
           <p id="viewed_recipe" v-if="recipe.previewInfo.isViewed === true">
             you already viewed this recipe
           </p>
           <div class="food_icons">
-            <FavoriteButton class="favoriteButton" :recipe="recipe" />
+            <FavoriteButton
+              class="favoriteButton"
+              :recipe="recipe.previewInfo"
+            />
             <img
               id="vegetarian"
               v-if="recipe.previewInfo.vegetarian === true"
@@ -110,6 +118,7 @@ export default {
 
 .card {
   border-color: #e0c0a6;
+  margin: 15px;
 }
 
 .card-body {
