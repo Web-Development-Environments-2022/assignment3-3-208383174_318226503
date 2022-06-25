@@ -96,7 +96,7 @@ export default {
       let response;
       console.log(this.$route);
 
-      if (this.$route.params.isPersonal) {
+      if (this.$route.query.isPersonal) {
         console.log("personal");
         DOMAIN_PATH = "http://localhost:3000/users/personal/";
       } else {
