@@ -93,7 +93,6 @@ export default {
     console.log("getting recipe");
     try {
       let response;
-
       try {
         console.log("recipe id " + this.$route.params.recipeId);
         const DOMAIN_PATH = "http://localhost:3000";

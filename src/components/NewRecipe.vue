@@ -277,7 +277,7 @@ export default {
             return true;
           }
           const containsMinus = /[-]/.test(value);
-          return !containsMinus && value >= 1;
+          return !containsMinus && value > 0;
         },
         numeric,
       },
@@ -290,7 +290,7 @@ export default {
           if (value == undefined) {
             return true;
           }
-          return value >= 1;
+          return value > 0;
         },
       },
 
@@ -314,6 +314,9 @@ export default {
       if (this.$v.form.$anyError) {
         return;
       }
+      console.log(`submitting recipe ${this.form.title}`);
+      this.onReset();
+
       this.AddRecipe();
     },
     async AddRecipe() {
@@ -355,7 +358,6 @@ export default {
           "new recipe added successfully",
           "success"
         );
-        this.onReset();
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
