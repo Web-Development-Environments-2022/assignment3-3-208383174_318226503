@@ -3,6 +3,11 @@
     <h1>
       Instructions
     </h1>
+    <b-progress :max="max" height="2rem">
+      <b-progress-bar :value="value" >
+        <span>Progress: <strong>{{ value.toFixed(2) }} / {{ max }}</strong></span>
+      </b-progress-bar>
+    </b-progress>
     <div class="wrapped">
       <!-- <div class="step">
         <div class="specific-step" v-for="s in instructions" :key="s.number">
@@ -19,6 +24,7 @@
                 stacked
             >
             <b-form-invalid-feedback :state="state">Please stick to the order of the steps</b-form-invalid-feedback>
+            <b-form-valid-feedback :state="state">Good Job!</b-form-valid-feedback>
             </b-form-checkbox-group>
         </b-form-group>
       </div>
@@ -40,6 +46,9 @@ export default {
     return {
         steps_todo: [],
         selected: [],
+        max: 0,
+        value_progress:0,
+        value: 0,
     };
   },
   mounted() {
@@ -49,10 +58,22 @@ export default {
         str_step = `Step ${this.instructions[i].number}: ${this.instructions[i].step}`;
         this.steps_todo.push({text:str_step, value: this.instructions[i].number});
         } 
+    this.max = this.steps_todo.length;
+    console.log("max: "+max);
+  },
+  methods: {
+    updateValueProgress(){
+        this.value +=1;
+    },
+    getValue(){
+        return this.value_progress;
+    }
   },
     computed: {
       state() {
         console.log("this.selected:"+this.selected);
+        console.log("value: "+this.value);
+        console.log("max: "+this.max);
     //     console.log("this.steps_todo:"+this.steps_todo);
     //     if(this.selected.length<=1){
     //         return true;
@@ -63,15 +84,26 @@ export default {
     //   }}
 
     let len = this.selected.length;
-    if(len<=1){
+    if(len==1){
+        this.updateValueProgress();
         return true;
+    }
+    if(len==0){
+      return true;
     }
     console.log(parseInt(this.selected[len-1]));
     if(parseInt(this.selected[len-1])-parseInt(this.selected[len-2])==1){
+        this.updateValueProgress();
         return true;
     }
     return false;
-}}};
+},
+// state_progress(){
+// this.updateValueProgress();
+// console.log("this.updateValueProgress()");
+// return true;
+// },
+}};
 </script>
 
 <style scoped>
