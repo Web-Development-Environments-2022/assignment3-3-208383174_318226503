@@ -66,6 +66,14 @@ export default {
       this.image_load = true;
     });
   },
+  destroyed() {
+    this.$router
+      .push({
+        name: "recipe",
+        query: { isPersonal: this.recipe.isPersonal },
+      })
+      .catch(() => {});
+  },
   data() {
     return {
       image_load: false,
