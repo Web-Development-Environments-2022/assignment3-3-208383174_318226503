@@ -79,6 +79,11 @@ h4 {
 }
 
 .col {
+  flex-grow: 0;
+  margin-bottom: 15px;
+}
+
+.col {
   padding-right: 0;
 }
 </style>

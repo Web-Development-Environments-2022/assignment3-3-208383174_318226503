@@ -41,6 +41,7 @@ container {
 
 .container {
   min-height: 800px;
+  padding: 2px;
 }
 
 .FavoritePage {

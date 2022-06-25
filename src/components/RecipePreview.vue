@@ -124,6 +124,10 @@ export default {
   top: 270px;
 }
 
+.col {
+  flex-grow: 0;
+}
+
 .card .card-title {
   margin: 6px 0 0 0;
   font-size: 19.5px;
