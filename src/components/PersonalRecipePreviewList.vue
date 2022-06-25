@@ -83,6 +83,10 @@ h4 {
   margin-bottom: 10px;
 }
 
+.recipePreview {
+  margin-bottom: 25px;
+}
+
 .alert-danger,
 .alert-danger:hover,
 .alert-danger .alert-link,
