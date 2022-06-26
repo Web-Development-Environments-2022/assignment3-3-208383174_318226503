@@ -137,7 +137,6 @@ export default {
         servingSize,
       } = response.data.previewInfo;
 
-      console.log(1);
       let _instructions = analyzedInstructions
         .map((fstep) => {
           fstep.steps[0].step = fstep.name + fstep.steps[0].step;
