@@ -312,7 +312,7 @@ export default {
       const { $dirty, $error } = this.$v.form[param];
       return $dirty ? !$error : null;
     },
-    onSubmit(event) {
+    async onSubmit(event) {
       event.preventDefault();
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
@@ -321,10 +321,11 @@ export default {
       console.log(`submitting recipe ${this.form.title}`);
       console.dir(`submitting recipe ${this.form}`);
 
-      this.AddRecipe();
+      await this.AddRecipe();
       this.onReset();
     },
     async AddRecipe() {
+      console.log("serving size " + this.form.servingSize);
       let vegan = false;
       let vegetarian = false;
       let glutenFree = false;
@@ -360,6 +361,7 @@ export default {
             instructions: this.instructionsArray,
             servingSize: this.form.servingSize,
           });
+        console.log("serving size " + this.form.servingSize);
         this.$root.toast(
           "Recipe Added",
           "new recipe added successfully",
@@ -381,7 +383,7 @@ export default {
         checked: [],
         ingredientName: "",
         amount: null,
-        unit: "",
+        unit: null,
         step: "",
       };
       this.instructionsArray = [];
@@ -405,6 +407,9 @@ export default {
         return;
       }
 
+      console.log("unit " + this.form.unit);
+      console.log(this.form.unit);
+
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
 
@@ -415,7 +420,7 @@ export default {
       });
       (this.form.ingredientName = ""),
         (this.form.amount = null),
-        (this.form.unit = "");
+        (this.form.unit = null);
     },
 
     addInstructions() {

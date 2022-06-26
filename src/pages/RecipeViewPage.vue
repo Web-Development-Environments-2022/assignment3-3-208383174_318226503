@@ -55,12 +55,18 @@
             title="this is the first time you're viewing this recipe"
           />
         </div>
-          <div class="info">
-            <br>
-            <br>
-            <!-- <b-button pill variant="outline-success" type="submit" @click="onMake" size="lg">Make Now</b-button> -->
-            <b-button variant="outline-success" type="submit" @click="onMakeNow" size="lg">Make Now</b-button>
-          </div>
+        <div class="info">
+          <br />
+          <br />
+          <!-- <b-button pill variant="outline-success" type="submit" @click="onMake" size="lg">Make Now</b-button> -->
+          <b-button
+            variant="outline-success"
+            type="submit"
+            @click="onMakeNow"
+            size="lg"
+            >Make Now</b-button
+          >
+        </div>
       </div>
       <div v-if="recipe" class="recipe-img-container">
         <img id="recipe-image" :src="recipe.image" class="center" />
@@ -86,7 +92,7 @@
 import FavoriteButton from "../components/FavoriteButton.vue";
 import Ingredients from "../components/Ingredients.vue";
 import Instructions from "../components/Instructions.vue";
-import MakingRecipeSteps from "../components/MakingRecipeSteps.vue"
+import MakingRecipeSteps from "../components/MakingRecipeSteps.vue";
 
 export default {
   components: {
@@ -149,12 +155,15 @@ export default {
         servingSize,
       } = response.data.previewInfo;
 
-      let _instructions = analyzedInstructions
-        .map((fstep) => {
-          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-          return fstep.steps;
-        })
-        .reduce((a, b) => [...a, ...b], []);
+      let _instructions;
+      if (analyzedInstructions[0].steps.length != 0) {
+        _instructions = analyzedInstructions
+          .map((fstep) => {
+            fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+            return fstep.steps;
+          })
+          .reduce((a, b) => [...a, ...b], []);
+      }
 
       let _recipe = {
         _instructions,
@@ -196,9 +205,9 @@ export default {
     }
   },
   methods: {
-    onMakeNow(){
+    onMakeNow() {
       this.onlypreview = false;
-    }
+    },
   },
 };
 </script>
@@ -307,7 +316,7 @@ h2 {
     transparent
   );
 }
-.makeNowButton{
+.makeNowButton {
   font-size: 20px;
   background-color: rgb(235, 222, 195);
   border-color: rgb(255, 195, 127);
@@ -321,7 +330,7 @@ h2 {
   width: 65%;
   padding: 0 50px 0 50px;
 }
-#MakingRecipeSteps_div{
+#MakingRecipeSteps_div {
   float: left;
   width: 68%;
   padding: 0 50px 0 50px;

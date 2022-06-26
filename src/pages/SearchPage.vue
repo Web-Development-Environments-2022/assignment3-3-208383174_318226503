@@ -135,10 +135,7 @@
     </b-row>
     <b-row v-if="this.isEmpty == 1">
       <b-alert show variant="danger"
-        ><a class="alert-link"
-          >Oops! Nothing matches your search. <br />
-          Please try again.</a
-        ></b-alert
+        ><p class="alert-link">Oops! Nothing matches your search.</p></b-alert
       >
     </b-row>
   </div>
@@ -340,6 +337,14 @@ container {
 
 .row#sort-by {
   margin-left: 0px;
+}
+
+.alert {
+  margin-left: 25px;
+}
+
+.alert p {
+  margin: 0;
 }
 
 .row #sort-by {
