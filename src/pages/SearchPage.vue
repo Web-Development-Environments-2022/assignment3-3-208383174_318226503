@@ -107,7 +107,8 @@
           <!-- <b-alert show variant="light">{{last_search}}</b-alert> -->
           <!-- <span>Message: {{ last_search }}</span> -->
           <!-- <div v-bind="last_search"></div> -->
-          <p style="font-weight:bold"><span style="color:blue">{{last_search}}</span></p>
+          <p style="font-weight:bold; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+          <span style="color:grey">{{last_search}}</span></p>
       </b-row>
       <b-row v-if="this.isEmpty == 0">
         <b-form-group label="Sort by:">
@@ -207,17 +208,10 @@ export default {
     async Search() {
       const DOMAIN_PATH = "http://localhost:3000";
       console.log("search function");
-      
-      // localStorage.setItem("last_search", {term:this.userSearchTerm,
-      // numOfResults:this.numberOfResults, cuisine:this.selectedCuisine, diet:this.selectedDiet,
-      // intolerance: this.selectedIntolerance});
-      // this.hasLastSearch = true;
-      // console.log("localStorage.last_search: "+localStorage.last_search);
-
       //get results
       try {
         let last_search_str = `Your last search was: ${this.userSearchTerm}\n
-        with: ${this.numberOfResults} results.\n`;
+        (${this.numberOfResults} results).\n`;
 
         let path_to_exe =
           DOMAIN_PATH +
