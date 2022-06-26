@@ -34,10 +34,6 @@ export default {
       required: true,
     },
   },
-  created() {
-    console.log(this.ingredients[1]);
-    console.log(this.ingredients[1].unit == null);
-  },
 };
 </script>
 

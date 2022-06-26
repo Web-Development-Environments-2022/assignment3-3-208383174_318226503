@@ -20,11 +20,7 @@ export default {
   props: {
     instructions: {
       type: Array,
-      required: true,
     },
-  },
-  data() {
-    return {};
   },
 };
 </script>
