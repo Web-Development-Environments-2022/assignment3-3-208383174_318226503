@@ -6,7 +6,7 @@
     </h4>
     <b-row>
       <b-col v-for="r in recipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
+        <RecipePreview class="recipePreview" :recipe="r" :key="componentKey" />
       </b-col>
     </b-row>
     <button class="random-button" @click="changeRandom">
@@ -40,6 +40,8 @@ export default {
   },
   methods: {
     async changeRandom() {
+      console.log("changing the random ");
+      await this.updateRecipes();
       this.componentKey += 1;
     },
 
