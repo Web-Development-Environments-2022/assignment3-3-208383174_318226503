@@ -2,7 +2,6 @@
   <div class="container">
     <h1 class="title">Search Page</h1>
 
-    <!-- <b-navbar type="light" variant="light"> -->
     <div id="details">
       <b-nav-form>
         <b-container>
@@ -52,16 +51,6 @@
                 >
               </b-dropdown>
             </b-col>
-            <!-- <b-col>
-            <b-form-select
-            id="cuisine"
-            :options="cuisines"
-            v-model="selectedCuisine"
-            v-on:change="setCuisine"
-          ></b-form-select>
-          </b-col> -->
-
-            <!--cuisine dropdown box-->
             <b-col>
               <b-dropdown
                 id="cuisine"
@@ -115,7 +104,6 @@
           </b-row>
         </b-container>
       </b-nav-form>
-      <!-- </b-navbar> -->
       <b-row v-if="this.isEmpty == 0">
         <b-form-group label="Sort by:">
           <b-form-radio
@@ -137,7 +125,6 @@
       <b-col v-for="item in results" :key="item.previewInfo.id">
         <SearchResultsPreview class="searchResultsPreview" :recipe="item" />
       </b-col>
-      <!-- <h1 v-if=this.isEmpty>Oops! Nothing matches your search. <br> please try again</h1> -->
       <b-alert v-if="this.isEmpty == 1" show variant="danger"
         ><a class="alert-link"
           >Oops! Nothing matches your search. <br />
@@ -149,7 +136,6 @@
 </template>
 
 <script>
-import RecipePreview from "../components/RecipePreview";
 import { required, minLength, alpha } from "vuelidate/lib/validators";
 import cuisines from "../assets/cuisines";
 import diets from "../assets/diets";
@@ -163,7 +149,7 @@ export default {
         search: "",
       },
       search: "",
-      numberOfResults: 5, //default
+      numberOfResults: "5", //default
       hasResult: false,
       results: [],
       selectedCuisine: "Cuisine",
@@ -195,7 +181,6 @@ export default {
     this.diets.push(...diets);
     this.intolerances.push(...intolerances);
     console.log("localStorage.username: " + localStorage.username);
-    // console.log(req.session.user_id);
   },
   components: {
     SearchResultsPreview,
@@ -310,66 +295,66 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-container {
-  padding: 20px;
-  font-family: Helvetica;
-}
+// container {
+//   padding: 20px;
+//   font-family: Helvetica;
+// }
 
-.container {
-  max-width: 1600px;
-}
+// .container {
+//   max-width: 1600px;
+// }
 
-#details,
-.custom-control-label {
-  font-size: 900px;
-}
+// #details,
+// .custom-control-label {
+//   font-size: 900px;
+// }
 
-.dropdown.b-dropdown.m-md-2.btn-group {
-  background-color: rgb(239, 216, 202);
-  border-radius: 5px;
-}
+// .dropdown.b-dropdown.m-md-2.btn-group {
+//   background-color: rgb(239, 216, 202);
+//   border-radius: 5px;
+// }
 
-.dropdown.b-dropdown.m-md-2.btn-group button {
-  font-size: 18px;
-}
+// .dropdown.b-dropdown.m-md-2.btn-group button {
+//   font-size: 18px;
+// }
 
-#cuisine__BV_toggle_ {
-  font-size: 18px;
-}
+// #cuisine__BV_toggle_ {
+//   font-size: 18px;
+// }
 
-.btn.btn-outline-success.btn-lg {
-  margin-left: 15px;
-}
+// .btn.btn-outline-success.btn-lg {
+//   margin-left: 15px;
+// }
 
-.title {
-  font-family: Andale Mono, monospace;
-  font-size: 37px;
-  margin-bottom: 15px;
-  padding-top: 10px;
-  text-align: center;
-  color: rgb(234, 121, 0);
-}
+// .title {
+//   font-family: Andale Mono, monospace;
+//   font-size: 37px;
+//   margin-bottom: 15px;
+//   padding-top: 10px;
+//   text-align: center;
+//   color: rgb(234, 121, 0);
+// }
 
-.col {
-  display: contents;
-}
+// .col {
+//   display: contents;
+// }
 
-.row {
-  margin-top: 15px;
-}
+// .row {
+//   margin-top: 15px;
+// }
 
-form-group {
-  text-align: -webkit-center;
-}
+// form-group {
+//   text-align: -webkit-center;
+// }
 
-.bv-no-focus-ring.col-form-label.pt-0 {
-  font-size: 40px;
-}
+// .bv-no-focus-ring.col-form-label.pt-0 {
+//   font-size: 40px;
+// }
 
-.SearchRecipes {
-  // margin: 10px 0 10px;
-  margin: auto;
-}
+// .SearchRecipes {
+//   // margin: 10px 0 10px;
+//   margin: auto;
+// }
 
 .alert {
   width: 900px;
