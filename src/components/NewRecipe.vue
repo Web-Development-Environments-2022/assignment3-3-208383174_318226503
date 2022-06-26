@@ -381,7 +381,7 @@ export default {
         checked: [],
         ingredientName: "",
         amount: null,
-        unit: "",
+        unit: null,
         step: "",
       };
       this.instructionsArray = [];
@@ -405,6 +405,9 @@ export default {
         return;
       }
 
+      console.log("unit " + this.form.unit);
+      console.log(this.form.unit);
+
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
 
@@ -415,7 +418,7 @@ export default {
       });
       (this.form.ingredientName = ""),
         (this.form.amount = null),
-        (this.form.unit = "");
+        (this.form.unit = null);
     },
 
     addInstructions() {

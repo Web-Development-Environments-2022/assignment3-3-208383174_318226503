@@ -16,7 +16,7 @@
             <div>
               {{ r.name }}<span id="divider">|</span>
               <span id="amount">{{ Math.floor(r.amount * 100) / 100 }}</span>
-              {{ r.unit }}
+              <span v-if="r.unit != 'null'"> {{ r.unit }}</span>
             </div>
           </div>
         </div>
@@ -34,8 +34,9 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {};
+  created() {
+    console.log(this.ingredients[1]);
+    console.log(this.ingredients[1].unit == null);
   },
 };
 </script>
