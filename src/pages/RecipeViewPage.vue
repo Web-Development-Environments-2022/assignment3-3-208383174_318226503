@@ -44,13 +44,13 @@
           />
           <img
             id="viewed"
-            v-if="recipe.isViewed === true && recipe.isPersonal === false"
+            v-if="recipe.first_time === false"
             src="../../resources/viewed.png"
             title="you have viewed this recipe"
           />
           <img
             id="viewed"
-            v-else-if="recipe.isViewed === false && recipe.isPersonal === false"
+            v-else-if="recipe.first_time === true"
             src="../../resources/new.png"
             title="this is the first time you're viewing this recipe"
           />
@@ -106,9 +106,8 @@ export default {
 
     try {
       let response;
-      console.log(this.$route);
-      console.log(this.$route.query.isPersonal);
-      if (this.$route.query.isPersonal == true) {
+
+      if (this.$route.query.isPersonal) {
         console.log("personal");
         DOMAIN_PATH = "http://localhost:3000/users/personal/";
       } else {
@@ -128,12 +127,13 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
-      console.log(response);
+      console.log(response.data);
 
       let {
         analyzedInstructions,
         extendedIngredients,
         previewInfo,
+        first_time,
       } = response.data;
 
       let {
@@ -171,10 +171,11 @@ export default {
         isViewed,
         previewInfo,
         servingSize,
+        first_time,
       };
 
-      console.log(this.readyInMinutes);
-      console.log(servingSize);
+      console.log("first time");
+      console.log(first_time);
 
       if (this.readyInMinutes === null || this.readyInMinutes === undefined) {
         console.log("true 1");

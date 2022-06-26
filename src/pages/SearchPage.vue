@@ -104,13 +104,14 @@
         </b-container>
       </b-nav-form>
       <b-row v-if="this.hasLastSearch">
-          <!-- <b-alert show variant="light">{{last_search}}</b-alert> -->
-          <!-- <span>Message: {{ last_search }}</span> -->
-          <!-- <div v-bind="last_search"></div> -->
-          <p style="font-weight:bold; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-          <span style="color:grey">{{last_search}}</span></p>
+        <!-- <b-alert show variant="light">{{last_search}}</b-alert> -->
+        <!-- <span>Message: {{ last_search }}</span> -->
+        <!-- <div v-bind="last_search"></div> -->
+        <p id="last-search">
+          <span>{{ last_search }}</span>
+        </p>
       </b-row>
-      <b-row v-if="this.isEmpty == 0">
+      <b-row id="sort-by" v-if="this.isEmpty == 0">
         <b-form-group label="Sort by:">
           <b-form-radio
             value="cooking_duration"
@@ -131,14 +132,15 @@
       <b-col v-for="item in results" :key="item.previewInfo.id">
         <SearchResultsPreview class="searchResultsPreview" :recipe="item" />
       </b-col>
-      </b-row>
-      <b-row  v-if="this.isEmpty == 1" >
+    </b-row>
+    <b-row v-if="this.isEmpty == 1">
       <b-alert show variant="danger"
         ><a class="alert-link"
           >Oops! Nothing matches your search. <br />
           Please try again.</a
-        ></b-alert>
-      </b-row>
+        ></b-alert
+      >
+    </b-row>
   </div>
 </template>
 
@@ -190,9 +192,9 @@ export default {
     this.intolerances.push(...intolerances);
     console.log("localStorage.username: " + localStorage.username);
     console.log("localStorage.last_search: " + localStorage.last_search_str);
-    this.last_search =  localStorage.last_search_str;
+    this.last_search = localStorage.last_search_str;
     console.log(this.last_search);
-    if(this.last_search){
+    if (this.last_search) {
       this.hasLastSearch = true;
     }
   },
@@ -237,7 +239,10 @@ export default {
         //save last search params
         this.hasLastSearch = true;
         localStorage.setItem("last_search_str", last_search_str);
-        console.log("localStorage.last_search after search: "+localStorage.last_search_str);
+        console.log(
+          "localStorage.last_search after search: " +
+            localStorage.last_search_str
+        );
         const response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           // this.$root.store.server_domain + "/Register",
@@ -251,10 +256,9 @@ export default {
         } else if (response.status == 200) {
           this.isEmpty = 0;
           const recipes = response.data;
-        this.results = [];
-        this.results.push(...recipes);
+          this.results = [];
+          this.results.push(...recipes);
         }
-
       } catch (err) {
         console.log(err.response);
       }
@@ -320,66 +324,91 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// container {
-//   padding: 20px;
-//   font-family: Helvetica;
-// }
+container {
+  padding: 20px;
+  font-family: Helvetica;
+}
 
-// .container {
-//   max-width: 1600px;
-// }
+.container {
+  max-width: 1600px;
+  // margin-top: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
 
-// #details,
-// .custom-control-label {
-//   font-size: 900px;
-// }
+.row#sort-by {
+  margin-left: 0px;
+}
 
-// .dropdown.b-dropdown.m-md-2.btn-group {
-//   background-color: rgb(239, 216, 202);
-//   border-radius: 5px;
-// }
+.row #sort-by {
+  margin-left: 60px;
+}
 
-// .dropdown.b-dropdown.m-md-2.btn-group button {
-//   font-size: 18px;
-// }
+#details {
+  display: inline-block;
+}
 
-// #cuisine__BV_toggle_ {
-//   font-size: 18px;
-// }
+.dropdown.b-dropdown.m-md-2.btn-group {
+  background-color: rgb(239, 216, 202);
+  border-radius: 5px;
+}
 
-// .btn.btn-outline-success.btn-lg {
-//   margin-left: 15px;
-// }
+.dropdown.b-dropdown.m-md-2.btn-group button {
+  font-size: 18px;
+}
 
-// .title {
-//   font-family: Andale Mono, monospace;
-//   font-size: 37px;
-//   margin-bottom: 15px;
-//   padding-top: 10px;
-//   text-align: center;
-//   color: rgb(234, 121, 0);
-// }
+#cuisine__BV_toggle_ {
+  font-size: 18px;
+}
 
-// .col {
-//   display: contents;
-// }
+.btn.btn-outline-success.btn-lg {
+  margin-left: 15px;
+}
 
-// .row {
-//   margin-top: 15px;
-// }
+.title {
+  font-family: Andale Mono, monospace;
+  font-size: 37px;
+  margin-left: 0.5rem;
 
-// form-group {
-//   text-align: -webkit-center;
-// }
+  padding-top: 10px;
+  // text-align: center;
+  color: rgb(234, 121, 0);
+}
 
-// .bv-no-focus-ring.col-form-label.pt-0 {
-//   font-size: 40px;
-// }
+#search {
+  margin-left: 0.5rem;
+  margin-top: 0px;
+}
 
-// .SearchRecipes {
-//   // margin: 10px 0 10px;
-//   margin: auto;
-// }
+.col {
+  display: contents;
+}
+
+.row {
+  margin-top: 10px;
+}
+
+.row #__BVID__110 {
+  // text-align: -webkit-center;
+  margin-left: 10px;
+}
+
+.bv-no-focus-ring.col-form-label.pt-0 {
+  font-size: 40px;
+}
+
+.SearchRecipes {
+  // margin: 10px 0 10px;
+  margin: auto;
+}
+
+#last-search {
+  margin-left: 23px;
+  font-size: 18px;
+  padding: 3px 6px 3px 6px;
+  border-radius: 6px;
+  background-color: rgb(250, 239, 221);
+}
 
 .alert {
   width: 900px;
