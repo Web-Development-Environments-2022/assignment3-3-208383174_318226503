@@ -145,7 +145,7 @@
 </template>
 
 <script>
-import { required, minLength, alpha } from "vuelidate/lib/validators";
+import { required, minLength } from "vuelidate/lib/validators";
 import cuisines from "../assets/cuisines";
 import diets from "../assets/diets";
 import intolerances from "../assets/intolerances";
@@ -181,7 +181,9 @@ export default {
       search: {
         required,
         length: (u) => minLength(1)(u),
-        alpha,
+        alphvalid: function(value) {
+          return /^[A-Za-z\s]*$/.test(value);
+        },
       },
     },
   },
