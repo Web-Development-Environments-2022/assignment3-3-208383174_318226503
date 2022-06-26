@@ -282,8 +282,6 @@ export default {
         numeric,
       },
       ingredientName: {
-        // length: (t) => maxLength(100)(t),
-        // alpha,
         valid: function(value) {
           if (value == undefined) {
             return true;

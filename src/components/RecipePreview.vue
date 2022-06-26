@@ -4,7 +4,8 @@
       <router-link
         :to="{
           name: 'recipe',
-          params: { recipeId: recipe.id, isPersonal: recipe.isPersonal },
+          params: { recipeId: recipe.id },
+          query: { isPersonal: recipe.isPersonal },
         }"
         id="recipe-preview"
       >
