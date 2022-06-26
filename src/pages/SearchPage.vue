@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <h1 class="title">Search Page</h1>
-
     <div id="details">
       <b-nav-form>
         <b-container>
@@ -104,6 +103,12 @@
           </b-row>
         </b-container>
       </b-nav-form>
+      <b-row v-if="this.hasLastSearch">
+          <!-- <b-alert show variant="light">{{last_search}}</b-alert> -->
+          <!-- <span>Message: {{ last_search }}</span> -->
+          <!-- <div v-bind="last_search"></div> -->
+          <p style="font-weight:bold"><span style="color:blue">{{last_search}}</span></p>
+      </b-row>
       <b-row v-if="this.isEmpty == 0">
         <b-form-group label="Sort by:">
           <b-form-radio
@@ -125,13 +130,14 @@
       <b-col v-for="item in results" :key="item.previewInfo.id">
         <SearchResultsPreview class="searchResultsPreview" :recipe="item" />
       </b-col>
-      <b-alert v-if="this.isEmpty == 1" show variant="danger"
+      </b-row>
+      <b-row  v-if="this.isEmpty == 1" >
+      <b-alert show variant="danger"
         ><a class="alert-link"
           >Oops! Nothing matches your search. <br />
           Please try again.</a
-        ></b-alert
-      >
-    </b-row>
+        ></b-alert>
+      </b-row>
   </div>
 </template>
 
@@ -163,6 +169,8 @@ export default {
       intolerance: "",
       numberOfResults_text: "Number of results",
       isEmpty: 5,
+      hasLastSearch: false,
+      last_search: "",
     };
   },
   validations: {
@@ -175,12 +183,17 @@ export default {
     },
   },
   mounted() {
-    // TODO: last search
     console.log("mounted");
     this.cuisines.push(...cuisines);
     this.diets.push(...diets);
     this.intolerances.push(...intolerances);
     console.log("localStorage.username: " + localStorage.username);
+    console.log("localStorage.last_search: " + localStorage.last_search_str);
+    this.last_search =  localStorage.last_search_str;
+    console.log(this.last_search);
+    if(this.last_search){
+      this.hasLastSearch = true;
+    }
   },
   components: {
     SearchResultsPreview,
@@ -194,7 +207,18 @@ export default {
     async Search() {
       const DOMAIN_PATH = "http://localhost:3000";
       console.log("search function");
+      
+      // localStorage.setItem("last_search", {term:this.userSearchTerm,
+      // numOfResults:this.numberOfResults, cuisine:this.selectedCuisine, diet:this.selectedDiet,
+      // intolerance: this.selectedIntolerance});
+      // this.hasLastSearch = true;
+      // console.log("localStorage.last_search: "+localStorage.last_search);
+
+      //get results
       try {
+        let last_search_str = `Your last search was: ${this.userSearchTerm}\n
+        with: ${this.numberOfResults} results.\n`;
+
         let path_to_exe =
           DOMAIN_PATH +
           "/recipes/search?term=" +
@@ -203,16 +227,23 @@ export default {
           this.numberOfResults;
         if (this.selectedCuisine != null && this.selectedCuisine != "Cuisine") {
           path_to_exe += "&cuisine=" + this.selectedCuisine;
+          last_search_str += `cuisine: ${this.selectedCuisine} `;
         }
         if (this.selectedDiet != null && this.selectedDiet != "Diet") {
           path_to_exe += "&diet=" + this.selectedDiet;
+          last_search_str += `,diet: ${this.selectedDiet} `;
         }
         if (
           this.selectedIntolerance != null &&
           this.selectedIntolerance != "Intolerance"
         ) {
           path_to_exe += "&intolerance=" + this.selectedIntolerance;
+          last_search_str += `,intolerance: ${this.selectedIntolerance} `;
         }
+        //save last search params
+        this.hasLastSearch = true;
+        localStorage.setItem("last_search_str", last_search_str);
+        console.log("localStorage.last_search after search: "+localStorage.last_search_str);
         const response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           // this.$root.store.server_domain + "/Register",
