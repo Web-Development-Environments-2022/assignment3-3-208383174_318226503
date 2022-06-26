@@ -1,8 +1,6 @@
 <template>
   <div class="container">
     <h1 class="title">Search Page</h1>
-
-    <!-- <b-navbar type="light" variant="light"> -->
     <div id="details">
       <b-nav-form>
         <b-container>
@@ -52,16 +50,6 @@
                 >
               </b-dropdown>
             </b-col>
-            <!-- <b-col>
-            <b-form-select
-            id="cuisine"
-            :options="cuisines"
-            v-model="selectedCuisine"
-            v-on:change="setCuisine"
-          ></b-form-select>
-          </b-col> -->
-
-            <!--cuisine dropdown box-->
             <b-col>
               <b-dropdown
                 id="cuisine"
@@ -115,7 +103,13 @@
           </b-row>
         </b-container>
       </b-nav-form>
-      <!-- </b-navbar> -->
+      <b-row v-if="this.hasLastSearch">
+          <!-- <b-alert show variant="light">{{last_search}}</b-alert> -->
+          <!-- <span>Message: {{ last_search }}</span> -->
+          <!-- <div v-bind="last_search"></div> -->
+          <p style="font-weight:bold; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+          <span style="color:grey">{{last_search}}</span></p>
+      </b-row>
       <b-row v-if="this.isEmpty == 0">
         <b-form-group label="Sort by:">
           <b-form-radio
@@ -137,19 +131,18 @@
       <b-col v-for="item in results" :key="item.previewInfo.id">
         <SearchResultsPreview class="searchResultsPreview" :recipe="item" />
       </b-col>
-      <!-- <h1 v-if=this.isEmpty>Oops! Nothing matches your search. <br> please try again</h1> -->
-      <b-alert v-if="this.isEmpty == 1" show variant="danger"
+      </b-row>
+      <b-row  v-if="this.isEmpty == 1" >
+      <b-alert show variant="danger"
         ><a class="alert-link"
           >Oops! Nothing matches your search. <br />
           Please try again.</a
-        ></b-alert
-      >
-    </b-row>
+        ></b-alert>
+      </b-row>
   </div>
 </template>
 
 <script>
-import RecipePreview from "../components/RecipePreview";
 import { required, minLength, alpha } from "vuelidate/lib/validators";
 import cuisines from "../assets/cuisines";
 import diets from "../assets/diets";
@@ -163,7 +156,7 @@ export default {
         search: "",
       },
       search: "",
-      numberOfResults: 5, //default
+      numberOfResults: "5", //default
       hasResult: false,
       results: [],
       selectedCuisine: "Cuisine",
@@ -177,6 +170,8 @@ export default {
       intolerance: "",
       numberOfResults_text: "Number of results",
       isEmpty: 5,
+      hasLastSearch: false,
+      last_search: "",
     };
   },
   validations: {
@@ -189,13 +184,17 @@ export default {
     },
   },
   mounted() {
-    // TODO: last search
     console.log("mounted");
     this.cuisines.push(...cuisines);
     this.diets.push(...diets);
     this.intolerances.push(...intolerances);
     console.log("localStorage.username: " + localStorage.username);
-    // console.log(req.session.user_id);
+    console.log("localStorage.last_search: " + localStorage.last_search_str);
+    this.last_search =  localStorage.last_search_str;
+    console.log(this.last_search);
+    if(this.last_search){
+      this.hasLastSearch = true;
+    }
   },
   components: {
     SearchResultsPreview,
@@ -209,7 +208,11 @@ export default {
     async Search() {
       const DOMAIN_PATH = "http://localhost:3000";
       console.log("search function");
+      //get results
       try {
+        let last_search_str = `Your last search was: ${this.userSearchTerm}\n
+        (${this.numberOfResults} results).\n`;
+
         let path_to_exe =
           DOMAIN_PATH +
           "/recipes/search?term=" +
@@ -218,16 +221,23 @@ export default {
           this.numberOfResults;
         if (this.selectedCuisine != null && this.selectedCuisine != "Cuisine") {
           path_to_exe += "&cuisine=" + this.selectedCuisine;
+          last_search_str += `cuisine: ${this.selectedCuisine} `;
         }
         if (this.selectedDiet != null && this.selectedDiet != "Diet") {
           path_to_exe += "&diet=" + this.selectedDiet;
+          last_search_str += `,diet: ${this.selectedDiet} `;
         }
         if (
           this.selectedIntolerance != null &&
           this.selectedIntolerance != "Intolerance"
         ) {
           path_to_exe += "&intolerance=" + this.selectedIntolerance;
+          last_search_str += `,intolerance: ${this.selectedIntolerance} `;
         }
+        //save last search params
+        this.hasLastSearch = true;
+        localStorage.setItem("last_search_str", last_search_str);
+        console.log("localStorage.last_search after search: "+localStorage.last_search_str);
         const response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           // this.$root.store.server_domain + "/Register",
@@ -240,10 +250,11 @@ export default {
           this.isEmpty = 1;
         } else if (response.status == 200) {
           this.isEmpty = 0;
-        }
-        const recipes = response.data;
+          const recipes = response.data;
         this.results = [];
         this.results.push(...recipes);
+        }
+
       } catch (err) {
         console.log(err.response);
       }
@@ -309,66 +320,66 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-container {
-  padding: 20px;
-  font-family: Helvetica;
-}
+// container {
+//   padding: 20px;
+//   font-family: Helvetica;
+// }
 
-.container {
-  max-width: 1600px;
-}
+// .container {
+//   max-width: 1600px;
+// }
 
-#details,
-.custom-control-label {
-  font-size: 900px;
-}
+// #details,
+// .custom-control-label {
+//   font-size: 900px;
+// }
 
-.dropdown.b-dropdown.m-md-2.btn-group {
-  background-color: rgb(239, 216, 202);
-  border-radius: 5px;
-}
+// .dropdown.b-dropdown.m-md-2.btn-group {
+//   background-color: rgb(239, 216, 202);
+//   border-radius: 5px;
+// }
 
-.dropdown.b-dropdown.m-md-2.btn-group button {
-  font-size: 18px;
-}
+// .dropdown.b-dropdown.m-md-2.btn-group button {
+//   font-size: 18px;
+// }
 
-#cuisine__BV_toggle_ {
-  font-size: 18px;
-}
+// #cuisine__BV_toggle_ {
+//   font-size: 18px;
+// }
 
-.btn.btn-outline-success.btn-lg {
-  margin-left: 15px;
-}
+// .btn.btn-outline-success.btn-lg {
+//   margin-left: 15px;
+// }
 
-.title {
-  font-family: Andale Mono, monospace;
-  font-size: 37px;
-  margin-bottom: 15px;
-  padding-top: 10px;
-  text-align: center;
-  color: rgb(234, 121, 0);
-}
+// .title {
+//   font-family: Andale Mono, monospace;
+//   font-size: 37px;
+//   margin-bottom: 15px;
+//   padding-top: 10px;
+//   text-align: center;
+//   color: rgb(234, 121, 0);
+// }
 
-.col {
-  display: contents;
-}
+// .col {
+//   display: contents;
+// }
 
-.row {
-  margin-top: 15px;
-}
+// .row {
+//   margin-top: 15px;
+// }
 
-form-group {
-  text-align: -webkit-center;
-}
+// form-group {
+//   text-align: -webkit-center;
+// }
 
-.bv-no-focus-ring.col-form-label.pt-0 {
-  font-size: 40px;
-}
+// .bv-no-focus-ring.col-form-label.pt-0 {
+//   font-size: 40px;
+// }
 
-.SearchRecipes {
-  // margin: 10px 0 10px;
-  margin: auto;
-}
+// .SearchRecipes {
+//   // margin: 10px 0 10px;
+//   margin: auto;
+// }
 
 .alert {
   width: 900px;
