@@ -1,74 +1,82 @@
 <template>
-  <b-card
-    no-body
-    class="overflow-hidden"
-    style="max-width: 1200px; min-width: 1000px;"
-  >
-    <div class="container">
-      <div class="recipe-body">
-        <h2>{{ recipe.title }}</h2>
-        <div id="recipe-info">
-          <span
-            ><div class="info" id="minutes">
-              <div class="number">{{ recipe.readyInMinutes }}</div>
-              <div class="description">minutes</div>
-            </div>
-            <div class="info">
-              <div class="number">{{ recipe.servingSize }}</div>
-              <div class="description">Dishes</div>
-            </div>
-          </span>
-        </div>
-        <div class="icons">
-          <img
-            id="vegetarian"
-            v-if="recipe.vegetarian === true"
-            src="../../resources/vegeterian.png"
-            title="vegetarian"
-          />
-          <img
-            id="vegan"
-            v-if="recipe.vegan === true"
-            src="../../resources/vegan.png"
-            title="vegan"
-          />
-          <img
-            id="glutenFree"
-            v-if="recipe.glutenFree === true"
-            src="../../resources/gluten-free2.png"
-            title="gluten free"
-          />
-        </div>
-          <div class="info">
-            <br>
-            <br>
+  <div class="background">
+    <b-card
+      no-body
+      class="overflow-hidden"
+      style="max-width: 1200px; min-width: 1000px;"
+    >
+      <div class="container">
+        <div class="recipe-body">
+          <h2>{{ recipe.title }}</h2>
+          <div id="recipe-info">
             <span
-                ><div class="info" id="owner">
-                <div class="description">Recipe's owner: {{ recipe.owner }}</div>
-                </div>
-                <div class="info"  id="occasion">
-                <div class="description">{{ recipe.occasion }}</div>
-                </div>
-          </span>
+              ><div class="info" id="minutes">
+                <div class="number">{{ recipe.readyInMinutes }}</div>
+                <div class="description">minutes</div>
+              </div>
+              <div class="info">
+                <div class="number">{{ recipe.servingSize }}</div>
+                <div class="description">Dishes</div>
+              </div>
+            </span>
           </div>
+          <div class="icons">
+            <img
+              id="vegetarian"
+              v-if="recipe.vegetarian == 1"
+              src="../../resources/vegeterian.png"
+              title="vegetarian"
+            />
+            <img
+              id="vegan"
+              v-if="recipe.vegan == 1"
+              src="../../resources/vegan.png"
+              title="vegan"
+            />
+            <img
+              id="glutenFree"
+              v-if="recipe.glutenFree == 1"
+              src="../../resources/gluten-free2.png"
+              title="gluten free"
+            />
+          </div>
+          <div class="family-info">
+            <span>
+              <h3>Peronal Information</h3>
+              <div id="owner">
+                <div class="personal-description">
+                  <span class="info-title">Recipe's owner:</span>
+                  {{ recipe.owner }}
+                </div>
+              </div>
+              <div id="occasion">
+                <div class="personal-description">
+                  <span class="info-title">Occasion:</span>
+                  {{ recipe.occasion }}
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div v-if="recipe" class="recipe-img-container">
+          <img id="recipe-image" :src="recipe.image" class="center" />
+        </div>
       </div>
-      <div v-if="recipe" class="recipe-img-container">
-        <img id="recipe-image" :src="recipe.image" class="center" />
+      <div class="divider div-transparent"></div>
+      <div class="recipe-full">
+        <div id="instructions">
+          <FamilyRecipeInstructions :instructions="recipe.instructions" />
+        </div>
+        <div id="ingredients">
+          <FamilyRecipeIngredients
+            :ingredient_amount="recipe.ingredient_amount"
+            :ingredient_sizing="recipe.ingredient_sizing"
+            :ingredients="recipe.ingredients"
+          />
+        </div>
       </div>
-    </div>
-    <div class="divider div-transparent"></div>
-    <div class="recipe-full">
-      <div id="instructions">
-        <FamilyRecipeInstructions :instructions="recipe.instructions" />
-      </div>
-      <div id="ingredients">
-        <FamilyRecipeIngredients 
-        :ingredient_amount="recipe.ingredient_amount"
-        :ingredient_sizing="recipe.ingredient_sizing"
-        :ingredients="recipe.ingredients" />
-      </div>
-    </div>
-  </b-card>
+    </b-card>
+  </div>
 </template>
 
 <script>
@@ -89,18 +97,15 @@ export default {
     let DOMAIN_PATH;
 
     try {
-        let response;
-        DOMAIN_PATH = "http://localhost:3000/users/myFamilyRecipes";
-        response = await this.axios.get(
-          DOMAIN_PATH,
-          { withCredentials: true }
-        );
-        if (response.status !== 200) this.$router.replace("/NotFound");
-        console.log("response.data is : ");
-        // console.log(response.data);
-        // console.log(response.data[0]);
-        // console.log(response.data.recipe_id);
-    let {
+      let response;
+      DOMAIN_PATH = "http://localhost:3000/users/myFamilyRecipes";
+      response = await this.axios.get(DOMAIN_PATH, { withCredentials: true });
+      if (response.status !== 200) this.$router.replace("/NotFound");
+      console.log("response.data is : ");
+      // console.log(response.data);
+      // console.log(response.data[0]);
+      // console.log(response.data.recipe_id);
+      let {
         recipe_id,
         user_id,
         title,
@@ -115,11 +120,10 @@ export default {
         ingredient_amount,
         ingredient_sizing,
         ingredients,
-        instructions
-    } = response.data[0];
+        instructions,
+      } = response.data[0];
 
-
-    let _recipe = {
+      let _recipe = {
         recipe_id,
         user_id,
         title,
@@ -127,43 +131,63 @@ export default {
         occasion,
         owner,
         readyInMinutes,
-        // vegan,
-        // vegetarian,
-        // glutenFree,
+        vegan,
+        vegetarian,
+        glutenFree,
         servingSize,
         ingredient_amount,
         ingredient_sizing,
         ingredients,
-        instructions
-    };
+        instructions,
+      };
 
+      if (this.readyInMinutes === null || this.readyInMinutes === undefined) {
+        console.log("true 1");
+        this.readyInMinutes = "0";
+      }
 
-    if (this.readyInMinutes === null || this.readyInMinutes === undefined) {
-    console.log("true 1");
-    this.readyInMinutes = "0";
-    }
+      if (this.servingSize === null || this.servingSize === undefined) {
+        console.log("true 2");
+        this.servingSize = 0;
+      }
 
-    if (this.servingSize === null || this.servingSize === undefined) {
-    console.log("true 2");
-    this.servingSize = 0;
-    }
+      console.log(readyInMinutes);
+      console.log(servingSize);
 
-    console.log(readyInMinutes);
-    console.log(servingSize);
-
-    this.recipe = _recipe;
-
+      this.recipe = _recipe;
     } catch (error) {
-    console.log("error.response.status", error.response.status);
-    this.$router.replace("/NotFound");
-    return;
+      console.log("error.response.status", error.response.status);
+      this.$router.replace("/NotFound");
+      return;
     }
-    
-},
+  },
 };
 </script>
 
 <style scoped>
+.family-info {
+  font-size: 17px;
+  margin: auto;
+  margin-top: 25px;
+  border: 1px solid rgb(225, 118, 11);
+  border-radius: 5px;
+  padding: 10px 40px 10px 40px;
+  text-align: center;
+}
+
+.info-title {
+  font-family: FreeMono, monospace;
+  text-decoration: underline;
+}
+
+h3 {
+  font-size: 23px;
+  font-family: FreeMono, monospace;
+}
+
+.background {
+  background-image: url("../../resources/background-2.jpg");
+}
 .recipe-img-container {
   width: 40%;
   float: right;
@@ -210,6 +234,10 @@ h2 {
   padding-top: 30px;
   position: relative;
   margin: auto;
+  display: table;
+}
+
+#recipe-info span {
   left: 100px;
 }
 
@@ -267,7 +295,7 @@ h2 {
     transparent
   );
 }
-.makeNowButton{
+.makeNowButton {
   font-size: 20px;
   background-color: rgb(235, 222, 195);
   border-color: rgb(255, 195, 127);
@@ -281,7 +309,7 @@ h2 {
   width: 65%;
   padding: 0 50px 0 50px;
 }
-#MakingRecipeSteps_div{
+#MakingRecipeSteps_div {
   float: left;
   width: 68%;
   padding: 0 50px 0 50px;
