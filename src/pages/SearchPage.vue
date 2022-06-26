@@ -165,7 +165,7 @@ export default {
       const DOMAIN_PATH = "http://localhost:3000";
       console.log("search function");
       try {
-        let path_to_exe = DOMAIN_PATH + "/recipes/search?term="+this.userSearchTerm + "&numOfResults="+this.numberOfSearchResults;
+        let path_to_exe = DOMAIN_PATH + "/recipes/search?term="+this.userSearchTerm + "&numOfResults="+this.numberOfResults;
         if ( this.selectedCuisine != null && this.selectedCuisine != "Cuisine"){
           path_to_exe += "&cuisine="+this.selectedCuisine;
         }
@@ -187,10 +187,11 @@ export default {
         }
         else if(response.status==200){
           this.isEmpty = 0;
-        }
-        const recipes = response.data;
+          const recipes = response.data;
         this.results = [];
         this.results.push(...recipes);
+        }
+
       } catch (err) {
         console.log(err.response);
       }
@@ -207,7 +208,7 @@ export default {
       this.Search();
     },
     numSearchResult(num){
-      this.numberOfSearchResults = num.toString();
+      this.numberOfResults = num.toString();
       this.numberOfResults_text = num;
     },
     setCuisine(cType){
