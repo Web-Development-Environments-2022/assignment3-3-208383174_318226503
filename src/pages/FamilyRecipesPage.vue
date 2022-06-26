@@ -44,8 +44,7 @@
             <br>
             <span
                 ><div class="info" id="owner">
-                <div class="description">{{ recipe.owner }}</div>
-                <div class="description">Recipe's owner</div>
+                <div class="description">Recipe's owner: {{ recipe.owner }}</div>
                 </div>
                 <div class="info"  id="occasion">
                 <div class="description">{{ recipe.occasion }}</div>
@@ -144,7 +143,7 @@ export default {
     this.readyInMinutes = "0";
     }
 
-    if (servingSize === null || servingSize === undefined) {
+    if (this.servingSize === null || this.servingSize === undefined) {
     console.log("true 2");
     this.servingSize = 0;
     }

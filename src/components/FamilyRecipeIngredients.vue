@@ -5,7 +5,7 @@
       <span class="list-item">
         <div
           class="info"
-          v-for="r in ingredients"
+          v-for="r in ingredients_all_info"
           :key="r.id"
         >
           <a>
