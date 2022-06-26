@@ -331,7 +331,7 @@ container {
 
 .container {
   max-width: 1600px;
-  margin-top: 10px;
+  // margin-top: 10px;
   background-color: #f8f9fa;
   border-radius: 4px;
 }
