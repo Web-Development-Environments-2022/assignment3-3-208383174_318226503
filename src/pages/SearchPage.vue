@@ -35,8 +35,10 @@
           <b-row>
             <b-col>
               <b-dropdown
+                toggle-class="customDropdown"
+                variant="none"
+                class="m-md-2"
                 id="numSearchResult"
-                class="m-2"
                 :text="numberOfResults_text"
               >
                 <b-dropdown-item @click="numSearchResult('5')"
@@ -61,7 +63,13 @@
 
             <!--cuisine dropdown box-->
             <b-col>
-              <b-dropdown id="cuisine" class="m-2" :text="selectedCuisine">
+              <b-dropdown
+                id="cuisine"
+                toggle-class="customDropdown"
+                variant="none"
+                class="m-md-2"
+                :text="selectedCuisine"
+              >
                 <b-dropdown-item-button
                   v-for="c in cuisines"
                   :key="c.text"
@@ -72,7 +80,13 @@
             </b-col>
             <!--diet dropdown box-->
             <b-col>
-              <b-dropdown id="diet" class="m-2" :text="selectedDiet">
+              <b-dropdown
+                id="diet"
+                toggle-class="customDropdown"
+                variant="none"
+                class="m-md-2"
+                :text="selectedDiet"
+              >
                 <b-dropdown-item-button
                   v-for="c in diets"
                   :key="c.text"
@@ -85,7 +99,9 @@
             <b-col>
               <b-dropdown
                 id="intolerance"
-                class="m-2"
+                toggle-class="customDropdown"
+                variant="none"
+                class="m-md-2"
                 :text="selectedIntolerance"
               >
                 <b-dropdown-item-button
@@ -305,6 +321,23 @@ container {
 #details,
 .custom-control-label {
   font-size: 900px;
+}
+
+.dropdown.b-dropdown.m-md-2.btn-group {
+  background-color: rgb(239, 216, 202);
+  border-radius: 5px;
+}
+
+.dropdown.b-dropdown.m-md-2.btn-group button {
+  font-size: 18px;
+}
+
+#cuisine__BV_toggle_ {
+  font-size: 18px;
+}
+
+.btn.btn-outline-success.btn-lg {
+  margin-left: 15px;
 }
 
 .title {
