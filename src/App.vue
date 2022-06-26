@@ -73,9 +73,16 @@ export default {
   name: "App",
   components: { NewRecipe },
   methods: {
-    Logout() {
+    async Logout() {
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
+      const DOMAIN_PATH = "http://localhost:3000";
+      try {
+        await this.axios.post(DOMAIN_PATH + "/Logout");
+      } catch (err) {
+        console.log(err.response);
+        this.form.submitError = err.response.data.message;
+      }
 
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
