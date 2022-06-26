@@ -96,38 +96,31 @@ export default {
   position: relative;
   text-decoration: none;
 }
-
 .card-img-top:hover {
   opacity: 0.85;
 }
-
 .food_icons {
   position: absolute;
   top: 73px;
 }
-
 .food_icons img {
   margin-right: 10px;
   position: relative;
 }
-
 .favoriteButton {
   position: absolute;
   left: 220px;
 }
-
 .card {
   border-color: #e0c0a6;
   margin: 15px;
 }
-
 .card-body {
   padding-top: 4px;
   position: absolute;
   top: 270px;
   /* padding: 1.25rem 1.2rem 1.25rem 1.2rem; */
 }
-
 .card .card-title {
   margin: 6px 0 0 0;
   font-size: 19.5px;
@@ -139,22 +132,18 @@ export default {
   padding: 0.6rem 1.1rem 0 1.1rem;
   color: black;
 }
-
 .card .card-title:hover {
   text-decoration: none;
   color: rgb(100, 100, 100);
 }
-
 .recipe-body {
   position: relative;
   width: 100%;
 }
-
 #recipe_info {
   margin-bottom: 2px;
   margin-top: 0px;
 }
-
 #viewed_recipe {
   margin-top: 3px;
   color: rgb(165, 161, 161);
