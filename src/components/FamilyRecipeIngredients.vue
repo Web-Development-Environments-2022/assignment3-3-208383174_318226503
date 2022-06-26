@@ -54,8 +54,12 @@ export default {
     const edited_ingredients = this.ingredients.split(',');
     const edited_ingredient_amount = this.ingredient_amount.split(',');
     const edited_ingredient_sizing = this.ingredient_sizing.split(',');
-    for (let i = 0; i < edited_ingredients; i++) {
-        this.edited_instructions.push({id:i, name:edited_ingredients[i], amount:edited_ingredient_amount[i], unit: edited_ingredient_sizing[i]});
+    console.log(edited_ingredients);
+    console.log(edited_ingredient_amount);    
+    console.log(edited_ingredient_sizing);
+
+    for (let i = 0; i < edited_ingredients.length; i++) {
+        this.ingredients_all_info.push({id:i, name:edited_ingredients[i], amount:edited_ingredient_amount[i], unit: edited_ingredient_sizing[i]});
     } 
     console.log("aftr mounted, ingredients_all_info: "+this.ingredients_all_info);
   },

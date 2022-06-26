@@ -29,16 +29,20 @@ export default {
     };
   },
   mounted() {
+    // console.log(this.instructions);
     const steps_ = this.instructions.split('|\n');
+    // console.log(steps_);
     let num = null;
     let step =null;
-    for (let i = 0; i < steps_; i++) {
+    let cur_step_arr = [];
+    for (let i = 0; i < steps_.length; i++) {
         cur_step_arr = steps_[i].split('#');
         num = cur_step_arr[0];
         step = cur_step_arr[1];
+        // console.log(num,step);
         this.edited_instructions.push({number:num,step:step});
     } 
-    console.log("aftr mounted, edited_instructions: "+this.edited_instructions);
+    // console.log("aftr mounted, edited_instructions: "+this.edited_instructions);
   },
 };
 </script>
