@@ -45,7 +45,7 @@ container {
 }
 
 .FavoritePage {
-  height: 1000px;
+  min-height: 1000px;
 }
 
 .FavoriteRecipes {

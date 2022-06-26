@@ -255,7 +255,7 @@ export default {
         required,
         length: (t) => maxLength(100)(t),
         valid: function(value) {
-          return !/[#?@'$%^&*-]/.test(value);
+          return !/[#?@'$%^*]/.test(value);
         },
       },
       image: {
@@ -319,9 +319,10 @@ export default {
         return;
       }
       console.log(`submitting recipe ${this.form.title}`);
-      this.onReset();
+      console.dir(`submitting recipe ${this.form}`);
 
       this.AddRecipe();
+      this.onReset();
     },
     async AddRecipe() {
       let vegan = false;
@@ -341,9 +342,11 @@ export default {
           }
         });
       }
+
+      console.log("!! " + this.form.title);
+
       const DOMAIN_PATH = "http://localhost:3000";
       try {
-        const response = await this.axios;
         await this.axios
           .create({ withCredentials: true })
           .post(DOMAIN_PATH + "/users/add", {
