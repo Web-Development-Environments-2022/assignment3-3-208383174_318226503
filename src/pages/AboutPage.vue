@@ -1,67 +1,152 @@
 <template>
-<div>
+  <div class="background">
+    <div class="container">
+      <div class="about-section">
+        <h1>About Us</h1>
+        <p>
+          We are two 3rd year Information Systems Engineer students from BGU.
+        </p>
+        <p>
+          We built a recipe site that will give the user a fun and effective
+          browsing experience.
+        </p>
+        <ul>
+          Our users can:
+          <li>explore more than 100 different recipes</li>
+          <li>search for a recipe that will meet a specific need</li>
+          <li>save favorite recipes</li>
+          <li>add personal recipes</li>
+          <li>experience nostalgia and watch family recipes.</li>
+        </ul>
+      </div>
 
- <div class="about-section">
-  <h1>About Us</h1>
-  <p>We are two 3rd year Information Systems Engineer students from BGU.</p>
-  <p>We built a recipe site that will give the user a fun and effective browsing experience.</p>
-  <p>Our users can: </p>
-  <p >• explore more than 100 different recipes</p>
-  <p>• search for a recipe that will meet a specific need</p>
-  <p>• save favorite recipes</p>
-  <p>• add personal recipes</p>
-  <p>• experience nostalgia and watch family recipes.</p>
-</div>
-
-<h2 style="text-align:center">Our Team</h2>
-<div class="row">
-  <div class="column">
-    <div class="card">
-      <img src="../../resources/chen.png" alt="Chen" style="width:100%; height:500px;">
-      <div class="container">
-        <h2>Chen Mordehai</h2>
-        <p class="title">Developer</p>
-        <p>mordeche@post.bgu.ac.il</p>
-        <p><button class="button">Contact</button></p>
+      <!-- <div class="" -->
+      <div class="team">
+        <div class="card">
+          <img src="../../resources/chen.png" alt="Chen" />
+          <div class="card-container">
+            <h2>Chen Mordehai</h2>
+            <p class="title">Developer</p>
+            <p>mordeche@post.bgu.ac.il</p>
+            <p><button class="button">Contact</button></p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="../../resources/shahaf.png" alt="Shahaf" />
+          <div class="card-container">
+            <h2>Shahaf Erez</h2>
+            <p class="title">Developer</p>
+            <p>shahafi@post.bgu.ac.il</p>
+            <p><button class="button">Contact</button></p>
+          </div>
+        </div>
+      </div>
+      <h2 id="previous" style="text-align:center">Previous Products</h2>
+      <div class="links-section">
+        <a
+          href="https://github.com/Web-Development-Environments-2022/assignment3_2-208383174_318226503.git"
+          >Assignment 3.2</a
+        >
       </div>
     </div>
   </div>
-
-  <div class="column">
-    <div class="card">
-      <img src="../../resources/shahaf.png" alt="Shahaf" style="width:100%; height: 500px;">
-      <div class="container">
-        <h2>Shahaf Erez</h2>
-        <p class="title">Developer</p>
-        <p>shahafi@post.bgu.ac.il</p>
-        <p><button class="button">Contact</button></p>
-      </div>
-    </div>
-  </div>
-</div> 
-
-<h2 style="text-align:center">Previous Products</h2>
-<!-- <div class="row"> -->
-<!-- <p>
-    Assignment 3.1 : __
-</p>
-<p>
-    Assignment 3.2 : __
-</p> -->
-<div class="links-section">
-  <a href="https://github.com/Web-Development-Environments-2022/assignment3_2-208383174_318226503.git">Assignment 3.2</a>
-
-</div>
-</div>
-<!-- </div> -->
 </template>
 
 <style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
+.container {
+  /* min-width: 800px; */
+  background-color: white;
 }
 
+.background {
+  background-image: url("../../resources/background-about.jpg");
+}
+
+.card-container {
+  text-align: center;
+  margin-top: 10px;
+  font-family: Andale Mono, monospace;
+  font-size: 19px;
+}
+
+h1 {
+  font-family: Andale Mono, monospace;
+  color: #e49587;
+}
+
+.about-section {
+  font-family: system-ui;
+  text-align: center;
+  width: 600px;
+  margin: auto;
+  padding: 5px;
+  border: 1px solid #ea7637;
+  border-radius: 5px;
+}
+
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  margin: 0;
+  background-color: #000;
+}
+
+#previous {
+  font-family: Andale Mono, monospace;
+  margin-top: 15px;
+  color: #ea7637;
+}
+
+ul {
+  text-align: start;
+  width: 600px;
+  display: inline-grid;
+  position: relative;
+  left: 0px;
+  list-style: none;
+}
+
+ul li::before {
+  content: "\2022"; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: #ea7637; /* Change the color */
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 1em; /* Also needed for space (tweak if needed) */
+  margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+
+.card {
+  max-width: 67%;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.team {
+  display: flex;
+  margin-top: 25px;
+}
+
+button {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 4px;
+  font-size: 17px;
+  border: 1px solid grey;
+  background-color: #ffdaba;
+}
+
+a {
+  font-size: 18px;
+  color: black;
+}
+
+.links-section {
+  padding-bottom: 15px;
+  font-size: 18px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  font-size: large;
+}
+
+/*
 html {
   box-sizing: border-box;
 }
@@ -131,5 +216,5 @@ html {
     width: 100%;
     display: block;
   }
-}
+} */
 </style>
