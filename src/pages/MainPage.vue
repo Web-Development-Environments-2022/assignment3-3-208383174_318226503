@@ -10,29 +10,31 @@
     <div class="mainPage">
       <div class="container">
         <img id="logo" src="../../resources/logo-with-names.jpg" />
-        <div>
-          <RecipePreviewListRandom
-            :key="componentKey"
-            class="RandomRecipes center"
-            title="Explore this recipes"
-          />
-        </div>
-        <div class="bottom-half">
-          <h4>Last watched recipes</h4>
-          <router-link
-            id="login"
-            v-if="!$root.store.username"
-            to="/login"
-            tag="button"
-            >You need to Login to vue this</router-link
-          >
-          <div v-if="$root.store.username">
-            <RecipePreviewListLastSeen
-              :class="{
-                center: true,
-              }"
-              disabled
-            ></RecipePreviewListLastSeen>
+        <div class="row">
+          <div class="col-sm">
+            <RecipePreviewListRandom
+              :key="componentKey"
+              class="RandomRecipes center"
+              title="Explore this recipes"
+            />
+          </div>
+          <div class="col-sm">
+            <h4>Last watched recipes</h4>
+            <router-link
+              id="login"
+              v-if="!$root.store.username"
+              to="/login"
+              tag="button"
+              >You need to Login to vue this</router-link
+            >
+            <div v-if="$root.store.username">
+              <RecipePreviewListLastSeen
+                :class="{
+                  center: true,
+                }"
+                disabled
+              ></RecipePreviewListLastSeen>
+            </div>
           </div>
         </div>
       </div>
@@ -66,6 +68,11 @@ container {
 .RandomRecipes {
   margin: auto;
 }
+
+.RandomRecipes.center.container {
+  text-align: -webkit-center;
+}
+
 .blur {
   -webkit-filter: blur(5px);
   filter: blur(2px);
