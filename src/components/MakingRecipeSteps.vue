@@ -56,6 +56,10 @@ export default {
       type: Array,
       required: true,
     },
+    r_id:{
+      type: Number,
+      required: true,
+    }
   },
   data() {
     return {
@@ -91,6 +95,13 @@ export default {
       step.isDone = true;
       this.selected.push(parseInt(step.value));
       this.updateValueProgress();
+      //save step
+      // console.log("localStorage.making_progress: "+localStorage.making_progress);
+      // let temp = localStorage.making_progress;
+      // temp[this.r_id] = step.value;
+      // console.log("temp[this.r_id]: "+temp[this.r_id]);
+      // localStorage.setItem("making_progress", temp);
+      // console.log("localStorage.making_progress: "+localStorage.making_progress);
     },
     canClickButton(step){
       let len = this.selected.length;
