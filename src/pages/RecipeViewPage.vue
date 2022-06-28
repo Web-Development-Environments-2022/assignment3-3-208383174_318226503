@@ -55,6 +55,10 @@
             title="this is the first time you're viewing this recipe"
           />
         </div>
+        <div class="info">
+          <br/>
+        <b-button class="addToMealB" pill variant="outline-danger" @click="addToMeal()">{{addToMealLabel}}</b-button>
+        </div>
         <div class="info" v-if="onlypreview">
           <br />
           <br />
@@ -123,6 +127,7 @@ export default {
       onlypreview: true,
       make_button_text: "Make Now",
       mul_dishes: 1,
+      addToMealLabel: "Add to upcoming meal",
     };
   },
   async mounted() {
@@ -228,6 +233,7 @@ export default {
     onMakeNow() {
       this.onlypreview = false;
       this.make_button_text = "Back";
+      this.addToMeal();
     },
     backToRecipe(){
       this.onlypreview = true;
@@ -242,6 +248,21 @@ export default {
     increment_dishes(){
       this.recipe.servingSize +=1;
       this.mul_dishes +=1;
+    },
+    async addToMeal(){
+      let DOMAIN_PATH = "http://localhost:3000/users/addToUpcommingMeal/"
+      try {
+      response = await this.axios.create({ withCredentials: true }).post(
+        DOMAIN_PATH + this.recipe.id
+      );
+      if (response.status !== 200) {
+        this.$router.replace("/NotFound");}
+      this.addToMealLabel = "Added";
+    } catch (error) {
+      console.log("error.response.status", error.response.status);
+      this.$router.replace("/NotFound");
+      return;
+    }
     }
   },
 };
