@@ -34,7 +34,7 @@
               <div class="col-auto">
                 <div class="row">
                   <div class="col" v-if="canClickButton(s)">
-                    <button @click="done(s)" class="btn btn-info">Done</button>
+                    <b-button @click="done(s)" variant="outline-info">Done</b-button>
                   </div>
                   <div class="col" v-if="!canClickButton(s)">
                     <button @click="done(s)" class="btn btn-info" disabled="true">Done</button>
@@ -90,7 +90,7 @@ export default {
     done(step){
       step.isDone = true;
       this.selected.push(parseInt(step.value));
-
+      this.updateValueProgress();
     },
     canClickButton(step){
       let len = this.selected.length;
