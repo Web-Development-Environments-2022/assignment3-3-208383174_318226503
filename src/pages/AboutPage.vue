@@ -44,6 +44,11 @@
       <h2 id="previous" style="text-align:center">Previous Products</h2>
       <div class="links-section">
         <a
+          href="https://github.com/Web-Development-Environments-2022/assignment2-318226503_208383174.git"
+          >Assignment 2</a
+        >
+        <br>
+        <a
           href="https://github.com/Web-Development-Environments-2022/assignment3_2-208383174_318226503.git"
           >Assignment 3.2</a
         >
