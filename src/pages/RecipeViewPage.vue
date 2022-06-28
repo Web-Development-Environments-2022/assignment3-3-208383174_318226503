@@ -55,7 +55,7 @@
             title="this is the first time you're viewing this recipe"
           />
         </div>
-        <div class="info">
+        <div class="info" v-if="onlypreview">
           <br />
           <br />
           <!-- <b-button pill variant="outline-success" type="submit" @click="onMake" size="lg">Make Now</b-button> -->
@@ -64,7 +64,18 @@
             type="submit"
             @click="onMakeNow"
             size="lg"
-            >Make Now</b-button
+            >{{make_button_text}}</b-button
+          >
+        </div>
+        <div class="info" v-if="!onlypreview">
+          <br />
+          <br />
+          <b-button
+            variant="outline-success"
+            type="submit"
+            @click="backToRecipe"
+            size="lg"
+            >{{make_button_text}}</b-button
           >
         </div>
       </div>
@@ -105,6 +116,7 @@ export default {
     return {
       recipe: null,
       onlypreview: true,
+      make_button_text: "Make Now",
     };
   },
   async mounted() {
@@ -207,7 +219,12 @@ export default {
   methods: {
     onMakeNow() {
       this.onlypreview = false;
+      this.make_button_text = "Back";
     },
+    backToRecipe(){
+      this.onlypreview = true;
+      this.make_button_text = "Make Now";
+    }
   },
 };
 </script>

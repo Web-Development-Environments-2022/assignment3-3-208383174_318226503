@@ -9,7 +9,7 @@
       </b-progress-bar>
     </b-progress>
     <div class="wrapped">
-        <b-form-group v-slot="{ ariaDescribedby }">
+        <!-- <b-form-group v-slot="{ ariaDescribedby }">
             <b-form-checkbox-group
                 v-model="selected"
                 :options="steps_todo"
@@ -20,7 +20,30 @@
             >
             <b-form-invalid-feedback :state="state">Please stick to the order of the steps</b-form-invalid-feedback>
             </b-form-checkbox-group>
-        </b-form-group>
+        </b-form-group> -->
+
+        <ul class="list-group">
+          <li v-for="s in steps_todo" :key="s.number" class="list-group-item">
+            <div class="row">
+              <div class="col">
+                <span v-if="s.isDone">
+                  <del>{{ s.text }}</del>
+                </span>
+                <span v-else>{{ s.text }}</span>
+              </div>
+              <div class="col-auto">
+                <div class="row">
+                  <div class="col" v-if="canClickButton(s)">
+                    <button @click="done(s)" class="btn btn-info">Done</button>
+                  </div>
+                  <div class="col" v-if="!canClickButton(s)">
+                    <button @click="done(s)" class="btn btn-info" disabled="true">Done</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
   </div>
 </template>
@@ -48,9 +71,11 @@ export default {
     let str_step ="";
     for (let i = 0; i < this.instructions.length; i++) {
         str_step = `Step ${this.instructions[i].number}: ${this.instructions[i].step}`;
-        this.steps_todo.push({text:str_step, value: this.instructions[i].number});
+        this.steps_todo.push({text:str_step, value: this.instructions[i].number,isDone:false});
         } 
-    this.max = this.steps_todo.length;
+    console.log("this.steps_todo.length : "+parseInt(this.steps_todo.length));
+    // console.log("max: "+max);
+    this.max = parseInt(this.steps_todo.length);
     console.log("max: "+max);
   },
   methods: {
@@ -61,6 +86,22 @@ export default {
     },
     getValue(){
         return this.value_progress;
+    },
+    done(step){
+      step.isDone = true;
+      this.selected.push(parseInt(step.value));
+
+    },
+    canClickButton(step){
+      let len = this.selected.length;
+      if(step.value==1 && len==0){
+        return true;
+      }
+      if(parseInt(step.value)-this.selected[len-1]==1){
+        return true;
+      }
+      return false;
+
     }
   },
     computed: {
