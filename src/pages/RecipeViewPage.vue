@@ -77,6 +77,11 @@
             size="lg"
             >{{make_button_text}}</b-button
           >
+          <br/>
+          <br/>
+          <h3>Change number of dishes</h3>
+          <b-button variant="outline-dark"  @click="decrement_dishes()">-</b-button>
+          <b-button variant="outline-dark"  @click="increment_dishes()">+</b-button>
         </div>
       </div>
       <div v-if="recipe" class="recipe-img-container">
@@ -90,10 +95,10 @@
         <Instructions :instructions="recipe._instructions" />
       </div>
       <div v-if="!onlypreview" id="MakingRecipeSteps_div">
-        <MakingRecipeSteps :instructions="recipe._instructions" />
+        <MakingRecipeSteps :instructions="recipe._instructions" :r_id="recipe.id" />
       </div>
       <div id="ingredients">
-        <Ingredients :ingredients="recipe.extendedIngredients" />
+        <Ingredients :ingredients="recipe.extendedIngredients" :mul="mul_dishes" />
       </div>
     </div>
   </b-card>
@@ -117,6 +122,7 @@ export default {
       recipe: null,
       onlypreview: true,
       make_button_text: "Make Now",
+      mul_dishes: 1,
     };
   },
   async mounted() {
@@ -155,6 +161,7 @@ export default {
       } = response.data;
 
       let {
+        id,
         popularity,
         readyInMinutes,
         image,
@@ -193,6 +200,7 @@ export default {
         previewInfo,
         servingSize,
         first_time,
+        id
       };
 
       console.log("first time");
@@ -224,6 +232,16 @@ export default {
     backToRecipe(){
       this.onlypreview = true;
       this.make_button_text = "Make Now";
+    },
+    decrement_dishes(){
+      if(this.recipe.servingSize>0){
+      this.recipe.servingSize -=1;
+      this.mul_dishes -=1;
+      }
+    },
+    increment_dishes(){
+      this.recipe.servingSize +=1;
+      this.mul_dishes +=1;
     }
   },
 };
