@@ -104,7 +104,23 @@
 
             <!-- ingredients -->
             <div class="ingredients">
-              <h5 class="input-title">add the ingredients</h5>
+              <h5 class="input-title">Ingredients</h5>
+              <div>
+                <table class="table">
+                    <thead>
+                    <th>Name</th>
+                    <th>  Amount</th>
+                    <th>Unit</th>
+                    </thead>
+
+                    <tr v-for="i in ingredients" :key="i.ingredientName">
+                      <td>{{i.ingredientName}}</td>
+                      <td>{{i.amount}}</td>
+                      <td>{{i.unit}}</td>
+                    </tr>
+                </table>
+
+              </div>
               <b-form inline @submit.prevent="addIngredient">
                 <label class="sr-only" for="inline-form-input-name">Name</label>
                 <b-form-input
@@ -218,12 +234,18 @@ import {
 export default {
   name: "NewRecipe",
   created() {
-    this.ingridents = [];
+    this.ingredients = [{ ingredientName: "ll", amount: "5", unit: "teaspoon" }];
     this.instructionsArray = [];
     this.showIngridentsMeesage = false;
     this.showInstructionMeesage = false;
     this.IngridentsMeesage = "";
     this.showMessages = true;
+    this.itemsqqq = [
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+          { age: 38, first_name: 'Jami', last_name: 'Carney' }
+        ];
   },
   destroyed() {
     this.onReset();
@@ -235,7 +257,7 @@ export default {
         image: "",
         readyInMinutes: null,
         servingSize: null,
-
+        ingridents: [],
         vegan: null,
         vegetarian: null,
         glutenFree: null,
@@ -357,7 +379,7 @@ export default {
             vegan: vegan,
             vegetarian: vegetarian,
             glutenFree: glutenFree,
-            ingredientsAndQuantities: this.ingridents,
+            ingredientsAndQuantities: this.ingredients,
             instructions: this.instructionsArray,
             servingSize: this.form.servingSize,
           });
@@ -396,6 +418,7 @@ export default {
       this.showInstructionMeesage = false;
     },
     addIngredient() {
+      console.log("addIngredient");
       if (
         this.$v.form.amount.$anyError ||
         this.$v.form.unit.$anyError ||
@@ -413,7 +436,7 @@ export default {
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
 
-      this.ingridents.push({
+      this.ingredients.push({
         ingredientName: this.form.ingredientName,
         amount: this.form.amount,
         unit: this.form.unit,
@@ -421,6 +444,7 @@ export default {
       (this.form.ingredientName = ""),
         (this.form.amount = null),
         (this.form.unit = null);
+      console.log(this.ingredients);
     },
 
     addInstructions() {
