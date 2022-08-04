@@ -37,7 +37,7 @@
                     <b-button @click="done(s)" variant="outline-info">Done</b-button>
                   </div>
                   <div class="col" v-if="!canClickButton(s)">
-                    <button @click="done(s)" class="btn btn-info" disabled="true">Done</button>
+                    <button @click="done(s)" class="btn btn-light" disabled="true">Done</button>
                   </div>
                 </div>
               </div>
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import { kMaxLength } from 'buffer';
+
 export default {
   name: "Instructions",
   props: {
@@ -60,6 +62,10 @@ export default {
       type: Number,
       required: true,
     }
+  },
+  created() {
+    this.max=0;
+    this.value = getSessionValue();
   },
   data() {
     return {
@@ -73,9 +79,19 @@ export default {
   mounted() {
     console.log("mounted make recipe");
     let str_step ="";
+    let minStep =0;
+    let isDone_ = false;
+    if(this.getSessionValue()){
+      minStep = this.getSessionValue();
+      console.log("minStep : "+minStep);
+    }
     for (let i = 0; i < this.instructions.length; i++) {
         str_step = `Step ${this.instructions[i].number}: ${this.instructions[i].step}`;
-        this.steps_todo.push({text:str_step, value: this.instructions[i].number,isDone:false});
+        isDone_ = this.instructions[i].number<=minStep;
+        if(isDone_){
+          this.selected.push(parseInt(this.instructions[i].number));
+        }
+        this.steps_todo.push({text:str_step, value: this.instructions[i].number,isDone:isDone_});
         } 
     console.log("this.steps_todo.length : "+parseInt(this.steps_todo.length));
     // console.log("max: "+max);
@@ -88,24 +104,32 @@ export default {
         this.value +=1;
       }
     },
-    getValue(){
-        return this.value_progress;
+
+    getSessionValue(){
+      console.log("sessionStorage.making_progress[this.r_id] "+  JSON.parse(sessionStorage.making_progress)[this.r_id]);
+      return JSON.parse(sessionStorage.making_progress)[this.r_id];
     },
     done(step){
       step.isDone = true;
       this.selected.push(parseInt(step.value));
       this.updateValueProgress();
       //save step
-      // console.log("localStorage.making_progress: "+localStorage.making_progress);
-      // let temp = localStorage.making_progress;
-      // temp[this.r_id] = step.value;
-      // console.log("temp[this.r_id]: "+temp[this.r_id]);
-      // localStorage.setItem("making_progress", temp);
-      // console.log("localStorage.making_progress: "+localStorage.making_progress);
+
+      let temp1 = sessionStorage.making_progress;
+      console.log("temp1: "+ temp1);
+      let temp = JSON.parse(temp1);
+      console.log("temp: "+ temp);
+      if ( temp == undefined){
+        temp = {};
+      }
+
+      temp[this.r_id] = this.value;
+      sessionStorage.setItem("making_progress", JSON.stringify(temp));
+
     },
     canClickButton(step){
       let len = this.selected.length;
-      if(step.value==1 && len==0){
+      if(step.value==1 && len==0 ){
         return true;
       }
       if(parseInt(step.value)-this.selected[len-1]==1){

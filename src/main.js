@@ -80,14 +80,15 @@ const shared_data = {
     localStorage.setItem("user_id", user_id);
     this.user_id = user_id;
     console.log("login user_id", this.user_id);
-    // localStorage.setItem("making_progress", {});
+    let temp = {0:'0'};
+    sessionStorage.setItem("making_progress", JSON.stringify(temp));
   },
   logout() {
     console.log("logout");
     localStorage.removeItem("username");
     localStorage.removeItem("last_search_str");
     localStorage.removeItem("user_id");
-    // localStorage.removeItem("making_progress");
+    sessionStorage.removeItem("making_progress");
     this.username = undefined;
     this.user_id = undefined;
   },

@@ -59,7 +59,7 @@
           <br/>
         <b-button class="addToMealB" pill variant="outline-danger" @click="addToMeal()">{{addToMealLabel}}</b-button>
         </div>
-        <div class="info" v-if="onlypreview">
+        <div class="info" v-show="onlypreview">
           <br />
           <br />
           <!-- <b-button pill variant="outline-success" type="submit" @click="onMake" size="lg">Make Now</b-button> -->
@@ -71,7 +71,7 @@
             >{{make_button_text}}</b-button
           >
         </div>
-        <div class="info" v-if="!onlypreview">
+        <div class="info" v-show="!onlypreview">
           <br />
           <br />
           <b-button
@@ -98,7 +98,7 @@
       <div v-if="onlypreview" id="instructions">
         <Instructions :instructions="recipe._instructions" />
       </div>
-      <div v-if="!onlypreview" id="MakingRecipeSteps_div">
+      <div v-show="!onlypreview" id="MakingRecipeSteps_div">
         <MakingRecipeSteps :instructions="recipe._instructions" :r_id="recipe.id" />
       </div>
       <div id="ingredients">
@@ -145,9 +145,8 @@ export default {
       }
 
       try {
-        response = await this.axios.get(
+        response = await this.axios.create({ withCredentials: true }).get(
           DOMAIN_PATH + this.$route.params.recipeId,
-          { withCredentials: true }
         );
 
         if (response.status !== 200) this.$router.replace("/NotFound");
@@ -260,7 +259,7 @@ export default {
       this.addToMealLabel = "Added";
     } catch (error) {
       console.log("error.response.status", error.response.status);
-      this.$router.replace("/NotFound");
+      // this.$router.replace("/NotFound");
       return;
     }
     }
