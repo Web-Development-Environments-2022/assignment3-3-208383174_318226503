@@ -151,15 +151,19 @@
                   type="text"
                   :state="validateState('unit')"
                 ></b-form-input>
+                <div>
+                  <br>
+                    <b-button type="submit" variant="primary">Add</b-button>
+                    <br>
 
-                <b-button type="submit" variant="primary">Add</b-button>
-                <div v-if="showIngridentsMeesage === true">
-                  <div>
-                    <b-alert show dismissible>
-                      Successfully added {{ IngridentsMeesage }} to the recipe
-                    </b-alert>
-                  </div>
+                      <!-- <div>
+                        <b-alert show dismissible v-if="showIngridentsMeesage === true">
+                          Successfully added {{ IngridentsMeesage }} to the recipe
+                        </b-alert>
+                      </div> -->
                 </div>
+
+                
 
                 <b-form-invalid-feedback v-if="!$v.form.ingredientName.length">
                   ingredient name should be up to 100 characters long
@@ -234,18 +238,12 @@ import {
 export default {
   name: "NewRecipe",
   created() {
-    this.ingredients = [{ ingredientName: "ll", amount: "5", unit: "teaspoon" }];
+    this.ingredients = [];
     this.instructionsArray = [];
     this.showIngridentsMeesage = false;
     this.showInstructionMeesage = false;
     this.IngridentsMeesage = "";
     this.showMessages = true;
-    this.itemsqqq = [
-          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { age: 38, first_name: 'Jami', last_name: 'Carney' }
-        ];
   },
   destroyed() {
     this.onReset();
