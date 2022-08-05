@@ -273,7 +273,7 @@ export default {
         image: "",
         readyInMinutes: null,
         servingSize: null,
-        ingridents: [],
+        ingredients: [],
         vegan: null,
         vegetarian: null,
         glutenFree: null,
@@ -405,6 +405,7 @@ export default {
           "new recipe added successfully",
           "success"
         );
+        confirm("new recipe added successfully");
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
@@ -425,7 +426,7 @@ export default {
         step: "",
       };
       this.instructionsArray = [];
-      this.ingridents = [];
+      this.ingredients = [];
 
       this.$nextTick(() => {
         this.$v.$reset();
@@ -451,10 +452,9 @@ export default {
 
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
-
       this.ingredients.push({
         ingredientName: this.form.ingredientName,
-        amount: this.form.amount,
+        amount: parseFloat(this.form.amount),
         unit: this.form.unit,
       });
       (this.form.ingredientName = ""),
