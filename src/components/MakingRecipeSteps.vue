@@ -66,13 +66,13 @@ export default {
   created() {
     this.max=0;
     this.value = getSessionValue();
+    console.log("created this.value : "+this.value);
   },
   data() {
     return {
         steps_todo: [],
         selected: [],
         max: 0,
-        value_progress:0,
         value: 0,
     };
   },
@@ -81,9 +81,17 @@ export default {
     let str_step ="";
     let minStep =0;
     let isDone_ = false;
+    
+    // let gsv = function() {
+    //   console.log("sessionStorage.making_progress[this.r_id] "+  JSON.parse(sessionStorage.making_progress)[this.r_id]);
+    //   return JSON.parse(sessionStorage.making_progress)[this.r_id];
+    // };
+
     if(this.getSessionValue()){
       minStep = this.getSessionValue();
       console.log("minStep : "+minStep);
+      this.value = minStep;
+      console.log("mounted this.value : "+this.value);
     }
     for (let i = 0; i < this.instructions.length; i++) {
         str_step = `Step ${this.instructions[i].number}: ${this.instructions[i].step}`;
@@ -110,6 +118,7 @@ export default {
       return JSON.parse(sessionStorage.making_progress)[this.r_id];
     },
     done(step){
+      console.log("this.value : "+this.value);
       step.isDone = true;
       this.selected.push(parseInt(step.value));
       this.updateValueProgress();
