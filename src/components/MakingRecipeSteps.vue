@@ -85,7 +85,7 @@ export default {
     //   console.log("sessionStorage.making_progress[this.r_id] "+  JSON.parse(sessionStorage.making_progress)[this.r_id]);
     //   return JSON.parse(sessionStorage.making_progress)[this.r_id];
     // };
-    if(this.getSessionValue()){
+    if(this.getSessionValue()!=0){
       minStep = this.getSessionValue();
       console.log("minStep : "+minStep);
       this.value = minStep;
@@ -111,8 +111,20 @@ export default {
       }
     },
     getSessionValue(){
+      let ans = 0;
+      try{
       console.log("sessionStorage.making_progress[this.r_id] "+  JSON.parse(sessionStorage.making_progress)[this.r_id]);
-      return JSON.parse(sessionStorage.making_progress)[this.r_id];
+      ans = JSON.parse(sessionStorage.making_progress)[this.r_id];
+      if(ans == undefined){
+        ans =0;
+      }
+      }
+      catch(error){
+        console.log("no progress");
+      }
+      finally{
+        return ans;
+      }
     },
     done(step){
       console.log("this.value : "+this.value);
