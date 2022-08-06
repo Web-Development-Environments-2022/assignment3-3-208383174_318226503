@@ -82,7 +82,30 @@ export default {
         catch(error){
             console.log("ERROR !");
         }
-    }
+    },
+    async moveUp(r){
+        const DOMAIN_PATH = "http://localhost:3000/";
+        console.log("r.id is: "+ r.recipe_preview.id);
+        console.log(" order is: "+r.order);
+        if(r.order==1){
+            return;
+        }
+        try{
+            await this.axios
+                .create({ withCredentials: true })
+                .put(DOMAIN_PATH + "users/changeRecipeOrderInMeal",
+                    {
+                        recipeId: r.recipe_preview.id,
+                        neworder: r.order-1,
+                        },
+                        { withCredentials: true },
+                );
+            this.getUpcommingMeal();
+        }
+        catch(error){
+            console.log("ERROR !");
+        }
+    },
   }
 };
 </script>
