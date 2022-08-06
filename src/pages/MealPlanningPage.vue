@@ -21,7 +21,7 @@
                         <b-button pill variant="outline-success" @click="moveUp(r)"><b-icon-arrow-up></b-icon-arrow-up></b-button>
                     </p>
                 </td>
-                <td><b-button>Delete</b-button></td>
+                <td><b-button variant="outline-dark" @click="remove(r)"><b-icon icon="x-circle"></b-icon></b-button></td>
             </tr>
         </table>
 
@@ -106,6 +106,24 @@ export default {
             console.log("ERROR !");
         }
     },
+    async remove(r){
+        const DOMAIN_PATH = "http://localhost:3000/";
+
+        try{
+            await this.axios
+                .create({ withCredentials: true })
+                .put(DOMAIN_PATH + "users/removeRecipeFromMeal",
+                    {
+                        recipeId: r.recipe_preview.id,
+                        },
+                        { withCredentials: true },
+                );
+            this.getUpcommingMeal();
+        }
+        catch(error){
+            console.log("ERROR !");
+        }
+    }
   }
 };
 </script>
