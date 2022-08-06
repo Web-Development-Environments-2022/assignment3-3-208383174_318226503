@@ -16,8 +16,10 @@
                 <td> <RecipePreview class="recipePreview" :recipe="r.recipe_preview"></RecipePreview></td>
                 <td>TODO</td>
                 <td>
-                    <b-button>Down</b-button>
-                    <b-button>Up</b-button>
+                    <p class="h2">
+                        <b-button pill variant="outline-danger" @click="moveDown(r)"><b-icon-arrow-down></b-icon-arrow-down></b-button>
+                        <b-button pill variant="outline-success" @click="moveUp(r)"><b-icon-arrow-up></b-icon-arrow-up></b-button>
+                    </p>
                 </td>
                 <td><b-button>Delete</b-button></td>
             </tr>
@@ -53,6 +55,29 @@ export default {
                 });
             this.todo_recipes= res.data;
             console.log(this.todo_recipes);
+        }
+        catch(error){
+            console.log("ERROR !");
+        }
+    },
+    async moveDown(r){
+        const DOMAIN_PATH = "http://localhost:3000/";
+        console.log("r.id is: "+ r.recipe_preview.id);
+        console.log(" order is: "+r.order);
+        if(r.order==this.todo_recipes.length){
+            return;
+        }
+        try{
+            await this.axios
+                .create({ withCredentials: true })
+                .put(DOMAIN_PATH + "users/changeRecipeOrderInMeal",
+                    {
+                        recipeId: r.recipe_preview.id,
+                        neworder: r.order+1,
+                        },
+                        { withCredentials: true },
+                );
+            this.getUpcommingMeal();
         }
         catch(error){
             console.log("ERROR !");
