@@ -50,7 +50,6 @@
 
 <script>
 import { kMaxLength } from 'buffer';
-
 export default {
   name: "Instructions",
   props: {
@@ -86,7 +85,6 @@ export default {
     //   console.log("sessionStorage.making_progress[this.r_id] "+  JSON.parse(sessionStorage.making_progress)[this.r_id]);
     //   return JSON.parse(sessionStorage.making_progress)[this.r_id];
     // };
-
     if(this.getSessionValue()){
       minStep = this.getSessionValue();
       console.log("minStep : "+minStep);
@@ -112,7 +110,6 @@ export default {
         this.value +=1;
       }
     },
-
     getSessionValue(){
       console.log("sessionStorage.making_progress[this.r_id] "+  JSON.parse(sessionStorage.making_progress)[this.r_id]);
       return JSON.parse(sessionStorage.making_progress)[this.r_id];
@@ -123,7 +120,6 @@ export default {
       this.selected.push(parseInt(step.value));
       this.updateValueProgress();
       //save step
-
       let temp1 = sessionStorage.making_progress;
       console.log("temp1: "+ temp1);
       let temp = JSON.parse(temp1);
@@ -131,10 +127,8 @@ export default {
       if ( temp == undefined){
         temp = {};
       }
-
       temp[this.r_id] = this.value;
       sessionStorage.setItem("making_progress", JSON.stringify(temp));
-
     },
     canClickButton(step){
       let len = this.selected.length;
@@ -145,7 +139,6 @@ export default {
         return true;
       }
       return false;
-
     }
   },
     computed: {
@@ -175,26 +168,21 @@ export default {
 .step {
   font-size: 17px;
 }
-
 .specific-step {
   margin-bottom: 30px;
 }
-
 h1 {
   font-size: 23px;
   margin-bottom: 25px;
   font-family: FreeMono, monospace;
 }
-
 #step-title {
   font-family: FreeMono, monospace;
   text-decoration: underline;
 }
-
 #step-description {
   margin-top: 5px;
 }
-
 #sample-list-flat {
     border: 1px solid #dddddd;
     border-radius: 3px;

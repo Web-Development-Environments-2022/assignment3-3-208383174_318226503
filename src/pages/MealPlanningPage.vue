@@ -1,6 +1,11 @@
 <template>
   <div>
+    <br>
+    
     <h1>Your Upcomming Meal</h1>
+    <br>
+    <b-button @click="removeAll">Click to remove all recipes from current meal plan</b-button>
+    <br>
     <div>
         <table class="table">
             <thead>
@@ -12,9 +17,11 @@
             </thead>
 
             <tr v-for="r in todo_recipes" :key="r.order">
-                <td>{{r.order}}</td>
+                <td><h2>{{r.order}}</h2></td>
                 <td> <RecipePreview class="recipePreview" :recipe="r.recipe_preview"></RecipePreview></td>
-                <td>TODO</td>
+                <td>
+                    TODO
+                </td>
                 <td>
                     <p class="h2">
                         <b-button pill variant="outline-danger" @click="moveDown(r)"><b-icon-arrow-down></b-icon-arrow-down></b-button>
@@ -119,6 +126,26 @@ export default {
                         { withCredentials: true },
                 );
             this.getUpcommingMeal();
+        }
+        catch(error){
+            console.log("ERROR !");
+        }
+    },
+    async removeAll(){
+        if(this.todo_recipes.length==0){
+            confirm("No recipes in current meal");
+            return;
+        }
+        const DOMAIN_PATH = "http://localhost:3000/";
+
+        try{
+            await this.axios
+                .create({ withCredentials: true })
+                .put(DOMAIN_PATH + "users/removeAllRecipesFromMeal",
+                        { withCredentials: true },
+                );
+            this.getUpcommingMeal();
+            confirm("All recipes from current meal were successfully removed")
         }
         catch(error){
             console.log("ERROR !");
