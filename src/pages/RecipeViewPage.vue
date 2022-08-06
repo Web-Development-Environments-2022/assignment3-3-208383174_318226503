@@ -250,9 +250,11 @@ export default {
     },
     async addToMeal(){
       let DOMAIN_PATH = "http://localhost:3000/users/addToUpcommingMeal/"
+      console.log("this.$route.query.isPersonal in make now: "+this.$route.query.isPersonal);
+      console.log(DOMAIN_PATH + this.recipe.id +"?isPersonal="+this.$route.query.isPersonal);
       try {
       response = await this.axios.create({ withCredentials: true }).post(
-        DOMAIN_PATH + this.recipe.id
+        DOMAIN_PATH + this.recipe.id +"?isPersonal="+this.$route.query.isPersonal
       );
       if (response.status !== 200) {
         this.$router.replace("/NotFound");}

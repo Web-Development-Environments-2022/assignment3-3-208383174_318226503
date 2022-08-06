@@ -58,6 +58,12 @@
               <b-button v-b-modal.modal-1>Add Recipe</b-button>
               <NewRecipe id="modal-1" />
             </div>
+            <div class="add-button" id="recipe_cart">
+              <router-link
+                  class="navbar-brand"
+                  :to="{ name: 'MealPlanning' }"
+                  >Cart(TODO)</router-link>
+            </div>
           </span>
         </span>
       </nav>
@@ -88,6 +94,28 @@ export default {
         this.$forceUpdate();
       });
     },
+    async getNumOfMeals(){
+      const DOMAIN_PATH = "http://localhost:3000";
+      try {
+        let response = await this.axios
+        .create({ withCredentials: true })
+        .get(DOMAIN_PATH + "/users/getNumRecipesInUpcommingMeal", {
+        withCredentials: true,
+      });
+      return response.data;
+      }
+      catch(error){
+        console.log("no upcomming meals")
+      }
+    }
+  },
+  mounted() {
+    this.numOfMeals = getNumOfMeals();
+  },
+  data() {
+    return {
+      numOfMeals: 0,
+    }
   },
 };
 </script>
