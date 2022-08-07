@@ -216,10 +216,11 @@ export default {
 
         let path_to_exe =
           DOMAIN_PATH +
-          "/recipes/search?term=" +
+          "/recipes/search/" +
           this.userSearchTerm +
-          "&numOfResults=" +
+          "?numOfResults=" +
           this.numberOfResults;
+        this.numberOfResults;
         if (this.selectedCuisine != null && this.selectedCuisine != "Cuisine") {
           path_to_exe += "&cuisine=" + this.selectedCuisine;
           last_search_str += `cuisine: ${this.selectedCuisine} `;
