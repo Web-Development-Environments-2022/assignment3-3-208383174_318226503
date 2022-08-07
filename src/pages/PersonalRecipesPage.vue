@@ -39,13 +39,12 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  padding: 2px;
   min-height: 800px;
-  font-family: Helvetica;
+  margin-top: 0px;
+  padding: 2px;
 }
 
 .personal-page {
-  margin-top: 30px;
   margin: auto;
 }
 </style>

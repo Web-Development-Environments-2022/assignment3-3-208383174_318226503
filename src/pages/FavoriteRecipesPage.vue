@@ -35,11 +35,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-container {
-  padding: 20px;
-  font-family: Helvetica;
-}
-
 .container {
   min-height: 800px;
   padding: 2px;
@@ -50,7 +45,6 @@ container {
 }
 
 .FavoriteRecipes {
-  // margin: 10px 0 10px;
   margin: auto;
 }
 </style>

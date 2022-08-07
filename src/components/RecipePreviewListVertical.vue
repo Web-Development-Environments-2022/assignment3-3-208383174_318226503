@@ -51,7 +51,6 @@ export default {
         const response = await this.axios.get(
           DOMAIN_PATH + "/users/" + this.type,
           { withCredentials: true }
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
         if (response.status == 200) {
           const recipes = response.data;
@@ -88,7 +87,9 @@ export default {
 h4 {
   font-size: 27px;
   font-family: Andale Mono, monospace;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  text-align: -webkit-center;
 }
 
 .recipePreview {
