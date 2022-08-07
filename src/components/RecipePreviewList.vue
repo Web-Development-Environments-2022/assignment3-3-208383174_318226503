@@ -1,24 +1,17 @@
 <template>
   <b-container>
-    <h4>
-      {{ title }}
-      <slot></slot>
-    </h4>
     <b-row>
       <b-col v-for="r in recipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" :key="componentKey" />
+        <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
-    <button class="random-button" @click="changeRandom">
-      Get other recipes
-    </button>
   </b-container>
 </template>
 
 <script>
 import RecipePreview from "./RecipePreview.vue";
 export default {
-  name: "RecipePreviewListRandom",
+  name: "RecipePreviewList",
   components: {
     RecipePreview,
   },
@@ -27,27 +20,41 @@ export default {
       type: String,
       required: true,
     },
+    list_type: {
+        type: Number,
+        required: true,
+    }
   },
   data() {
     return {
       recipes: [],
-      componentKey: 0,
     };
   },
   mounted() {
     console.log("recipe preview list mounted");
+    console.log("list_type = "+this.list_type);
     this.updateRecipes();
   },
   methods: {
-    async changeRandom() {
-      console.log("changing the random ");
-      await this.updateRecipes();
-      this.componentKey += 1;
-    },
-
     async updateRecipes() {
       const DOMAIN_PATH = "http://localhost:3000";
-      try {
+      if(this.list_type === 2){
+        try {
+            const response = await this.axios
+            .create({ withCredentials: true })
+            .get(DOMAIN_PATH + "/users/lastThreeViewed", {
+                withCredentials: true,
+            });
+            const recipes = response.data;
+            this.recipes = [];
+            this.recipes.push(...recipes);
+        } catch (error) {
+            console.dir("error at recipe preview list");
+            console.dir(error);
+        }
+      }
+      else if (this.list_type === 1){
+        try {
         const response = await this.axios.get(DOMAIN_PATH + "/recipes/random", {
           withCredentials: true,
         });
@@ -58,6 +65,8 @@ export default {
         console.dir("error at recipe preview list");
         console.dir(error);
       }
+      }
+
     },
   },
 };
@@ -69,29 +78,15 @@ export default {
   max-width: 980px;
   margin: auto;
 }
-.random-button {
-  margin-top: 15px;
-  padding: 5px 13px 5px 13px;
-  font-size: 19px;
-  border: none;
-  border-radius: 5px;
-  background-color: #dca65e;
-  color: white;
-  font-family: Noto Sans, sans-serif;
-}
-
-.random-button:hover,
-.random-button:active {
-  background-color: #e79b38;
-}
-
 h4 {
   font-size: 27px;
   font-family: Andale Mono, monospace;
   margin-bottom: 10px;
+  margin-top: 0px;
 }
 
 .col {
   padding-right: 0;
+  flex-grow: 0;
 }
 </style>

@@ -12,7 +12,7 @@
         <img id="logo" src="../../resources/logo-with-names.jpg" />
         <div class="row">
           <div class="col-sm">
-            <RecipePreviewListRandom
+            <RecipePreviewList :list_type=1
               :key="componentKey"
               class="RandomRecipes center"
               title="Explore this recipes"
@@ -28,12 +28,12 @@
               >You need to Login to vue this</router-link
             >
             <div v-if="$root.store.username">
-              <RecipePreviewListLastSeen
+              <RecipePreviewList :list_type=2
                 :class="{
                   center: true,
                 }"
                 disabled
-              ></RecipePreviewListLastSeen>
+              ></RecipePreviewList>
             </div>
           </div>
         </div>
@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import RecipePreviewListRandom from "../components/RecipePreviewListRandom.vue";
-import RecipePreviewListLastSeen from "../components/RecipePreviewListLastSeen.vue";
+
+import RecipePreviewList from "../components/RecipePreviewList.vue";
 export default {
   data() {
     return {};
@@ -53,8 +53,7 @@ export default {
     console.log("main page mounted");
   },
   components: {
-    RecipePreviewListLastSeen,
-    RecipePreviewListRandom,
+    RecipePreviewList,
   },
 };
 </script>

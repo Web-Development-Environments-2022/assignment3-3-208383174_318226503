@@ -15,7 +15,7 @@
           <div class="item-text">
             <div>
               {{ r.name }}<span id="divider">|</span>
-              <span id="amount">{{ Math.floor(r.amount * 100) / 100 }}</span>
+              <span id="amount">{{ Math.floor(r.amount*mul * 100) / 100 }}</span>
               <span v-if="r.unit != 'null'"> {{ r.unit }}</span>
             </div>
           </div>
@@ -33,6 +33,10 @@ export default {
       type: Array,
       required: true,
     },
+    mul:{
+      type: Number,
+      required: true,
+    }
   },
 };
 </script>

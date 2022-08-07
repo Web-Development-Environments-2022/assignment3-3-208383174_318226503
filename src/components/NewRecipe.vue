@@ -104,7 +104,23 @@
 
             <!-- ingredients -->
             <div class="ingredients">
-              <h5 class="input-title">add the ingredients</h5>
+              <h5 class="input-title">Ingredients</h5>
+              <div>
+                <table class="table">
+                    <thead>
+                    <th>Name</th>
+                    <th>  Amount</th>
+                    <th>Unit</th>
+                    </thead>
+
+                    <tr v-for="i in ingredients" :key="i.ingredientName">
+                      <td>{{i.ingredientName}}</td>
+                      <td>{{i.amount}}</td>
+                      <td>{{i.unit}}</td>
+                    </tr>
+                </table>
+
+              </div>
               <b-form inline @submit.prevent="addIngredient">
                 <label class="sr-only" for="inline-form-input-name">Name</label>
                 <b-form-input
@@ -135,15 +151,19 @@
                   type="text"
                   :state="validateState('unit')"
                 ></b-form-input>
+                <div>
+                  <br>
+                    <b-button type="submit" variant="primary">Add Ingredient</b-button>
+                    <br>
 
-                <b-button type="submit" variant="primary">Add</b-button>
-                <div v-if="showIngridentsMeesage === true">
-                  <div>
-                    <b-alert show dismissible>
-                      Successfully added {{ IngridentsMeesage }} to the recipe
-                    </b-alert>
-                  </div>
+                      <!-- <div>
+                        <b-alert show dismissible v-if="showIngridentsMeesage === true">
+                          Successfully added {{ IngridentsMeesage }} to the recipe
+                        </b-alert>
+                      </div> -->
                 </div>
+
+                
 
                 <b-form-invalid-feedback v-if="!$v.form.ingredientName.length">
                   ingredient name should be up to 100 characters long
@@ -167,7 +187,21 @@
 
             <!-- instructions -->
             <div class="instructions">
-              <h5 class="input-title">add the instructions</h5>
+              <h5 class="input-title">Instructions</h5>
+                <div>
+                  <table class="table">
+                      <thead>
+                      <th>Number</th>
+                      <th>  Step</th>
+                      </thead>
+
+                      <tr v-for="i in instructionsArray" :key="i.number">
+                        <td>{{i.number}}</td>
+                        <td>{{i.step}}</td>
+                      </tr>
+                  </table>
+
+                </div>
               <b-form inline @submit.prevent="addInstructions">
                 <label class="sr-only" for="inline-form-input-name"
                   >instruction</label
@@ -179,16 +213,20 @@
                   v-model="form.step"
                   class="mb-2 mr-sm-2 mb-sm-0"
                 ></b-form-textarea>
-
-                <b-button type="submit" variant="primary">Add</b-button>
-                <div v-if="showInstructionMeesage === true">
+                <div>
+                  <br>
+                <b-button type="submit" variant="primary">Add Instruction</b-button>
+                <!-- <div v-if="showInstructionMeesage === true">
                   <div>
                     <b-alert v-if="showMessages == true" show dismissible>
                       Successfully added number
                       {{ instructionsArray.length }} step to the recipe
                     </b-alert>
                   </div>
+                </div> -->
                 </div>
+
+
               </b-form>
             </div>
           </b-form-group>
@@ -218,7 +256,7 @@ import {
 export default {
   name: "NewRecipe",
   created() {
-    this.ingridents = [];
+    this.ingredients = [];
     this.instructionsArray = [];
     this.showIngridentsMeesage = false;
     this.showInstructionMeesage = false;
@@ -235,7 +273,7 @@ export default {
         image: "",
         readyInMinutes: null,
         servingSize: null,
-
+        ingredients: [],
         vegan: null,
         vegetarian: null,
         glutenFree: null,
@@ -357,7 +395,7 @@ export default {
             vegan: vegan,
             vegetarian: vegetarian,
             glutenFree: glutenFree,
-            ingredientsAndQuantities: this.ingridents,
+            ingredientsAndQuantities: this.ingredients,
             instructions: this.instructionsArray,
             servingSize: this.form.servingSize,
           });
@@ -367,6 +405,7 @@ export default {
           "new recipe added successfully",
           "success"
         );
+        confirm("new recipe added successfully");
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
@@ -387,7 +426,7 @@ export default {
         step: "",
       };
       this.instructionsArray = [];
-      this.ingridents = [];
+      this.ingredients = [];
 
       this.$nextTick(() => {
         this.$v.$reset();
@@ -396,6 +435,7 @@ export default {
       this.showInstructionMeesage = false;
     },
     addIngredient() {
+      console.log("addIngredient");
       if (
         this.$v.form.amount.$anyError ||
         this.$v.form.unit.$anyError ||
@@ -412,15 +452,15 @@ export default {
 
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
-
-      this.ingridents.push({
+      this.ingredients.push({
         ingredientName: this.form.ingredientName,
-        amount: this.form.amount,
+        amount: parseFloat(this.form.amount),
         unit: this.form.unit,
       });
       (this.form.ingredientName = ""),
         (this.form.amount = null),
         (this.form.unit = null);
+      console.log(this.ingredients);
     },
 
     addInstructions() {
