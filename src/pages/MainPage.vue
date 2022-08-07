@@ -12,11 +12,8 @@
         <img id="logo" src="../../resources/logo-with-names.jpg" />
         <div class="row">
           <div class="col-sm">
-            <RecipePreviewList :list_type=1
-              :key="componentKey"
-              class="RandomRecipes center"
-              title="Explore this recipes"
-            />
+            <h4>Explore this recipes</h4>
+            <RecipePreviewList :list_type="1" :key="componentKey" />
           </div>
           <div class="col-sm">
             <h4>Last watched recipes</h4>
@@ -28,7 +25,8 @@
               >You need to Login to vue this</router-link
             >
             <div v-if="$root.store.username">
-              <RecipePreviewList :list_type=2
+              <RecipePreviewList
+                :list_type="2"
                 :class="{
                   center: true,
                 }"
@@ -43,7 +41,6 @@
 </template>
 
 <script>
-
 import RecipePreviewList from "../components/RecipePreviewList.vue";
 export default {
   data() {
@@ -59,9 +56,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-container {
+.container {
   padding: 20px;
   font-family: Helvetica;
+  max-width: 1330px;
 }
 
 .RandomRecipes {
@@ -82,7 +80,7 @@ container {
 }
 
 #logo {
-  height: 245px;
+  height: 233px;
   margin: auto;
   display: block;
 }
@@ -90,7 +88,6 @@ container {
 h4 {
   font-size: 27px;
   font-family: Andale Mono, monospace;
-  margin-bottom: 10px;
   text-align: center;
 }
 
