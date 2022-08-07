@@ -56,7 +56,7 @@
 <script>
 import FavoriteButton from "./FavoriteButton.vue";
 export default {
-  name: "SearchResultsPreview",
+  name: "SearchResults",
   components: {
     FavoriteButton,
   },

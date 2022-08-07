@@ -130,7 +130,7 @@
     </div>
     <b-row v-if="this.isEmpty == 0" cols="3">
       <b-col v-for="item in results" :key="item.id">
-        <SearchResultsPreview class="searchResultsPreview" :recipe="item" />
+        <SearchResults class="searchResultsPreview" :recipe="item" />
       </b-col>
     </b-row>
     <b-row v-if="this.isEmpty == 1">
@@ -146,7 +146,7 @@ import { required, minLength } from "vuelidate/lib/validators";
 import cuisines from "../assets/cuisines";
 import diets from "../assets/diets";
 import intolerances from "../assets/intolerances";
-import SearchResultsPreview from "../components/SearchResultsPreview.vue";
+import SearchResults from "../components/SearchResults.vue";
 export default {
   name: "searchResult",
   data() {
@@ -198,7 +198,7 @@ export default {
     }
   },
   components: {
-    SearchResultsPreview,
+    SearchResults,
   },
 
   methods: {
