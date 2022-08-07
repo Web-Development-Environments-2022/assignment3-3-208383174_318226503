@@ -13,27 +13,6 @@
         <div class="row">
           <div class="col-sm">
             <RecipePreviewListMain></RecipePreviewListMain>
-            <!-- <h4>Explore this recipes</h4>
-            <RecipePreviewList :list_type="1" :key="componentKey" />            
-          </div>
-          <div class="col-sm">
-            <h4>Last watched recipes</h4>
-            <router-link
-              id="login"
-              v-if="!$root.store.username"
-              to="/login"
-              tag="button"
-              >You need to Login to vue this</router-link
-            >
-            <div v-if="$root.store.username">
-              <RecipePreviewList
-                :list_type="2"
-                :class="{
-                  center: true,
-                }"
-                disabled
-              ></RecipePreviewList> -->
-            <!-- </div> -->
           </div>
         </div>
       </div>
@@ -42,7 +21,6 @@
 </template>
 
 <script>
-// import RecipePreviewList from "../components/RecipePreviewList.vue";
 import RecipePreviewListMain from "../components/RecipePreviewListMain.vue";
 export default {
   data() {
@@ -61,6 +39,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   padding: 20px;
+  padding-top: 8px;
   font-family: Helvetica;
   max-width: 1330px;
 }
@@ -86,12 +65,6 @@ export default {
   height: 233px;
   margin: auto;
   display: block;
-}
-
-h4 {
-  font-size: 27px;
-  font-family: Andale Mono, monospace;
-  text-align: center;
 }
 
 #login {

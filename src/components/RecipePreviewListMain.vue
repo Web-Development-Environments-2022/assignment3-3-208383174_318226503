@@ -12,9 +12,14 @@
       </div>
       <div class="col-sm">
         <h4>Last Seen</h4>
-        <b-col v-for="r in lastSeenRecipes" :key="r.id">
-          <RecipePreviewHorizontal class="recipePreview" :recipe="r" />
-        </b-col>
+        <div v-if="$root.store.username">
+          <b-col v-for="r in lastSeenRecipes" :key="r.id">
+            <RecipePreviewHorizontal class="recipePreview" :recipe="r" />
+          </b-col>
+        </div>
+        <div v-else></div>
+        <Login></Login>
+        <!-- </b-col> -->
       </div>
     </b-row>
   </b-container>
@@ -22,10 +27,12 @@
 
 <script>
 import RecipePreviewHorizontal from "./RecipePreviewHorizontal.vue";
+import Login from "./Login.vue";
 export default {
   name: "RecipePreviewList",
   components: {
     RecipePreviewHorizontal,
+    Login,
   },
   props: {
     title: {
