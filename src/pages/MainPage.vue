@@ -12,8 +12,9 @@
         <img id="logo" src="../../resources/logo-with-names.jpg" />
         <div class="row">
           <div class="col-sm">
-            <h4>Explore this recipes</h4>
-            <RecipePreviewList :list_type="1" :key="componentKey" />
+            <RecipePreviewListMain></RecipePreviewListMain>
+            <!-- <h4>Explore this recipes</h4>
+            <RecipePreviewList :list_type="1" :key="componentKey" />            
           </div>
           <div class="col-sm">
             <h4>Last watched recipes</h4>
@@ -31,8 +32,8 @@
                   center: true,
                 }"
                 disabled
-              ></RecipePreviewList>
-            </div>
+              ></RecipePreviewList> -->
+            <!-- </div> -->
           </div>
         </div>
       </div>
@@ -41,7 +42,8 @@
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList.vue";
+// import RecipePreviewList from "../components/RecipePreviewList.vue";
+import RecipePreviewListMain from "../components/RecipePreviewListMain.vue";
 export default {
   data() {
     return {};
@@ -50,7 +52,8 @@ export default {
     console.log("main page mounted");
   },
   components: {
-    RecipePreviewList,
+    RecipePreviewListMain,
+    RecipePreviewListMain,
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card" style="width: 100%;">
+    <div class="card" style="<!--width: 100%; -->">
       <router-link
         :to="{
           name: 'recipe',
@@ -123,7 +123,8 @@ export default {
   flex-direction: row;
   height: auto;
   min-width: 600px;
-  margin-bottom: 10px;
+  margin: 15px 0 20px 0;
+  /* margin-bottom: 10px; */
 }
 
 .card-body {
