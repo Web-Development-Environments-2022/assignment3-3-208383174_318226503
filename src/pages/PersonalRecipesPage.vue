@@ -9,9 +9,10 @@
   >
     <div class="personal-page">
       <div class="container">
-        <PersonalRecipePreviewList
+        <RecipePreviewListVertical
           class="PersonalRecipes center"
           title="Your Personal Recipes"
+          type="personals"
         />
         <router-link v-if="!$root.store.username" to="/login" tag="button"
           >You need to Login to view this</router-link
@@ -22,13 +23,16 @@
 </template>
 
 <script>
-import PersonalRecipePreviewList from "../components/PersonalRecipePreviewList";
+import RecipePreviewListVertical from "../components/RecipePreviewListVertical";
 export default {
+  created() {
+    console.log("Personal page created");
+  },
   mounted() {
     console.log("Personal page mounted");
   },
   components: {
-    PersonalRecipePreviewList,
+    RecipePreviewListVertical,
   },
 };
 </script>
