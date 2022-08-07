@@ -87,6 +87,7 @@ h4 {
   font-family: Andale Mono, monospace;
   margin-bottom: 10px;
   margin-top: 0px;
+  text-align: center;
 }
 
 .col {
