@@ -11,9 +11,9 @@
       >
         <div class="recipe-body">
           <img v-if="image_load" :src="recipe.image" class="card-img-top" />
-          <FavoriteButton class="favoriteButton" :recipe="recipe" />
         </div>
       </router-link>
+
       <div class="card-body">
         <router-link
           :to="{
@@ -35,6 +35,8 @@
           <p id="viewed_recipe" v-if="recipe.isViewed === true">
             you have watched this recipe
           </p>
+          <FavoriteButton class="favoriteButton" :recipe="recipe" />
+
           <div class="food_icons">
             <img
               id="vegetarian"
@@ -124,8 +126,9 @@ export default {
 
 .favoriteButton {
   position: absolute;
-  right: 10px;
+  left: -45px;
   bottom: 10px;
+  font-size: 115%;
 }
 
 #line {
