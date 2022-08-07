@@ -128,7 +128,7 @@ export default {
   position: absolute;
   left: -45px;
   bottom: 10px;
-  font-size: 115%;
+  font-size: 110%;
 }
 
 #line {

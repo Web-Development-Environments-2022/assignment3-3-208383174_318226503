@@ -6,6 +6,9 @@
         <b-col v-for="r in randomRecipes" :key="r.id">
           <RecipePreviewHorizontal class="recipePreview" :recipe="r" />
         </b-col>
+        <button class="random-button" @click="changeRandom">
+          Get other recipes
+        </button>
       </div>
       <div class="col-sm">
         <h4>Last Seen</h4>
@@ -44,6 +47,25 @@ export default {
     this.updateRecipes();
   },
   methods: {
+    async changeRandom() {
+      console.log("changing the random ");
+      await this.getRandom();
+      this.componentKey += 1;
+    },
+    async getRandom() {
+      const DOMAIN_PATH = "http://localhost:3000";
+      try {
+        const response = await this.axios.get(DOMAIN_PATH + "/recipes/random", {
+          withCredentials: true,
+        });
+        const recipes = response.data;
+        this.randomRecipes = [];
+        this.randomRecipes.push(...recipes);
+      } catch (error) {
+        console.dir("error at recipe preview list");
+        console.dir(error);
+      }
+    },
     async updateRecipes() {
       const DOMAIN_PATH = "http://localhost:3000";
       try {
@@ -60,17 +82,7 @@ export default {
         console.dir(error);
       }
 
-      try {
-        const response = await this.axios.get(DOMAIN_PATH + "/recipes/random", {
-          withCredentials: true,
-        });
-        const recipes = response.data;
-        this.randomRecipes = [];
-        this.randomRecipes.push(...recipes);
-      } catch (error) {
-        console.dir("error at recipe preview list");
-        console.dir(error);
-      }
+      await this.getRandom();
     },
   },
 };
@@ -93,5 +105,25 @@ h4 {
 .col {
   padding: 0;
   flex-grow: 0;
+}
+
+.random-button {
+  padding: 6px 12px 6px 12px;
+  font-size: 20.5px;
+  border: 2.5px solid;
+  border-radius: 6px;
+  background: transparent;
+  border-color: #d98715;
+  color: #d98715;
+  font-family: system-ui;
+  font-weight: 600;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.random-button:hover,
+.random-button:active {
+  background-color: #d98715;
+  color: white;
 }
 </style>
