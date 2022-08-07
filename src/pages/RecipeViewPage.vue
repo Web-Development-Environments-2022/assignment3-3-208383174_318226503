@@ -56,8 +56,14 @@
           />
         </div>
         <div class="info">
-          <br/>
-        <b-button class="addToMealB" pill variant="outline-danger" @click="addToMeal()">{{addToMealLabel}}</b-button>
+          <br />
+          <b-button
+            class="addToMealB"
+            pill
+            variant="outline-danger"
+            @click="addToMeal()"
+            >{{ addToMealLabel }}</b-button
+          >
         </div>
         <div class="info" v-show="onlypreview">
           <br />
@@ -68,7 +74,7 @@
             type="submit"
             @click="onMakeNow"
             size="lg"
-            >{{make_button_text}}</b-button
+            >{{ make_button_text }}</b-button
           >
         </div>
         <div class="info" v-show="!onlypreview">
@@ -79,13 +85,17 @@
             type="submit"
             @click="backToRecipe"
             size="lg"
-            >{{make_button_text}}</b-button
+            >{{ make_button_text }}</b-button
           >
-          <br/>
-          <br/>
+          <br />
+          <br />
           <h3>Change number of dishes</h3>
-          <b-button variant="outline-dark"  @click="decrement_dishes()">-</b-button>
-          <b-button variant="outline-dark"  @click="increment_dishes()">+</b-button>
+          <b-button variant="outline-dark" @click="decrement_dishes()"
+            >-</b-button
+          >
+          <b-button variant="outline-dark" @click="increment_dishes()"
+            >+</b-button
+          >
         </div>
       </div>
       <div v-if="recipe" class="recipe-img-container">
@@ -99,10 +109,16 @@
         <Instructions :instructions="recipe._instructions" />
       </div>
       <div v-show="!onlypreview" id="MakingRecipeSteps_div">
-        <MakingRecipeSteps :instructions="recipe._instructions" :r_id="recipe.id" />
+        <MakingRecipeSteps
+          :instructions="recipe._instructions"
+          :r_id="recipe.id"
+        />
       </div>
       <div id="ingredients">
-        <Ingredients :ingredients="recipe.extendedIngredients" :mul="mul_dishes" />
+        <Ingredients
+          :ingredients="recipe.extendedIngredients"
+          :mul="mul_dishes"
+        />
       </div>
     </div>
   </b-card>
@@ -145,9 +161,9 @@ export default {
       }
 
       try {
-        response = await this.axios.create({ withCredentials: true }).get(
-          DOMAIN_PATH + this.$route.params.recipeId,
-        );
+        response = await this.axios
+          .create({ withCredentials: true })
+          .get(DOMAIN_PATH + this.$route.params.recipeId);
 
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
@@ -204,7 +220,7 @@ export default {
         previewInfo,
         servingSize,
         first_time,
-        id
+        id,
       };
 
       console.log("first time");
@@ -234,37 +250,51 @@ export default {
       this.make_button_text = "Back";
       this.addToMeal();
     },
-    backToRecipe(){
+    backToRecipe() {
       this.onlypreview = true;
       this.make_button_text = "Make Now";
     },
-    decrement_dishes(){
-      if(this.recipe.servingSize>0){
-      this.recipe.servingSize -=1;
-      this.mul_dishes -=1;
+    decrement_dishes() {
+      if (this.recipe.servingSize > 0) {
+        this.recipe.servingSize -= 1;
+        this.mul_dishes -= 1;
       }
     },
-    increment_dishes(){
-      this.recipe.servingSize +=1;
-      this.mul_dishes +=1;
+    increment_dishes() {
+      this.recipe.servingSize += 1;
+      this.mul_dishes += 1;
     },
-    async addToMeal(){
-      let DOMAIN_PATH = "http://localhost:3000/users/addToUpcommingMeal/"
-      console.log("this.$route.query.isPersonal in make now: "+this.$route.query.isPersonal);
-      console.log(DOMAIN_PATH + this.recipe.id +"?isPersonal="+this.$route.query.isPersonal);
-      try {
-      response = await this.axios.create({ withCredentials: true }).post(
-        DOMAIN_PATH + this.recipe.id +"?isPersonal="+this.$route.query.isPersonal
+    async addToMeal() {
+      let DOMAIN_PATH = "http://localhost:3000/users/upcommingMeal/";
+      console.log(
+        "this.$route.query.isPersonal in make now: " +
+          this.$route.query.isPersonal
       );
-      if (response.status !== 200) {
-        this.$router.replace("/NotFound");}
-      this.addToMealLabel = "Added";
-    } catch (error) {
-      console.log("error.response.status", error.response.status);
-      // this.$router.replace("/NotFound");
-      return;
-    }
-    }
+      console.log(
+        DOMAIN_PATH +
+          this.recipe.id +
+          "?isPersonal=" +
+          this.$route.query.isPersonal
+      );
+      try {
+        response = await this.axios
+          .create({ withCredentials: true })
+          .post(
+            DOMAIN_PATH +
+              this.recipe.id +
+              "?isPersonal=" +
+              this.$route.query.isPersonal
+          );
+        if (response.status !== 200) {
+          this.$router.replace("/NotFound");
+        }
+        this.addToMealLabel = "Added";
+      } catch (error) {
+        console.log("error.response.status", error.response.status);
+        // this.$router.replace("/NotFound");
+        return;
+      }
+    },
   },
 };
 </script>

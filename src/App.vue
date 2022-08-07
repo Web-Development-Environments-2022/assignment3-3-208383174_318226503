@@ -59,10 +59,9 @@
               <NewRecipe id="modal-1" />
             </div>
             <div class="add-button" id="recipe_cart">
-              <router-link
-                  class="navbar-brand"
-                  :to="{ name: 'MealPlanning' }"
-                  >Cart(TODO)</router-link>
+              <router-link class="navbar-brand" :to="{ name: 'MealPlanning' }"
+                >Cart(TODO)</router-link
+              >
             </div>
           </span>
         </span>
@@ -94,28 +93,30 @@ export default {
         this.$forceUpdate();
       });
     },
-    async getNumOfMeals(){
+    async getNumOfMeals() {
+      console.log(2);
       const DOMAIN_PATH = "http://localhost:3000";
       try {
         let response = await this.axios
-        .create({ withCredentials: true })
-        .get(DOMAIN_PATH + "/users/getNumRecipesInUpcommingMeal", {
-        withCredentials: true,
-      });
-      return response.data;
+          .create({ withCredentials: true })
+          .get(DOMAIN_PATH + "/users/NumRecipesUpcommingMeal", {
+            withCredentials: true,
+          });
+        console.log("!! " + response);
+        return response.data;
+      } catch (error) {
+        console.log("no upcomming meals");
       }
-      catch(error){
-        console.log("no upcomming meals")
-      }
-    }
+    },
   },
   mounted() {
+    console.log(1);
     this.numOfMeals = getNumOfMeals();
   },
   data() {
     return {
       numOfMeals: 0,
-    }
+    };
   },
 };
 </script>
