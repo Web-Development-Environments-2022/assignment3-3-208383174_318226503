@@ -15,12 +15,22 @@
         </div>
       </router-link>
       <div class="card-body">
-        <h5 class="card-title">
-          {{ recipe.title }}
-        </h5>
+        <router-link
+          :to="{
+            name: 'recipe',
+            params: { recipeId: recipe.id },
+            query: { isPersonal: recipe.isPersonal },
+          }"
+          id="title-link"
+        >
+          <h5 class="card-title">
+            {{ recipe.title }}
+          </h5>
+        </router-link>
         <ul class="list-group list-group-flush">
           <p id="recipe_info">
-            {{ recipe.readyInMinutes }} minutes | {{ recipe.popularity }} likes
+            {{ recipe.readyInMinutes }} minutes <span id="line">|</span>
+            {{ recipe.popularity }} likes
           </p>
           <p id="viewed_recipe" v-if="recipe.isViewed === true">
             you have watched this recipe
@@ -30,24 +40,24 @@
               id="vegetarian"
               v-if="recipe.vegetarian === true"
               src="../../resources/vegeterian.png"
-              height="28px"
-              width="28px"
+              height="35px"
+              width="35px"
               title="vegetarian"
             />
             <img
               id="vegan"
               v-if="recipe.vegan === true"
               src="../../resources/vegan.png"
-              height="28px"
-              width="28px"
+              height="35px"
+              width="35px"
               title="vegan"
             />
             <img
               id="glutenFree"
               v-if="recipe.glutenFree === true"
               src="../../resources/gluten-free.png"
-              height="28px"
-              width="28px"
+              height="35px"
+              width="35px"
               title="gluten free"
             />
           </div>
@@ -90,7 +100,7 @@ export default {
 <style scoped>
 #recipe-preview {
   display: inline-block;
-  max-width: 55%;
+  max-width: 53%;
   height: auto;
   position: relative;
   text-decoration: none;
@@ -108,7 +118,7 @@ export default {
 }
 
 .food_icons img {
-  margin-right: 10px;
+  margin: 0px 6px 0 6px;
   position: relative;
 }
 
@@ -116,6 +126,10 @@ export default {
   position: absolute;
   right: 10px;
   bottom: 10px;
+}
+
+#line {
+  color: #ce8a53;
 }
 
 .card {
@@ -130,15 +144,21 @@ export default {
 .card-body {
   padding: 4px 10px 0 10px;
   position: relative;
+  font-size: 17px;
+  text-align: center;
 }
 
 .col {
   flex-grow: 0;
 }
 
+#title-link {
+  display: inline;
+}
+
 .card .card-title {
-  margin: 6px 0 0 0;
-  font-size: 19.5px;
+  margin: 25px 0 4px 0;
+  font-size: 21px;
   overflow: hidden;
   display: -webkit-box;
   max-width: 20rem;
@@ -150,7 +170,7 @@ export default {
 
 .card .card-title:hover {
   text-decoration: none;
-  color: rgb(100, 100, 100);
+  color: rgb(215, 111, 14);
 }
 
 .recipe-body {
@@ -163,8 +183,12 @@ export default {
   margin-top: 0px;
 }
 
+#title-link:hover {
+  text-decoration: none;
+}
+
 #viewed_recipe {
   margin-top: 3px;
-  color: rgb(165, 161, 161);
+  color: #ce8a53;
 }
 </style>
