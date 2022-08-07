@@ -129,7 +129,7 @@
       </b-row>
     </div>
     <b-row v-if="this.isEmpty == 0" cols="3">
-      <b-col v-for="item in results" :key="item.previewInfo.id">
+      <b-col v-for="item in results" :key="item.id">
         <SearchResultsPreview class="searchResultsPreview" :recipe="item" />
       </b-col>
     </b-row>
@@ -216,10 +216,11 @@ export default {
 
         let path_to_exe =
           DOMAIN_PATH +
-          "/recipes/search?term=" +
+          "/recipes/search/" +
           this.userSearchTerm +
-          "&numOfResults=" +
+          "?numOfResults=" +
           this.numberOfResults;
+        this.numberOfResults;
         if (this.selectedCuisine != null && this.selectedCuisine != "Cuisine") {
           path_to_exe += "&cuisine=" + this.selectedCuisine;
           last_search_str += `cuisine: ${this.selectedCuisine} `;
@@ -248,7 +249,6 @@ export default {
           path_to_exe,
           { withCredentials: true }
         );
-        console.log(response);
         console.log(response.status);
         if (response.status == 204 && response.statusText == "No Content") {
           this.isEmpty = 1;
@@ -307,14 +307,14 @@ export default {
     sortByCookingDuration: function() {
       this.isEmpty = 1; //to stop show of recipes
       this.results.sort(function(x, y) {
-        return x.previewInfo.readyInMinutes - y.previewInfo.readyInMinutes;
+        return x.readyInMinutes - y.readyInMinutes;
       });
       this.isEmpty = 0; //show after sort
     },
     sortByPopularity: function() {
       this.isEmpty = 1; //to stop show of recipes
       this.results.sort(function(x, y) {
-        return y.previewInfo.popularity - x.previewInfo.popularity;
+        return y.popularity - x.popularity;
       });
       this.isEmpty = 0; //show after sort
     },

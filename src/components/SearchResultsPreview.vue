@@ -2,37 +2,29 @@
   <div>
     <div class="card" style="width: 18rem; height: 24rem;">
       <router-link
-        :to="{ name: 'recipe', params: { recipeId: recipe.previewInfo.id } }"
+        :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
         id="recipe-preview"
       >
         <div class="recipe-body">
-          <img
-            v-if="image_load"
-            :src="recipe.previewInfo.image"
-            class="card-img-top"
-          />
+          <img v-if="image_load" :src="recipe.image" class="card-img-top" />
         </div>
         <h5 class="card-title">
-          {{ recipe.previewInfo.title }}
+          {{ recipe.title }}
         </h5>
       </router-link>
       <div class="card-body">
         <ul class="list-group list-group-flush">
           <p id="recipe_info">
-            {{ recipe.previewInfo.readyInMinutes }} minutes |
-            {{ recipe.previewInfo.popularity }} likes
+            {{ recipe.readyInMinutes }} minutes | {{ recipe.popularity }} likes
           </p>
-          <p id="viewed_recipe" v-if="recipe.previewInfo.isViewed === true">
+          <p id="viewed_recipe" v-if="recipe.isViewed === true">
             you already viewed this recipe
           </p>
           <div class="food_icons">
-            <FavoriteButton
-              class="favoriteButton"
-              :recipe="recipe.previewInfo"
-            />
+            <FavoriteButton class="favoriteButton" :recipe="recipe" />
             <img
               id="vegetarian"
-              v-if="recipe.previewInfo.vegetarian === true"
+              v-if="recipe.vegetarian === true"
               src="../../resources/vegeterian.png"
               height="28px"
               width="28px"
@@ -40,7 +32,7 @@
             />
             <img
               id="vegan"
-              v-if="recipe.previewInfo.vegan === true"
+              v-if="recipe.vegan === true"
               src="../../resources/vegan.png"
               height="28px"
               width="28px"
@@ -48,7 +40,7 @@
             />
             <img
               id="glutenFree"
-              v-if="recipe.previewInfo.glutenFree === true"
+              v-if="recipe.glutenFree === true"
               src="../../resources/gluten-free.png"
               height="28px"
               width="28px"
@@ -70,7 +62,7 @@ export default {
   },
   mounted() {
     console.log("recipe preview mounted");
-    this.axios.get(this.recipe.previewInfo.image).then((i) => {
+    this.axios.get(this.recipe.image).then((i) => {
       this.image_load = true;
     });
   },
