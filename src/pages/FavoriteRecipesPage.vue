@@ -9,9 +9,10 @@
   >
     <div class="FavoritePage">
       <div class="container">
-        <FavoriteRecipePreviewList
+        <RecipePreviewListVertical
           class="FavoriteRecipes center"
           title="Your Favorite Recipes"
+          type="favorites"
         />
         <router-link v-if="!$root.store.username" to="/login" tag="button"
           >You need to Login to view this</router-link
@@ -22,23 +23,18 @@
 </template>
 
 <script>
-import FavoriteRecipePreviewList from "../components/FavoriteRecipePreviewList";
+import RecipePreviewListVertical from "../components/RecipePreviewListVertical";
 export default {
   mounted() {
     console.log("favorite page mounted");
   },
   components: {
-    FavoriteRecipePreviewList,
+    RecipePreviewListVertical,
   },
 };
 </script>
 
 <style lang="scss" scoped>
-container {
-  padding: 20px;
-  font-family: Helvetica;
-}
-
 .container {
   min-height: 800px;
   padding: 2px;
@@ -49,7 +45,6 @@ container {
 }
 
 .FavoriteRecipes {
-  // margin: 10px 0 10px;
   margin: auto;
 }
 </style>

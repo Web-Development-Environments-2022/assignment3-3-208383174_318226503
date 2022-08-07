@@ -12,29 +12,7 @@
         <img id="logo" src="../../resources/logo-with-names.jpg" />
         <div class="row">
           <div class="col-sm">
-            <RecipePreviewList :list_type=1
-              :key="componentKey"
-              class="RandomRecipes center"
-              title="Explore this recipes"
-            />
-          </div>
-          <div class="col-sm">
-            <h4>Last watched recipes</h4>
-            <router-link
-              id="login"
-              v-if="!$root.store.username"
-              to="/login"
-              tag="button"
-              >You need to Login to vue this</router-link
-            >
-            <div v-if="$root.store.username">
-              <RecipePreviewList :list_type=2
-                :class="{
-                  center: true,
-                }"
-                disabled
-              ></RecipePreviewList>
-            </div>
+            <RecipePreviewListMain></RecipePreviewListMain>
           </div>
         </div>
       </div>
@@ -43,8 +21,7 @@
 </template>
 
 <script>
-
-import RecipePreviewList from "../components/RecipePreviewList.vue";
+import RecipePreviewListMain from "../components/RecipePreviewListMain.vue";
 export default {
   data() {
     return {};
@@ -53,15 +30,18 @@ export default {
     console.log("main page mounted");
   },
   components: {
-    RecipePreviewList,
+    RecipePreviewListMain,
+    RecipePreviewListMain,
   },
 };
 </script>
 
 <style lang="scss" scoped>
-container {
+.container {
   padding: 20px;
+  padding-top: 8px;
   font-family: Helvetica;
+  max-width: 1330px;
 }
 
 .RandomRecipes {
@@ -82,16 +62,9 @@ container {
 }
 
 #logo {
-  height: 245px;
+  height: 233px;
   margin: auto;
   display: block;
-}
-
-h4 {
-  font-size: 27px;
-  font-family: Andale Mono, monospace;
-  margin-bottom: 10px;
-  text-align: center;
 }
 
 #login {
