@@ -55,47 +55,44 @@
             title="this is the first time you're viewing this recipe"
           />
         </div>
-        <div class="info">
-          <br />
-          <b-button
-            class="addToMealB"
-            pill
-            variant="outline-danger"
-            @click="addToMeal()"
-            >{{ addToMealLabel }}</b-button
-          >
-        </div>
-        <div class="info" v-show="onlypreview">
-          <br />
-          <br />
-          <!-- <b-button pill variant="outline-success" type="submit" @click="onMake" size="lg">Make Now</b-button> -->
-          <b-button
-            variant="outline-success"
-            type="submit"
-            @click="onMakeNow"
-            size="lg"
-            >{{ make_button_text }}</b-button
-          >
-        </div>
-        <div class="info" v-show="!onlypreview">
-          <br />
-          <br />
-          <b-button
-            variant="outline-success"
-            type="submit"
-            @click="backToRecipe"
-            size="lg"
-            >{{ make_button_text }}</b-button
-          >
-          <br />
-          <br />
-          <h3>Change number of dishes</h3>
-          <b-button variant="outline-dark" @click="decrement_dishes()"
-            >-</b-button
-          >
-          <b-button variant="outline-dark" @click="increment_dishes()"
-            >+</b-button
-          >
+        <div id="buttons">
+          <span v-show="onlypreview">
+            <!-- <b-button pill variant="outline-success" type="submit" @click="onMake" size="lg">Make Now</b-button> -->
+            <b-button type="submit" class="button" @click="onMakeNow">{{
+              make_button_text
+            }}</b-button>
+            <span>
+              <b-button class="button" @click="addToMeal()">{{
+                addToMealLabel
+              }}</b-button>
+            </span>
+          </span>
+          <div v-show="!onlypreview" id="make-amount">
+            <h3>change the number of dishes</h3>
+
+            <div>
+              <b-button
+                class="change-dishes"
+                variant="outline-danger"
+                @click="decrement_dishes()"
+                >-</b-button
+              >
+              <b-button
+                class="change-dishes"
+                variant="outline-success"
+                @click="increment_dishes()"
+                >+</b-button
+              >
+            </div>
+            <b-icon
+              icon="check2-circle"
+              variant="outline-success"
+              type="submit"
+              @click="backToRecipe"
+              title="done"
+              >{{ make_button_text }}<i class="bi bi-camera-video"></i
+            ></b-icon>
+          </div>
         </div>
       </div>
       <div v-if="recipe" class="recipe-img-container">
@@ -143,7 +140,7 @@ export default {
       onlypreview: true,
       make_button_text: "Make Now",
       mul_dishes: 1,
-      addToMealLabel: "Add to upcoming meal",
+      addToMealLabel: "Add to meal",
     };
   },
   async mounted() {
@@ -247,7 +244,7 @@ export default {
   methods: {
     onMakeNow() {
       this.onlypreview = false;
-      this.make_button_text = "Back";
+      this.make_button_text = "Done";
       this.addToMeal();
     },
     backToRecipe() {
@@ -326,7 +323,7 @@ export default {
 
 .icons {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .icons img {
@@ -360,6 +357,11 @@ h2 {
   padding-right: 30px;
 }
 
+h3 {
+  font-size: 20px;
+  max-width: auto;
+  width: fit-content;
+}
 .number {
   font-size: 32px;
 }
@@ -421,5 +423,45 @@ h2 {
   float: left;
   width: 68%;
   padding: 0 50px 0 50px;
+}
+
+.button {
+  background-color: transparent;
+  border: solid 1px rgb(225, 118, 11);
+  color: black;
+  margin: 30px 10px 5px 10px;
+  text-align: -webkit-center;
+}
+
+.button:not(:disabled):not(.disabled):active {
+  background-color: rgb(225, 118, 11);
+  border: solid 1px rgb(225, 118, 11);
+  color: white;
+  margin: 30px 10px 5px 10px;
+  text-align: -webkit-center;
+}
+
+.b-icon {
+  margin-top: 8px;
+  font-size: 30px;
+}
+
+#make-amount {
+  border: 1px solid rgb(234, 148, 37);
+  border-radius: 15px;
+  width: fit-content;
+  padding: 15px 45px 15px 45px;
+  margin-top: 21px;
+}
+
+#buttons {
+  text-align: -webkit-center;
+}
+
+.change-dishes {
+  margin: 6px;
+  margin-top: 10px;
+  width: 34px;
+  height: 34px;
 }
 </style>
