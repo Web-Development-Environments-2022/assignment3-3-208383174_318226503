@@ -42,7 +42,7 @@
         class="mx-auto w-100"
         >Login</b-button
       >
-      <div class="mt-2">
+      <div class="mt-2" id="register">
         Do not have an account yet?
         <router-link to="register"> Register in here</router-link>
       </div>
@@ -138,5 +138,20 @@ export default {
 
 .mx-auto.w-100 {
   margin-bottom: 15px;
+}
+
+#register {
+  text-align: center;
+  font-family: system-ui;
+  font-size: 17px;
+}
+
+#register a {
+  color: rgb(205, 109, 7);
+}
+
+b-form {
+  font-family: system-ui;
+  font-size: 17px;
 }
 </style>

@@ -17,9 +17,9 @@
             <RecipePreviewHorizontal class="recipePreview" :recipe="r" />
           </b-col>
         </div>
-        <div v-else></div>
-        <Login></Login>
-        <!-- </b-col> -->
+        <div v-else id="login">
+          <Login></Login>
+        </div>
       </div>
     </b-row>
   </b-container>
@@ -132,5 +132,14 @@ h4 {
 .random-button:active {
   background-color: #d98715;
   color: white;
+}
+
+#login {
+  max-width: 470px;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #e0c0a6;
+  border-radius: 4px;
+  margin-top: 15px;
 }
 </style>
