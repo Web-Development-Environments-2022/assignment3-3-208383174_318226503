@@ -58,7 +58,7 @@
               <b-button v-b-modal.modal-1>Add Recipe</b-button>
               <NewRecipe id="modal-1" />
             </div>
-            <div class="add-button" id="recipe_cart">
+            <div id="recipe_cart">
               <router-link class="navbar-brand" :to="{ name: 'MealPlanning' }"
                 >Cart(TODO)</router-link
               >
@@ -263,6 +263,10 @@ export default {
   margin: 0.5rem;
   border: none;
   box-shadow: none;
+}
+
+#recipe_cart {
+  align-self: center;
 }
 
 .add-button button:hover,

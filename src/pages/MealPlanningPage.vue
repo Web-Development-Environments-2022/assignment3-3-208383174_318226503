@@ -1,59 +1,72 @@
 <template>
   <div>
-    <br />
+    <div class="container">
+      <h1>Your Upcomming Meal</h1>
+      <div>
+        <table class="table">
+          <thead>
+            <th>Order</th>
+            <th>Recipe</th>
+            <th>Progress</th>
+            <th>Change Order</th>
+            <th>Remove</th>
+          </thead>
 
-    <h1>Your Upcomming Meal</h1>
-    <br />
-    <b-button @click="removeAll"
-      >Click to remove all recipes from current meal plan</b-button
-    >
-    <br />
-    <div>
-      <table class="table">
-        <thead>
-          <th>Number</th>
-          <th>Recipe</th>
-          <th>Progress</th>
-          <th>Change Order</th>
-          <th>Delete</th>
-        </thead>
+          <tr v-for="r in todo_recipes" :key="r.order">
+            <td>
+              <h2>{{ r.order }}</h2>
+            </td>
+            <td>
+              <RecipePreviewHorizontal
+                class="recipePreview"
+                :recipe="r.recipe_preview"
+              ></RecipePreviewHorizontal>
+            </td>
+            <td>
+              TODO
+            </td>
+            <td>
+              <span>
+                <b-button
+                  pill
+                  variant="outline-danger"
+                  class="order"
+                  @click="moveDown(r)"
+                  title="move order down"
+                  ><b-icon-arrow-down></b-icon-arrow-down
+                ></b-button>
+                <b-button
+                  pill
+                  variant="outline-success"
+                  class="order"
+                  @click="moveUp(r)"
+                  title="move order up"
+                  ><b-icon-arrow-up></b-icon-arrow-up
+                ></b-button>
+              </span>
+            </td>
+            <td>
+              <b-icon
+                id="delete-icon"
+                icon="x-circle"
+                @click="remove(r)"
+                title="remove recipe from upcoming meal"
+              ></b-icon>
+            </td>
+          </tr>
+        </table>
 
-        <tr v-for="r in todo_recipes" :key="r.order">
-          <td>
-            <h2>{{ r.order }}</h2>
-          </td>
-          <td>
-            <RecipePreview
-              class="recipePreview"
-              :recipe="r.recipe_preview"
-            ></RecipePreview>
-          </td>
-          <td>
-            TODO
-          </td>
-          <td>
-            <p class="h2">
-              <b-button pill variant="outline-danger" @click="moveDown(r)"
-                ><b-icon-arrow-down></b-icon-arrow-down
-              ></b-button>
-              <b-button pill variant="outline-success" @click="moveUp(r)"
-                ><b-icon-arrow-up></b-icon-arrow-up
-              ></b-button>
-            </p>
-          </td>
-          <td>
-            <b-button variant="outline-dark" @click="remove(r)"
-              ><b-icon icon="x-circle"></b-icon
-            ></b-button>
-          </td>
-        </tr>
-      </table>
+        <b-button @click="removeAll" variant="outline-danger" id="remove-all"
+          >remove all recipes from current meal plan</b-button
+        >
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import RecipePreview from "../components/RecipePreview.vue";
+// import RecipePreview from "../components/RecipePreview.vue";
+import RecipePreviewHorizontal from "../components/RecipePreviewHorizontal.vue";
 export default {
   name: "MealPlanning",
   data() {
@@ -65,7 +78,8 @@ export default {
     this.getUpcommingMeal();
   },
   components: {
-    RecipePreview,
+    // RecipePreview,
+    RecipePreviewHorizontal,
   },
   methods: {
     async getUpcommingMeal() {
@@ -157,3 +171,60 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.container {
+  max-width: 1500px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+h1 {
+  font-family: Andale Mono, monospace;
+  font-size: 37px;
+  margin-left: 0.5rem;
+  margin-bottom: 15px;
+  text-align: center;
+  padding-top: 10px;
+  color: rgb(234, 121, 0);
+}
+
+.recipePreview {
+  max-width: 500px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+th {
+  font-size: 18px;
+}
+
+#remove-all {
+  margin-bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+}
+
+.order {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+#delete-icon {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table th,
+.table td {
+  text-align: -webkit-center;
+}
+</style>
