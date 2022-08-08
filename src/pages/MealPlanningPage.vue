@@ -177,7 +177,6 @@ export default {
   max-width: 1500px;
   background-color: #f8f9fa;
   border-radius: 4px;
-  margin-top: 10px;
 }
 
 h1 {
@@ -203,6 +202,7 @@ th {
 }
 
 #remove-all {
+  margin-top: 5px;
   margin-bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
