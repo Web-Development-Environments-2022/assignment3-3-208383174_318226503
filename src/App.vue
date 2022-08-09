@@ -60,7 +60,7 @@
             </div>
             <div id="recipe_cart">
               <router-link class="navbar-brand" :to="{ name: 'MealPlanning' }"
-                >Cart(TODO)</router-link
+                >Cart({{numOfMeals}})</router-link
               >
             </div>
           </span>
@@ -102,16 +102,22 @@ export default {
           .get(DOMAIN_PATH + "/users/NumRecipesUpcommingMeal", {
             withCredentials: true,
           });
-        console.log("!! " + response);
-        return response.data;
+        console.log("!! " + response.data.toString());
+        return response.data.toString();
       } catch (error) {
         console.log("no upcomming meals");
       }
     },
+    updateCart: function(){  
+    this.numOfMeals = setInterval(() => {
+        this.getNumOfMeals();
+    }, 3000);
+}
   },
-  mounted() {
-    console.log(1);
-    this.numOfMeals = getNumOfMeals();
+  created() {
+    // console.log(1);
+    // this.numOfMeals = getNumOfMeals();
+    this.updateCart();
   },
   data() {
     return {
