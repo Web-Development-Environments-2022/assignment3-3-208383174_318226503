@@ -96,7 +96,7 @@ export default {
     //   return JSON.parse(sessionStorage.making_progress)[this.r_id];
     // };
     if (this.getSessionValue() != 0) {
-      minStep = this.getSessionValue();
+      minStep = this.getSessionValue()[0];
       console.log("minStep : " + minStep);
       this.value = minStep;
       console.log("mounted this.value : " + this.value);
@@ -153,8 +153,10 @@ export default {
       if (temp == undefined) {
         temp = {};
       }
-      temp[this.r_id] = this.value;
+      temp[this.r_id] = [this.value,this.steps_todo.length];
       sessionStorage.setItem("making_progress", JSON.stringify(temp));
+      temp1 = sessionStorage.making_progress;
+      console.log("temp1: " + temp1);
     },
     canClickButton(step) {
       let len = this.selected.length;

@@ -263,6 +263,7 @@ export default {
       this.mul_dishes += 1;
     },
     async addToMeal() {
+      this.addToMealLabel = "Added";
       let DOMAIN_PATH = "http://localhost:3000/users/upcommingMeal/";
       console.log(
         "this.$route.query.isPersonal in make now: " +
@@ -286,7 +287,7 @@ export default {
         if (response.status !== 200) {
           this.$router.replace("/NotFound");
         }
-        this.addToMealLabel = "Added";
+
       } catch (error) {
         console.log("error.response.status", error.response.status);
         // this.$router.replace("/NotFound");

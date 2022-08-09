@@ -60,7 +60,7 @@
             </div>
             <div id="recipe_cart">
               <router-link class="navbar-brand" :to="{ name: 'MealPlanning' }"
-                >Cart(TODO)</router-link
+                >Cart({{numOfMeals}})</router-link
               >
             </div>
           </span>
@@ -94,7 +94,6 @@ export default {
       });
     },
     async getNumOfMeals() {
-      console.log(2);
       const DOMAIN_PATH = "http://localhost:3000";
       try {
         let response = await this.axios
@@ -102,16 +101,23 @@ export default {
           .get(DOMAIN_PATH + "/users/NumRecipesUpcommingMeal", {
             withCredentials: true,
           });
-        console.log("!! " + response);
-        return response.data;
+        console.log("!! " + response.data.toString());
+        this.numOfMeals = response.data.toString();
       } catch (error) {
         console.log("no upcomming meals");
       }
     },
+    updateCart: function(){  
+    this.loop = setInterval(() => {
+        this.getNumOfMeals();
+    }, 10000);
+    console.log("this.numOfMeals: "+this.numOfMeals);
+}
   },
   mounted() {
-    console.log(1);
-    this.numOfMeals = getNumOfMeals();
+    // console.log(1);
+    // this.numOfMeals = getNumOfMeals();
+    this.updateCart();
   },
   data() {
     return {

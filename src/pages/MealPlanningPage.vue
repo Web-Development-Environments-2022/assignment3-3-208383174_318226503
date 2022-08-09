@@ -22,11 +22,11 @@
                 :recipe="r.recipe_preview"
               ></RecipePreviewHorizontal>
             </td>
-            <td>
-              TODO
+            <td >
+              <RecipeProgressBar :r_id="r.recipe_preview.id"></RecipeProgressBar>
             </td>
-            <td>
-              <span>
+            <td >
+              <span id="change_order">
                 <b-button
                   pill
                   variant="outline-danger"
@@ -67,6 +67,7 @@
 <script>
 // import RecipePreview from "../components/RecipePreview.vue";
 import RecipePreviewHorizontal from "../components/RecipePreviewHorizontal.vue";
+import RecipeProgressBar from "../components/RecipeProgressBar.vue";
 export default {
   name: "MealPlanning",
   data() {
@@ -80,6 +81,7 @@ export default {
   components: {
     // RecipePreview,
     RecipePreviewHorizontal,
+    RecipeProgressBar,
   },
   methods: {
     async getUpcommingMeal() {
@@ -174,7 +176,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  max-width: 1500px;
+  max-width: 1800px;
   background-color: #f8f9fa;
   border-radius: 4px;
 }
@@ -190,7 +192,7 @@ h1 {
 }
 
 .recipePreview {
-  max-width: 500px;
+  max-width: 250px;
 }
 
 h2 {
@@ -212,6 +214,10 @@ th {
 .order {
   margin-right: 5px;
   margin-left: 5px;
+}
+
+#change_order{
+    width: min-content;
 }
 
 #delete-icon {

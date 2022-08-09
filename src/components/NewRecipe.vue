@@ -450,9 +450,10 @@ export default {
 
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
+      // console.log(typeof(this.form.amount));
       this.ingredients.push({
         ingredientName: this.form.ingredientName,
-        amount: parseFloat(this.form.amount),
+        amount: parseFloat(this.form.amount).toFixed(2),
         unit: this.form.unit,
       });
       (this.form.ingredientName = ""),
