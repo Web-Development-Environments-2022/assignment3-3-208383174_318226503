@@ -60,8 +60,9 @@
             </div>
             <div id="recipe_cart">
               <router-link class="navbar-brand" :to="{ name: 'MealPlanning' }"
-                >Cart({{ numOfMeals }})</router-link
-              >
+                >Upcoming Meal
+              </router-link>
+              <span id="shopping-cart">{{ numOfMeals }}</span>
             </div>
           </span>
         </span>
@@ -208,6 +209,14 @@ export default {
 #guest .navbar-brand {
   margin-right: 15px;
   margin-left: 5px;
+}
+
+#shopping-cart {
+  margin-left: -10px;
+  font-size: 17px;
+  background: #d8922f94;
+  padding: 0.5px 2.5px 0.5px 2.5px;
+  border-radius: 4px;
 }
 
 #logged-in-user button {

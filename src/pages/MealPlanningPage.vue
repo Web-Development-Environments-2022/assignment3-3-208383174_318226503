@@ -225,12 +225,16 @@ th {
   cursor: pointer;
 }
 
+#delete-icon:active {
+  color: red;
+}
+
 .table {
   margin-bottom: 0;
 }
 
 .table th,
 .table td {
-  text-align: -webkit-center;
+  // text-align: -webkit-center;
 }
 </style>
