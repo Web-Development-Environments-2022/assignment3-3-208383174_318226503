@@ -94,7 +94,6 @@ export default {
       });
     },
     async getNumOfMeals() {
-      console.log(2);
       const DOMAIN_PATH = "http://localhost:3000";
       try {
         let response = await this.axios
@@ -103,18 +102,19 @@ export default {
             withCredentials: true,
           });
         console.log("!! " + response.data.toString());
-        return response.data.toString();
+        this.numOfMeals = response.data.toString();
       } catch (error) {
         console.log("no upcomming meals");
       }
     },
     updateCart: function(){  
-    this.numOfMeals = setInterval(() => {
+    this.loop = setInterval(() => {
         this.getNumOfMeals();
-    }, 3000);
+    }, 10000);
+    console.log("this.numOfMeals: "+this.numOfMeals);
 }
   },
-  created() {
+  mounted() {
     // console.log(1);
     // this.numOfMeals = getNumOfMeals();
     this.updateCart();
