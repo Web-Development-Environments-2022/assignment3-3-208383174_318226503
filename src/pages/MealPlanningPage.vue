@@ -22,10 +22,12 @@
                 :recipe="r.recipe_preview"
               ></RecipePreviewHorizontal>
             </td>
-            <td >
-              <RecipeProgressBar :r_id="r.recipe_preview.id"></RecipeProgressBar>
+            <td>
+              <RecipeProgressBar
+                :r_id="r.recipe_preview.id"
+              ></RecipeProgressBar>
             </td>
-            <td >
+            <td>
               <span id="change_order">
                 <b-button
                   pill
@@ -65,7 +67,6 @@
 </template>
 
 <script>
-// import RecipePreview from "../components/RecipePreview.vue";
 import RecipePreviewHorizontal from "../components/RecipePreviewHorizontal.vue";
 import RecipeProgressBar from "../components/RecipeProgressBar.vue";
 export default {
@@ -79,7 +80,6 @@ export default {
     this.getUpcommingMeal();
   },
   components: {
-    // RecipePreview,
     RecipePreviewHorizontal,
     RecipeProgressBar,
   },
@@ -216,8 +216,8 @@ th {
   margin-left: 5px;
 }
 
-#change_order{
-    width: min-content;
+#change_order {
+  width: min-content;
 }
 
 #delete-icon {

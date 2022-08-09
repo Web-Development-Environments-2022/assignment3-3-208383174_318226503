@@ -25,9 +25,6 @@
 <script>
 import RecipePreviewListVertical from "../components/RecipePreviewListVertical";
 export default {
-  mounted() {
-    console.log("favorite page mounted");
-  },
   components: {
     RecipePreviewListVertical,
   },

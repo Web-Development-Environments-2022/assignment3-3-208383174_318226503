@@ -57,7 +57,6 @@
         </div>
         <div v-if="$root.store.username" id="buttons">
           <span v-show="onlypreview">
-            <!-- <b-button pill variant="outline-success" type="submit" @click="onMake" size="lg">Make Now</b-button> -->
             <b-button type="submit" class="button" @click="onMakeNow">{{
               make_button_text
             }}</b-button>
@@ -222,20 +221,14 @@ export default {
       };
 
       console.log("first time");
-      console.log(first_time);
 
       if (this.readyInMinutes === null || this.readyInMinutes === undefined) {
-        console.log("true 1");
         this.readyInMinutes = "0";
       }
 
       if (servingSize === null || servingSize === undefined) {
-        console.log("true 2");
         this.servingSize = 0;
       }
-
-      console.log(readyInMinutes);
-      console.log(servingSize);
 
       this.recipe = _recipe;
     } catch (error) {
@@ -289,7 +282,6 @@ export default {
         }
       } catch (error) {
         console.log("error.response.status", error.response.status);
-        // this.$router.replace("/NotFound");
         return;
       }
     },

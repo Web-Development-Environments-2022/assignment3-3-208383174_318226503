@@ -31,7 +31,6 @@ export default {
   },
   components: {
     RecipePreviewListMain,
-    RecipePreviewListMain,
   },
 };
 </script>

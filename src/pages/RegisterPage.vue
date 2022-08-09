@@ -248,7 +248,6 @@ export default {
   mounted() {
     console.log("mounted");
     this.countries.push(...countries);
-    // console.log($v);
   },
   methods: {
     validateState(param) {
@@ -259,27 +258,19 @@ export default {
       const DOMAIN_PATH = "http://localhost:3000";
       console.log("register function");
       try {
-        const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
-          // this.$root.store.server_domain + "/Register",
-          DOMAIN_PATH + "/Register",
-          {
-            username: this.form.username,
-            password: this.form.password,
-            firstname: this.form.firstname,
-            lastname: this.form.lastname,
-            country: this.form.country,
-            password: this.form.password,
-            email: this.form.email,
-          }
-        );
-        console.log(response);
+        const response = await this.axios.post(DOMAIN_PATH + "/Register", {
+          username: this.form.username,
+          password: this.form.password,
+          firstname: this.form.firstname,
+          lastname: this.form.lastname,
+          country: this.form.country,
+          password: this.form.password,
+          email: this.form.email,
+        });
         this.$router.push("/login");
-        // console.log(response);
       } catch (err) {
         this.form.submitError = err.response.data.message;
         if (err.response.status == 500) {
-          console.log(500);
           this.form.submitError = "Username taken";
         }
       }

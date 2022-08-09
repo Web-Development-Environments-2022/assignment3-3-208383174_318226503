@@ -3,11 +3,7 @@
     <h1>Ingredients:</h1>
     <div class="list">
       <span class="list-item">
-        <div
-          class="info"
-          v-for="r in ingredients_all_info"
-          :key="r.id"
-        >
+        <div class="info" v-for="r in ingredients_all_info" :key="r.id">
           <a>
             <img class="bullet" src="../../resources/peach.png" />
             <img class="bullet" src="../../resources/peach-hover.png" />
@@ -33,35 +29,39 @@ export default {
       type: String,
       required: true,
     },
-    ingredient_amount:{
-        type: String,
-        required: true,
+    ingredient_amount: {
+      type: String,
+      required: true,
     },
-    ingredient_sizing:{
-        type: String,
-        required: true,
-    }
+    ingredient_sizing: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
-        edited_ingredients:[],
-        edited_ingredient_amount:[],
-        edited_ingredient_sizing:[],
-        ingredients_all_info:[],
+      edited_ingredients: [],
+      edited_ingredient_amount: [],
+      edited_ingredient_sizing: [],
+      ingredients_all_info: [],
     };
   },
   mounted() {
-    const edited_ingredients = this.ingredients.split(',');
-    const edited_ingredient_amount = this.ingredient_amount.split(',');
-    const edited_ingredient_sizing = this.ingredient_sizing.split(',');
-    console.log(edited_ingredients);
-    console.log(edited_ingredient_amount);    
-    console.log(edited_ingredient_sizing);
+    const edited_ingredients = this.ingredients.split(",");
+    const edited_ingredient_amount = this.ingredient_amount.split(",");
+    const edited_ingredient_sizing = this.ingredient_sizing.split(",");
 
     for (let i = 0; i < edited_ingredients.length; i++) {
-        this.ingredients_all_info.push({id:i, name:edited_ingredients[i], amount:edited_ingredient_amount[i], unit: edited_ingredient_sizing[i]});
-    } 
-    console.log("aftr mounted, ingredients_all_info: "+this.ingredients_all_info);
+      this.ingredients_all_info.push({
+        id: i,
+        name: edited_ingredients[i],
+        amount: edited_ingredient_amount[i],
+        unit: edited_ingredient_sizing[i],
+      });
+    }
+    console.log(
+      "aftr mounted, ingredients_all_info: " + this.ingredients_all_info
+    );
   },
 };
 </script>

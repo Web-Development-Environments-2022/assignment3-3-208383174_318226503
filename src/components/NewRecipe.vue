@@ -365,8 +365,6 @@ export default {
         });
       }
 
-      console.log("!! " + this.form.title);
-
       const DOMAIN_PATH = "http://localhost:3000";
       try {
         await this.axios
@@ -418,7 +416,7 @@ export default {
       this.showInstructionMeesage = false;
     },
     addIngredient() {
-      console.log("addIngredient");
+      console.log("add Ingredient");
       if (
         this.$v.form.amount.$anyError ||
         this.$v.form.unit.$anyError ||
@@ -435,7 +433,6 @@ export default {
 
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
-      // console.log(typeof(this.form.amount));
       this.ingredients.push({
         ingredientName: this.form.ingredientName,
         amount: parseFloat(this.form.amount).toFixed(2),

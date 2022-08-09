@@ -19,7 +19,8 @@
       <div class="card-body">
         <ul class="list-group list-group-flush">
           <p id="recipe_info">
-            {{ recipe.readyInMinutes }} minutes | {{ recipe.popularity }} likes
+            {{ recipe.readyInMinutes }} minutes <span id="line">|</span>
+            {{ recipe.popularity }} likes
           </p>
           <p id="viewed_recipe" v-if="recipe.isViewed === true">
             you have watched this recipe
@@ -79,9 +80,6 @@ export default {
     recipe: {
       type: Object,
       required: true,
-    },
-    created() {
-      console.log(recipe.isPersonal);
     },
   },
 };
@@ -158,6 +156,10 @@ export default {
 
 #viewed_recipe {
   margin-top: 3px;
-  color: rgb(165, 161, 161);
+  color: #ce8a53;
+}
+
+#line {
+  color: #ce8a53;
 }
 </style>

@@ -60,7 +60,7 @@
             </div>
             <div id="recipe_cart">
               <router-link class="navbar-brand" :to="{ name: 'MealPlanning' }"
-                >Cart({{numOfMeals}})</router-link
+                >Cart({{ numOfMeals }})</router-link
               >
             </div>
           </span>
@@ -85,7 +85,6 @@ export default {
       try {
         await this.axios.post(DOMAIN_PATH + "/Logout");
       } catch (err) {
-        console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
 
@@ -101,22 +100,19 @@ export default {
           .get(DOMAIN_PATH + "/users/NumRecipesUpcommingMeal", {
             withCredentials: true,
           });
-        console.log("!! " + response.data.toString());
         this.numOfMeals = response.data.toString();
       } catch (error) {
         console.log("no upcomming meals");
       }
     },
-    updateCart: function(){  
-    this.loop = setInterval(() => {
+    updateCart: function() {
+      this.loop = setInterval(() => {
         this.getNumOfMeals();
-    }, 10000);
-    console.log("this.numOfMeals: "+this.numOfMeals);
-}
+      }, 10000);
+      console.log("this.numOfMeals: " + this.numOfMeals);
+    },
   },
   mounted() {
-    // console.log(1);
-    // this.numOfMeals = getNumOfMeals();
     this.updateCart();
   },
   data() {

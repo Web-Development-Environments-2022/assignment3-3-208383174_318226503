@@ -92,9 +92,6 @@ export default {
       type: Object,
       required: true,
     },
-    created() {
-      console.log(recipe.isPersonal);
-    },
   },
 };
 </script>
@@ -141,7 +138,6 @@ export default {
   height: auto;
   min-width: 600px;
   margin: 15px 0 20px 0;
-  /* margin-bottom: 10px; */
 }
 
 .card-body {
