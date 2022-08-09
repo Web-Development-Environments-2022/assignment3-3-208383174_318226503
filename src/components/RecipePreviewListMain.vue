@@ -34,16 +34,6 @@ export default {
     RecipePreviewHorizontal,
     Login,
   },
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    list_type: {
-      type: Number,
-      required: true,
-    },
-  },
   data() {
     return {
       randomRecipes: [],

@@ -161,7 +161,7 @@
         </div>
         <div class="mt-2">
           You have an account already?
-          <router-link to="login"> Log in here</router-link>
+          <router-link id="login" to="login"> Log in here</router-link>
         </div>
       </b-form>
       <b-alert
@@ -319,6 +319,10 @@ export default {
 
 #submit {
   width: 150px;
+}
+
+#login {
+  color: rgb(205, 109, 7);
 }
 
 .container {

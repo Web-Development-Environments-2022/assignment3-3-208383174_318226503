@@ -339,6 +339,10 @@ container {
   margin: 0;
 }
 
+.m-md-2 {
+  width: 170px;
+}
+
 .row #sort-by {
   margin-left: 60px;
 }

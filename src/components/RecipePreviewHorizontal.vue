@@ -109,7 +109,7 @@ export default {
 }
 
 .card-img-top:hover {
-  opacity: 0.65;
+  opacity: 0.75;
 }
 
 .food_icons {
@@ -126,7 +126,7 @@ export default {
 
 .favoriteButton {
   position: absolute;
-  left: -45px;
+  left: -49px;
   bottom: 10px;
   font-size: 110%;
 }

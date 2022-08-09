@@ -3,7 +3,6 @@
     <b-modal id="modal-1" title="Create Your New Recipe">
       <div>
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-          <!-- title -->
           <b-form-group id="title" label="Title:" label-for="input-1">
             <b-form-input
               id="input-1"
@@ -151,17 +150,12 @@
                   :state="validateState('unit')"
                 ></b-form-input>
                 <div>
-                  <br />
-                  <b-button type="submit" variant="primary"
+                  <b-button
+                    type="submit"
+                    variant="primary"
+                    class="submit-buttons"
                     >Add Ingredient</b-button
                   >
-                  <br />
-
-                  <!-- <div>
-                        <b-alert show dismissible v-if="showIngridentsMeesage === true">
-                          Successfully added {{ IngridentsMeesage }} to the recipe
-                        </b-alert>
-                      </div> -->
                 </div>
 
                 <b-form-invalid-feedback v-if="!$v.form.ingredientName.length">
@@ -211,19 +205,10 @@
                   v-model="form.step"
                   class="mb-2 mr-sm-2 mb-sm-0"
                 ></b-form-textarea>
-                <div>
-                  <br />
+                <div class="submit-buttons">
                   <b-button type="submit" variant="primary"
                     >Add Instruction</b-button
                   >
-                  <!-- <div v-if="showInstructionMeesage === true">
-                  <div>
-                    <b-alert v-if="showMessages == true" show dismissible>
-                      Successfully added number
-                      {{ instructionsArray.length }} step to the recipe
-                    </b-alert>
-                  </div>
-                </div> -->
                 </div>
               </b-form>
             </div>
@@ -497,6 +482,10 @@ input.form-control {
   border-color: #84bd91;
 }
 
+#input-group-4 {
+  margin-top: 40px;
+}
+
 .btn-danger {
   background-color: #c54b57;
   border-color: #c54b57;
@@ -514,9 +503,8 @@ input.form-control {
   border-color: rgb(161, 171, 171);
 }
 
-.ingredients,
-.instructions {
-  margin-top: 18px;
+.ingredients {
+  margin-top: 30px;
 }
 </style>
 
@@ -552,8 +540,8 @@ input.form-control {
   padding-bottom: 0px;
 }
 
-#input-group-4 {
-  margin-top: 10px;
+#checkboxes-4 {
+  margin-bottom: 10px;
 }
 
 .custom-control-label {
@@ -575,6 +563,10 @@ input.form-control {
 label {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.submit-buttons {
+  margin-top: 8px;
 }
 
 #ingredient-name,

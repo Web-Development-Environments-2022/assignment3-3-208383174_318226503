@@ -97,7 +97,7 @@ export default {
 }
 
 .card-img-top:hover {
-  opacity: 0.65;
+  opacity: 0.75;
 }
 
 .food_icons {
@@ -143,7 +143,7 @@ export default {
 
 .card .card-title:hover {
   text-decoration: none;
-  color: rgb(100, 100, 100);
+  color: rgb(215, 111, 14);
 }
 
 .recipe-body {
