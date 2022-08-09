@@ -169,6 +169,7 @@ export default {
       intolerance: "",
       numberOfResults_text: "Number of results",
       isEmpty: 5,
+      lastSearchUsername: "",
       hasLastSearch: false,
       last_search: "",
     };
@@ -189,11 +190,9 @@ export default {
     this.cuisines.push(...cuisines);
     this.diets.push(...diets);
     this.intolerances.push(...intolerances);
-    console.log("localStorage.username: " + localStorage.username);
-    console.log("localStorage.last_search: " + localStorage.last_search_str);
     this.last_search = localStorage.last_search_str;
-    console.log(this.last_search);
-    if (this.last_search) {
+
+    if (this.last_search && localStorage.username == this.lastSearchUsername) {
       this.hasLastSearch = true;
     }
   },
@@ -207,6 +206,7 @@ export default {
       return $dirty ? !$error : null;
     },
     async Search() {
+      this.lastSearchUsername = localStorage.username;
       const DOMAIN_PATH = "http://localhost:3000";
       console.log("search function");
       //get results
@@ -236,20 +236,18 @@ export default {
           path_to_exe += "&intolerance=" + this.selectedIntolerance;
           last_search_str += `,intolerance: ${this.selectedIntolerance} `;
         }
-        //save last search params
-        this.hasLastSearch = true;
-        localStorage.setItem("last_search_str", last_search_str);
-        console.log(
-          "localStorage.last_search after search: " +
-            localStorage.last_search_str
-        );
+        if (localStorage.username) {
+          //save last search params
+          this.hasLastSearch = true;
+          this.last_search = last_search_str;
+          localStorage.setItem("last_search_str", last_search_str);
+        }
         const response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           // this.$root.store.server_domain + "/Register",
           path_to_exe,
           { withCredentials: true }
         );
-        console.log(response.status);
         if (response.status == 204 && response.statusText == "No Content") {
           this.isEmpty = 1;
         } else if (response.status == 200) {
@@ -264,12 +262,10 @@ export default {
     },
     onSearch() {
       console.log("search method called");
-      // console.log(this.selectedCuisine);
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      console.log("search method go");
       this.userSearchTerm = this.form.search;
       this.Search();
     },
@@ -278,10 +274,8 @@ export default {
       this.numberOfResults_text = num;
     },
     setCuisine(cType) {
-      console.log(cType);
       if (cType != "All Cuisines" || cType != "Cuisine") {
         this.selectedCuisine = cType;
-        // console.log(cType+ "!= All Cuisines");
       } else {
         this.selectedCuisine = null;
       }
@@ -290,7 +284,6 @@ export default {
       console.log(dType);
       if (dType != "All Diets" || dType != "Diet") {
         this.selectedDiet = dType;
-        // console.log(dType+ "!= All Diets");
       } else {
         this.selectedDiet = null;
       }
@@ -299,7 +292,6 @@ export default {
       console.log(iType);
       if (iType != "No Intolerances" || iType != "Intolerance") {
         this.selectedIntolerance = iType;
-        // console.log(iType+ "!= No Intolerances");
       } else {
         this.selectedIntolerance = null;
       }
