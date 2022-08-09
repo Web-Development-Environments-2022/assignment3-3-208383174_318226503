@@ -107,19 +107,18 @@
               <h5 class="input-title">Ingredients</h5>
               <div>
                 <table class="table">
-                    <thead>
+                  <thead>
                     <th>Name</th>
-                    <th>  Amount</th>
+                    <th>Amount</th>
                     <th>Unit</th>
-                    </thead>
+                  </thead>
 
-                    <tr v-for="i in ingredients" :key="i.ingredientName">
-                      <td>{{i.ingredientName}}</td>
-                      <td>{{i.amount}}</td>
-                      <td>{{i.unit}}</td>
-                    </tr>
+                  <tr v-for="i in ingredients" :key="i.ingredientName">
+                    <td>{{ i.ingredientName }}</td>
+                    <td>{{ i.amount }}</td>
+                    <td>{{ i.unit }}</td>
+                  </tr>
                 </table>
-
               </div>
               <b-form inline @submit.prevent="addIngredient">
                 <label class="sr-only" for="inline-form-input-name">Name</label>
@@ -152,18 +151,18 @@
                   :state="validateState('unit')"
                 ></b-form-input>
                 <div>
-                  <br>
-                    <b-button type="submit" variant="primary">Add Ingredient</b-button>
-                    <br>
+                  <br />
+                  <b-button type="submit" variant="primary"
+                    >Add Ingredient</b-button
+                  >
+                  <br />
 
-                      <!-- <div>
+                  <!-- <div>
                         <b-alert show dismissible v-if="showIngridentsMeesage === true">
                           Successfully added {{ IngridentsMeesage }} to the recipe
                         </b-alert>
                       </div> -->
                 </div>
-
-                
 
                 <b-form-invalid-feedback v-if="!$v.form.ingredientName.length">
                   ingredient name should be up to 100 characters long
@@ -188,20 +187,19 @@
             <!-- instructions -->
             <div class="instructions">
               <h5 class="input-title">Instructions</h5>
-                <div>
-                  <table class="table">
-                      <thead>
-                      <th>Number</th>
-                      <th>  Step</th>
-                      </thead>
+              <div>
+                <table class="table">
+                  <thead>
+                    <th>Number</th>
+                    <th>Step</th>
+                  </thead>
 
-                      <tr v-for="i in instructionsArray" :key="i.number">
-                        <td>{{i.number}}</td>
-                        <td>{{i.step}}</td>
-                      </tr>
-                  </table>
-
-                </div>
+                  <tr v-for="i in instructionsArray" :key="i.number">
+                    <td>{{ i.number }}</td>
+                    <td>{{ i.step }}</td>
+                  </tr>
+                </table>
+              </div>
               <b-form inline @submit.prevent="addInstructions">
                 <label class="sr-only" for="inline-form-input-name"
                   >instruction</label
@@ -214,9 +212,11 @@
                   class="mb-2 mr-sm-2 mb-sm-0"
                 ></b-form-textarea>
                 <div>
-                  <br>
-                <b-button type="submit" variant="primary">Add Instruction</b-button>
-                <!-- <div v-if="showInstructionMeesage === true">
+                  <br />
+                  <b-button type="submit" variant="primary"
+                    >Add Instruction</b-button
+                  >
+                  <!-- <div v-if="showInstructionMeesage === true">
                   <div>
                     <b-alert v-if="showMessages == true" show dismissible>
                       Successfully added number
@@ -225,8 +225,6 @@
                   </div>
                 </div> -->
                 </div>
-
-
               </b-form>
             </div>
           </b-form-group>
@@ -523,7 +521,7 @@ input.form-control {
 
 <style>
 #modal-1 .modal-dialog {
-  max-width: 800px;
+  max-width: 850px;
 }
 
 #title__BV_label_ {

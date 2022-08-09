@@ -55,7 +55,7 @@
             title="this is the first time you're viewing this recipe"
           />
         </div>
-        <div id="buttons">
+        <div v-if="$root.store.username" id="buttons">
           <span v-show="onlypreview">
             <!-- <b-button pill variant="outline-success" type="submit" @click="onMake" size="lg">Make Now</b-button> -->
             <b-button type="submit" class="button" @click="onMakeNow">{{
@@ -168,6 +168,7 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
+      // local sotrage- get recipe by id()
       console.log(response.data);
 
       let {
