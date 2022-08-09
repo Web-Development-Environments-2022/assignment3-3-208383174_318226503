@@ -1,8 +1,8 @@
 <template>
     <div>
-        <b-progress :max="max" height="2rem">
+        <b-progress :max="max" height="2rem" class="mb-3" >
         <b-progress-bar :value="value" >
-            <span>Progress: <strong>{{ value.toFixed(2) }} / {{ max }}</strong></span>
+            <span><strong>{{ value.toFixed(2) }} / {{ max }}</strong></span>
         </b-progress-bar>
         </b-progress>
     </div>
@@ -24,20 +24,17 @@ export default {
     }
   },
   created() {
-    this.max=0;
-    this.value = getSessionValue();
-    console.log("created this.value : "+this.value);
+    this.max=5;
+    this.value = this.get_Session_Value();
+    console.log("recipe progress bar this.value : "+this.value);
     console.log(this.r_id);
   },
   mounted() {
-    if(this.getSessionValue()){
-      minStep = this.getSessionValue();
-      this.value = minStep;
-    }
+
 
   },
   methods: {
-     getSessionValue(){
+     get_Session_Value(){
       return JSON.parse(sessionStorage.making_progress)[this.r_id];
     },
   },
