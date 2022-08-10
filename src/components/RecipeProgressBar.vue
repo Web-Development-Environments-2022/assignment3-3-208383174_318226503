@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-progress :max="max" height="2rem" class="mb-3">
-      <b-progress-bar :value="value">
+      <b-progress-bar variant="success" :value="value">
         <span
           ><strong>{{ value.toFixed(2) }} / {{ max }}</strong></span
         >
