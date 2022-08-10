@@ -214,7 +214,7 @@ export default {
 #shopping-cart {
   margin-left: -10px;
   font-size: 17px;
-  background: #d8922f94;
+  background: rgb(155 219 163 / 58%);
   padding: 0.5px 2.5px 0.5px 2.5px;
   border-radius: 4px;
 }
