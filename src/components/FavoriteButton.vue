@@ -35,7 +35,7 @@ export default {
   methods: {
     async markFavorite(recipe) {
       console.log("marking as favorite");
-      const DOMAIN_PATH = "http://localhost:3000";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
       try {
         await this.axios.create({ withCredentials: true }).post(
           DOMAIN_PATH + "/users/favorites",
@@ -60,7 +60,7 @@ export default {
     async unmarkFavorite(recipe) {
       console.log("unmarking as favorite");
 
-      const DOMAIN_PATH = "http://localhost:3000";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
       try {
         await this.axios
           .create({ withCredentials: true })

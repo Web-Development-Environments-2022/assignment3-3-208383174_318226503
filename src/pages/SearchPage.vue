@@ -204,7 +204,7 @@ export default {
     },
     async Search() {
       this.lastSearchUsername = localStorage.username;
-      const DOMAIN_PATH = "http://localhost:3000";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
       console.log("search function");
       //get results
       try {

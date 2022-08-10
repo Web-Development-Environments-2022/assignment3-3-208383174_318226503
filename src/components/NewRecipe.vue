@@ -365,7 +365,7 @@ export default {
         });
       }
 
-      const DOMAIN_PATH = "http://localhost:3000";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
       try {
         await this.axios
           .create({ withCredentials: true })

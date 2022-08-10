@@ -255,7 +255,7 @@ export default {
       return $dirty ? !$error : null;
     },
     async Register() {
-      const DOMAIN_PATH = "http://localhost:3000";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
       console.log("register function");
       try {
         const response = await this.axios.post(DOMAIN_PATH + "/Register", {

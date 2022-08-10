@@ -82,7 +82,7 @@ export default {
     async Logout() {
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
-      const DOMAIN_PATH = "http://localhost:3000";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
       try {
         await this.axios.post(DOMAIN_PATH + "/Logout");
       } catch (err) {
@@ -94,7 +94,7 @@ export default {
       });
     },
     async getNumOfMeals() {
-      const DOMAIN_PATH = "http://localhost:3000";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
       try {
         let response = await this.axios
           .create({ withCredentials: true })

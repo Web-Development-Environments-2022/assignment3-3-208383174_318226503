@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     async getUpcommingMeal() {
-      const DOMAIN_PATH = "http://localhost:3000";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
       try {
         let res = await this.axios
           .create({ withCredentials: true })
@@ -99,7 +99,7 @@ export default {
       }
     },
     async moveDown(r) {
-      const DOMAIN_PATH = "http://localhost:3000/";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/";
       console.log("r.id is: " + r.recipe_preview.id);
       console.log(" order is: " + r.order);
       if (r.order == this.todo_recipes.length) {
@@ -120,7 +120,7 @@ export default {
       }
     },
     async moveUp(r) {
-      const DOMAIN_PATH = "http://localhost:3000/";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/";
       console.log("r.id is: " + r.recipe_preview.id);
       console.log(" order is: " + r.order);
       if (r.order == 1) {
@@ -141,7 +141,7 @@ export default {
       }
     },
     async remove(r) {
-      const DOMAIN_PATH = "http://localhost:3000/";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/";
       try {
         await this.axios
           .create({ withCredentials: true })
@@ -158,7 +158,7 @@ export default {
         confirm("No recipes in current meal");
         return;
       }
-      const DOMAIN_PATH = "http://localhost:3000/";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/";
 
       try {
         await this.axios

@@ -253,7 +253,7 @@ export default {
 
     try {
       let response;
-      DOMAIN_PATH = "http://localhost:3000/users/myFamilyRecipes";
+      DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/users/myFamilyRecipes";
       response = await this.axios.get(DOMAIN_PATH, { withCredentials: true });
       if (response.status !== 200) this.$router.replace("/NotFound");
       console.log(response.data);

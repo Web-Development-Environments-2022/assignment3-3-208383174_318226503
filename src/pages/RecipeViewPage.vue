@@ -150,10 +150,10 @@ export default {
 
       if (this.$route.query.isPersonal) {
         console.log("personal");
-        DOMAIN_PATH = "http://localhost:3000/users/personal/";
+        DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/users/personal/";
       } else {
         console.log("not personal");
-        DOMAIN_PATH = "http://localhost:3000/recipes/";
+        DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/recipes/";
       }
 
       try {
@@ -257,7 +257,7 @@ export default {
     },
     async addToMeal() {
       this.addToMealLabel = "Added";
-      let DOMAIN_PATH = "http://localhost:3000/users/upcommingMeal/";
+      let DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/users/upcommingMeal/";
       console.log(
         "this.$route.query.isPersonal in make now: " +
           this.$route.query.isPersonal

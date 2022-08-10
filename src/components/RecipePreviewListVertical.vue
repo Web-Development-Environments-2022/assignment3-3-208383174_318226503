@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     async updateRecipes() {
-      const DOMAIN_PATH = "http://localhost:3000";
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
       try {
         const response = await this.axios.get(
           DOMAIN_PATH + "/users/" + this.type,
