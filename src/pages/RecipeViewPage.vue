@@ -56,15 +56,19 @@
           />
         </div>
         <div v-if="$root.store.username" id="buttons">
-          <span v-show="onlypreview">
-            <b-button type="submit" class="button" @click="onMakeNow">{{
-              make_button_text
+          <span>
+            <b-button class="button" @click="addToMeal()">{{
+              addToMealLabel
             }}</b-button>
-            <span>
-              <b-button class="button" @click="addToMeal()">{{
-                addToMealLabel
-              }}</b-button>
-            </span>
+          </span>
+          <span v-show="onlypreview">
+            <b-button
+              type="submit"
+              class="button"
+              @click="onMakeNow"
+              title="this will add the recipe to your upcoming meal"
+              >{{ make_button_text }}</b-button
+            >
           </span>
           <div v-show="!onlypreview" id="make-amount">
             <h3>change the number of dishes</h3>
@@ -256,7 +260,7 @@ export default {
       this.mul_dishes += 1;
     },
     async addToMeal() {
-      this.addToMealLabel = "Added";
+      this.addToMealLabel = "Added to meal";
       let DOMAIN_PATH = "http://localhost:3000/users/upcommingMeal/";
       console.log(
         "this.$route.query.isPersonal in make now: " +
