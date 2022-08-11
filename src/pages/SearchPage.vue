@@ -189,7 +189,7 @@ export default {
     this.intolerances.push(...intolerances);
     this.last_search = localStorage.last_search_str;
 
-    if (this.last_search && localStorage.username == this.lastSearchUsername) {
+    if (this.last_search && localStorage.username != undefined) {
       this.hasLastSearch = true;
     }
   },

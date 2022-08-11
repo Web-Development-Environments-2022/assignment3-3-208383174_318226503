@@ -427,7 +427,16 @@ export default {
       ) {
         return;
       }
-      if (this.form.amount != null && this.form.ingredientName == "") {
+      if (this.form.ingredientName == "") {
+        alert("Ingredient name is required");
+        return;
+      }
+      if (this.form.amount == null) {
+        alert("Ingredient amount is required");
+        return;
+      }
+      if (this.form.unit == "" || this.form.unit == null) {
+        alert("Ingredient unit is required");
         return;
       }
 

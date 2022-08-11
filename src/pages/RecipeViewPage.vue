@@ -57,7 +57,7 @@
         </div>
         <div v-if="$root.store.username" id="buttons">
           <span>
-            <b-button class="button" @click="addToMeal()">{{
+            <b-button class="button" @click="addToMeal()" :disabled="addToMealLabel=='Added to meal'">{{
               addToMealLabel
             }}</b-button>
           </span>
@@ -286,6 +286,9 @@ export default {
         }
       } catch (error) {
         console.log("error.response.status", error.response.status);
+        if(this.onlypreview){
+          alert("recipe already in current meal plan");
+        }
         return;
       }
     },
