@@ -3,7 +3,6 @@
     <b-modal id="modal-1" title="Create Your New Recipe">
       <div>
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-          <!-- title -->
           <b-form-group id="title" label="Title:" label-for="input-1">
             <b-form-input
               id="input-1"
@@ -107,19 +106,18 @@
               <h5 class="input-title">Ingredients</h5>
               <div>
                 <table class="table">
-                    <thead>
+                  <thead>
                     <th>Name</th>
-                    <th>  Amount</th>
+                    <th>Amount</th>
                     <th>Unit</th>
-                    </thead>
+                  </thead>
 
-                    <tr v-for="i in ingredients" :key="i.ingredientName">
-                      <td>{{i.ingredientName}}</td>
-                      <td>{{i.amount}}</td>
-                      <td>{{i.unit}}</td>
-                    </tr>
+                  <tr v-for="i in ingredients" :key="i.ingredientName">
+                    <td>{{ i.ingredientName }}</td>
+                    <td>{{ i.amount }}</td>
+                    <td>{{ i.unit }}</td>
+                  </tr>
                 </table>
-
               </div>
               <b-form inline @submit.prevent="addIngredient">
                 <label class="sr-only" for="inline-form-input-name">Name</label>
@@ -152,18 +150,13 @@
                   :state="validateState('unit')"
                 ></b-form-input>
                 <div>
-                  <br>
-                    <b-button type="submit" variant="primary">Add Ingredient</b-button>
-                    <br>
-
-                      <!-- <div>
-                        <b-alert show dismissible v-if="showIngridentsMeesage === true">
-                          Successfully added {{ IngridentsMeesage }} to the recipe
-                        </b-alert>
-                      </div> -->
+                  <b-button
+                    type="submit"
+                    variant="primary"
+                    class="submit-buttons"
+                    >Add Ingredient</b-button
+                  >
                 </div>
-
-                
 
                 <b-form-invalid-feedback v-if="!$v.form.ingredientName.length">
                   ingredient name should be up to 100 characters long
@@ -188,20 +181,19 @@
             <!-- instructions -->
             <div class="instructions">
               <h5 class="input-title">Instructions</h5>
-                <div>
-                  <table class="table">
-                      <thead>
-                      <th>Number</th>
-                      <th>  Step</th>
-                      </thead>
+              <div>
+                <table class="table">
+                  <thead>
+                    <th>Number</th>
+                    <th>Step</th>
+                  </thead>
 
-                      <tr v-for="i in instructionsArray" :key="i.number">
-                        <td>{{i.number}}</td>
-                        <td>{{i.step}}</td>
-                      </tr>
-                  </table>
-
-                </div>
+                  <tr v-for="i in instructionsArray" :key="i.number">
+                    <td>{{ i.number }}</td>
+                    <td>{{ i.step }}</td>
+                  </tr>
+                </table>
+              </div>
               <b-form inline @submit.prevent="addInstructions">
                 <label class="sr-only" for="inline-form-input-name"
                   >instruction</label
@@ -213,20 +205,11 @@
                   v-model="form.step"
                   class="mb-2 mr-sm-2 mb-sm-0"
                 ></b-form-textarea>
-                <div>
-                  <br>
-                <b-button type="submit" variant="primary">Add Instruction</b-button>
-                <!-- <div v-if="showInstructionMeesage === true">
-                  <div>
-                    <b-alert v-if="showMessages == true" show dismissible>
-                      Successfully added number
-                      {{ instructionsArray.length }} step to the recipe
-                    </b-alert>
-                  </div>
-                </div> -->
+                <div class="submit-buttons">
+                  <b-button type="submit" variant="primary"
+                    >Add Instruction</b-button
+                  >
                 </div>
-
-
               </b-form>
             </div>
           </b-form-group>
@@ -360,9 +343,18 @@ export default {
       console.dir(`submitting recipe ${this.form}`);
 
       await this.AddRecipe();
-      this.onReset();
+      // this.onReset();
     },
     async AddRecipe() {
+      this.$root.toast(
+        "Recipe Added",
+        "new recipe added successfully",
+        "success"
+      );
+      // confirm("new recipe added successfully");
+
+      // this.onReset();
+
       console.log("serving size " + this.form.servingSize);
       let vegan = false;
       let vegetarian = false;
@@ -382,8 +374,6 @@ export default {
         });
       }
 
-      console.log("!! " + this.form.title);
-
       const DOMAIN_PATH = "http://localhost:3000";
       try {
         await this.axios
@@ -400,12 +390,6 @@ export default {
             servingSize: this.form.servingSize,
           });
         console.log("serving size " + this.form.servingSize);
-        this.$root.toast(
-          "Recipe Added",
-          "new recipe added successfully",
-          "success"
-        );
-        confirm("new recipe added successfully");
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
@@ -435,7 +419,7 @@ export default {
       this.showInstructionMeesage = false;
     },
     addIngredient() {
-      console.log("addIngredient");
+      console.log("add Ingredient");
       if (
         this.$v.form.amount.$anyError ||
         this.$v.form.unit.$anyError ||
@@ -452,7 +436,6 @@ export default {
 
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
-      // console.log(typeof(this.form.amount));
       this.ingredients.push({
         ingredientName: this.form.ingredientName,
         amount: parseFloat(this.form.amount).toFixed(2),
@@ -499,6 +482,10 @@ input.form-control {
   border-color: #84bd91;
 }
 
+#input-group-4 {
+  margin-top: 40px;
+}
+
 .btn-danger {
   background-color: #c54b57;
   border-color: #c54b57;
@@ -516,15 +503,14 @@ input.form-control {
   border-color: rgb(161, 171, 171);
 }
 
-.ingredients,
-.instructions {
-  margin-top: 18px;
+.ingredients {
+  margin-top: 30px;
 }
 </style>
 
 <style>
 #modal-1 .modal-dialog {
-  max-width: 800px;
+  max-width: 850px;
 }
 
 #title__BV_label_ {
@@ -554,8 +540,8 @@ input.form-control {
   padding-bottom: 0px;
 }
 
-#input-group-4 {
-  margin-top: 10px;
+#checkboxes-4 {
+  margin-bottom: 10px;
 }
 
 .custom-control-label {
@@ -577,6 +563,10 @@ input.form-control {
 label {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.submit-buttons {
+  margin-top: 8px;
 }
 
 #ingredient-name,

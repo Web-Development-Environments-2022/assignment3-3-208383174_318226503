@@ -60,8 +60,9 @@
             </div>
             <div id="recipe_cart">
               <router-link class="navbar-brand" :to="{ name: 'MealPlanning' }"
-                >Cart({{numOfMeals}})</router-link
-              >
+                >Upcoming Meal
+              </router-link>
+              <span id="shopping-cart">{{ numOfMeals }}</span>
             </div>
           </span>
         </span>
@@ -85,7 +86,6 @@ export default {
       try {
         await this.axios.post(DOMAIN_PATH + "/Logout");
       } catch (err) {
-        console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
 
@@ -101,22 +101,19 @@ export default {
           .get(DOMAIN_PATH + "/users/NumRecipesUpcommingMeal", {
             withCredentials: true,
           });
-        console.log("!! " + response.data.toString());
         this.numOfMeals = response.data.toString();
       } catch (error) {
         console.log("no upcomming meals");
       }
     },
-    updateCart: function(){  
-    this.loop = setInterval(() => {
+    updateCart: function() {
+      this.loop = setInterval(() => {
         this.getNumOfMeals();
-    }, 10000);
-    console.log("this.numOfMeals: "+this.numOfMeals);
-}
+      }, 10000);
+      console.log("this.numOfMeals: " + this.numOfMeals);
+    },
   },
   mounted() {
-    // console.log(1);
-    // this.numOfMeals = getNumOfMeals();
     this.updateCart();
   },
   data() {
@@ -212,6 +209,14 @@ export default {
 #guest .navbar-brand {
   margin-right: 15px;
   margin-left: 5px;
+}
+
+#shopping-cart {
+  margin-left: -10px;
+  font-size: 17px;
+  background: rgb(155 219 163 / 58%);
+  padding: 0.5px 2.5px 0.5px 2.5px;
+  border-radius: 4px;
 }
 
 #logged-in-user button {

@@ -67,6 +67,8 @@ export default {
           .delete(DOMAIN_PATH + "/users/favorites", {
             data: {
               recipeId: recipe.id,
+            },
+            params: {
               personal: recipe.isPersonal,
             },
           });

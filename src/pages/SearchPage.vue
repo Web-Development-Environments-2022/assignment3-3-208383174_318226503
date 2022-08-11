@@ -104,9 +104,6 @@
         </b-container>
       </b-nav-form>
       <b-row v-if="this.hasLastSearch">
-        <!-- <b-alert show variant="light">{{last_search}}</b-alert> -->
-        <!-- <span>Message: {{ last_search }}</span> -->
-        <!-- <div v-bind="last_search"></div> -->
         <p id="last-search">
           <span>{{ last_search }}</span>
         </p>
@@ -128,9 +125,9 @@
         </b-form-group>
       </b-row>
     </div>
-    <b-row v-if="this.isEmpty == 0" cols="3">
+    <b-row v-if="this.isEmpty == 0" cols="3" id="preview-col">
       <b-col v-for="item in results" :key="item.id">
-        <SearchResults class="searchResultsPreview" :recipe="item" />
+        <RecipePreview class="searchResultsPreview" :recipe="item" />
       </b-col>
     </b-row>
     <b-row v-if="this.isEmpty == 1">
@@ -146,7 +143,7 @@ import { required, minLength } from "vuelidate/lib/validators";
 import cuisines from "../assets/cuisines";
 import diets from "../assets/diets";
 import intolerances from "../assets/intolerances";
-import SearchResults from "../components/SearchResults.vue";
+import RecipePreview from "../components/RecipePreview.vue";
 export default {
   name: "searchResult",
   data() {
@@ -169,6 +166,7 @@ export default {
       intolerance: "",
       numberOfResults_text: "Number of results",
       isEmpty: 5,
+      lastSearchUsername: "",
       hasLastSearch: false,
       last_search: "",
     };
@@ -189,16 +187,14 @@ export default {
     this.cuisines.push(...cuisines);
     this.diets.push(...diets);
     this.intolerances.push(...intolerances);
-    console.log("localStorage.username: " + localStorage.username);
-    console.log("localStorage.last_search: " + localStorage.last_search_str);
     this.last_search = localStorage.last_search_str;
-    console.log(this.last_search);
-    if (this.last_search) {
+
+    if (this.last_search && localStorage.username == this.lastSearchUsername) {
       this.hasLastSearch = true;
     }
   },
   components: {
-    SearchResults,
+    RecipePreview,
   },
 
   methods: {
@@ -207,6 +203,7 @@ export default {
       return $dirty ? !$error : null;
     },
     async Search() {
+      this.lastSearchUsername = localStorage.username;
       const DOMAIN_PATH = "http://localhost:3000";
       console.log("search function");
       //get results
@@ -236,20 +233,15 @@ export default {
           path_to_exe += "&intolerance=" + this.selectedIntolerance;
           last_search_str += `,intolerance: ${this.selectedIntolerance} `;
         }
-        //save last search params
-        this.hasLastSearch = true;
-        localStorage.setItem("last_search_str", last_search_str);
-        console.log(
-          "localStorage.last_search after search: " +
-            localStorage.last_search_str
-        );
-        const response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
-          // this.$root.store.server_domain + "/Register",
-          path_to_exe,
-          { withCredentials: true }
-        );
-        console.log(response.status);
+        if (localStorage.username) {
+          //save last search params
+          this.hasLastSearch = true;
+          this.last_search = last_search_str;
+          localStorage.setItem("last_search_str", last_search_str);
+        }
+        const response = await this.axios.get(path_to_exe, {
+          withCredentials: true,
+        });
         if (response.status == 204 && response.statusText == "No Content") {
           this.isEmpty = 1;
         } else if (response.status == 200) {
@@ -264,12 +256,10 @@ export default {
     },
     onSearch() {
       console.log("search method called");
-      // console.log(this.selectedCuisine);
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      console.log("search method go");
       this.userSearchTerm = this.form.search;
       this.Search();
     },
@@ -278,10 +268,8 @@ export default {
       this.numberOfResults_text = num;
     },
     setCuisine(cType) {
-      console.log(cType);
       if (cType != "All Cuisines" || cType != "Cuisine") {
         this.selectedCuisine = cType;
-        // console.log(cType+ "!= All Cuisines");
       } else {
         this.selectedCuisine = null;
       }
@@ -290,7 +278,6 @@ export default {
       console.log(dType);
       if (dType != "All Diets" || dType != "Diet") {
         this.selectedDiet = dType;
-        // console.log(dType+ "!= All Diets");
       } else {
         this.selectedDiet = null;
       }
@@ -299,7 +286,6 @@ export default {
       console.log(iType);
       if (iType != "No Intolerances" || iType != "Intolerance") {
         this.selectedIntolerance = iType;
-        // console.log(iType+ "!= No Intolerances");
       } else {
         this.selectedIntolerance = null;
       }
@@ -330,7 +316,6 @@ container {
 
 .container {
   max-width: 1600px;
-  // margin-top: 10px;
   background-color: #f8f9fa;
   border-radius: 4px;
 }
@@ -345,6 +330,18 @@ container {
 
 .alert p {
   margin: 0;
+}
+
+#preview-col {
+  margin-left: 0px;
+}
+
+p {
+  margin-bottom: 0px;
+}
+
+.m-md-2 {
+  width: 170px;
 }
 
 .row #sort-by {
@@ -378,8 +375,11 @@ container {
   margin-left: 0.5rem;
 
   padding-top: 10px;
-  // text-align: center;
   color: rgb(234, 121, 0);
+}
+
+.form-group {
+  margin-left: 15px;
 }
 
 #search {
@@ -391,12 +391,15 @@ container {
   display: contents;
 }
 
+.searchResultsPreview {
+  margin: 0px 7px 12px 7px;
+}
+
 .row {
   margin-top: 10px;
 }
 
 .row #__BVID__110 {
-  // text-align: -webkit-center;
   margin-left: 10px;
 }
 
@@ -405,16 +408,15 @@ container {
 }
 
 .SearchRecipes {
-  // margin: 10px 0 10px;
   margin: auto;
 }
 
 #last-search {
   margin-left: 23px;
-  font-size: 18px;
+  font-size: 20px;
   padding: 3px 6px 3px 6px;
   border-radius: 6px;
-  background-color: rgb(250, 239, 221);
+  color: #3d9e3d;
 }
 
 .alert {

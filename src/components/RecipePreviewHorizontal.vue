@@ -92,9 +92,6 @@ export default {
       type: Object,
       required: true,
     },
-    created() {
-      console.log(recipe.isPersonal);
-    },
   },
 };
 </script>
@@ -109,7 +106,7 @@ export default {
 }
 
 .card-img-top:hover {
-  opacity: 0.65;
+  opacity: 0.75;
 }
 
 .food_icons {
@@ -126,7 +123,7 @@ export default {
 
 .favoriteButton {
   position: absolute;
-  left: -45px;
+  left: -49px;
   bottom: 10px;
   font-size: 110%;
 }
@@ -141,7 +138,6 @@ export default {
   height: auto;
   min-width: 600px;
   margin: 15px 0 20px 0;
-  /* margin-bottom: 10px; */
 }
 
 .card-body {

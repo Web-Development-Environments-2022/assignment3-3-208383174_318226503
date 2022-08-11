@@ -5,7 +5,11 @@
     </h1>
     <div class="wrapped">
       <div class="step">
-        <div class="specific-step" v-for="s in edited_instructions" :key="s.number">
+        <div
+          class="specific-step"
+          v-for="s in edited_instructions"
+          :key="s.number"
+        >
           <div id="step-title">step {{ s.number }}:</div>
           <div id="step-description">{{ s.step }}</div>
         </div>
@@ -25,24 +29,20 @@ export default {
   },
   data() {
     return {
-        edited_instructions:[],
+      edited_instructions: [],
     };
   },
   mounted() {
-    // console.log(this.instructions);
-    const steps_ = this.instructions.split('|\n');
-    // console.log(steps_);
+    const steps_ = this.instructions.split("|\n");
     let num = null;
-    let step =null;
+    let step = null;
     let cur_step_arr = [];
     for (let i = 0; i < steps_.length; i++) {
-        cur_step_arr = steps_[i].split('#');
-        num = cur_step_arr[0];
-        step = cur_step_arr[1];
-        // console.log(num,step);
-        this.edited_instructions.push({number:num,step:step});
-    } 
-    // console.log("aftr mounted, edited_instructions: "+this.edited_instructions);
+      cur_step_arr = steps_[i].split("#");
+      num = cur_step_arr[0];
+      step = cur_step_arr[1];
+      this.edited_instructions.push({ number: num, step: step });
+    }
   },
 };
 </script>

@@ -44,7 +44,7 @@
           />
           <img
             id="viewed"
-            v-if="recipe.first_time === false"
+            v-if="recipe.first_time === false && $root.store.username"
             src="../../resources/viewed.png"
             title="you have viewed this recipe"
           />
@@ -55,17 +55,20 @@
             title="this is the first time you're viewing this recipe"
           />
         </div>
-        <div id="buttons">
-          <span v-show="onlypreview">
-            <!-- <b-button pill variant="outline-success" type="submit" @click="onMake" size="lg">Make Now</b-button> -->
-            <b-button type="submit" class="button" @click="onMakeNow">{{
-              make_button_text
+        <div v-if="$root.store.username" id="buttons">
+          <span>
+            <b-button class="button" @click="addToMeal()">{{
+              addToMealLabel
             }}</b-button>
-            <span>
-              <b-button class="button" @click="addToMeal()">{{
-                addToMealLabel
-              }}</b-button>
-            </span>
+          </span>
+          <span v-show="onlypreview">
+            <b-button
+              type="submit"
+              class="button"
+              @click="onMakeNow"
+              title="this will add the recipe to your upcoming meal"
+              >{{ make_button_text }}</b-button
+            >
           </span>
           <div v-show="!onlypreview" id="make-amount">
             <h3>change the number of dishes</h3>
@@ -168,6 +171,7 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
+      // local sotrage- get recipe by id()
       console.log(response.data);
 
       let {
@@ -221,20 +225,14 @@ export default {
       };
 
       console.log("first time");
-      console.log(first_time);
 
       if (this.readyInMinutes === null || this.readyInMinutes === undefined) {
-        console.log("true 1");
         this.readyInMinutes = "0";
       }
 
       if (servingSize === null || servingSize === undefined) {
-        console.log("true 2");
         this.servingSize = 0;
       }
-
-      console.log(readyInMinutes);
-      console.log(servingSize);
 
       this.recipe = _recipe;
     } catch (error) {
@@ -262,7 +260,7 @@ export default {
       this.mul_dishes += 1;
     },
     async addToMeal() {
-      this.addToMealLabel = "Added";
+      this.addToMealLabel = "Added to meal";
       let DOMAIN_PATH = "http://localhost:3000/users/upcommingMeal/";
       console.log(
         "this.$route.query.isPersonal in make now: " +
@@ -286,10 +284,8 @@ export default {
         if (response.status !== 200) {
           this.$router.replace("/NotFound");
         }
-
       } catch (error) {
         console.log("error.response.status", error.response.status);
-        // this.$router.replace("/NotFound");
         return;
       }
     },

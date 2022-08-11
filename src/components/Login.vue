@@ -98,7 +98,6 @@ export default {
           },
           { withCredentials: true }
         );
-        // this.$root.loggedIn = true;
         this.$root.store.login(this.form.username, response.data.user_id);
         this.$router.push("/");
       } catch (err) {

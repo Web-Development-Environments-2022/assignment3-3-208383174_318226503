@@ -3,27 +3,14 @@
     <h1>
       Instructions
     </h1>
-    <b-progress :max="max" height="2rem">
-      <b-progress-bar :value="value">
+    <b-progress variant="success" :max="max" height="2rem">
+      <b-progress-bar variant="success" :value="value">
         <span
           >Progress: <strong>{{ value.toFixed(2) }} / {{ max }}</strong></span
         >
       </b-progress-bar>
     </b-progress>
     <div class="wrapped">
-      <!-- <b-form-group v-slot="{ ariaDescribedby }">
-            <b-form-checkbox-group
-                v-model="selected"
-                :options="steps_todo"
-                :aria-describedby="ariaDescribedby"
-                size="lg"
-                name="steps_todo_"
-                stacked
-            >
-            <b-form-invalid-feedback :state="state">Please stick to the order of the steps</b-form-invalid-feedback>
-            </b-form-checkbox-group>
-        </b-form-group> -->
-
       <ul class="list-group">
         <li v-for="s in steps_todo" :key="s.number" class="list-group-item">
           <div class="row">
@@ -91,10 +78,6 @@ export default {
     let minStep = 0;
     let isDone_ = false;
 
-    // let gsv = function() {
-    //   console.log("sessionStorage.making_progress[this.r_id] "+  JSON.parse(sessionStorage.making_progress)[this.r_id]);
-    //   return JSON.parse(sessionStorage.making_progress)[this.r_id];
-    // };
     if (this.getSessionValue() != 0) {
       minStep = this.getSessionValue()[0];
       console.log("minStep : " + minStep);
@@ -114,7 +97,6 @@ export default {
       });
     }
     console.log("this.steps_todo.length : " + parseInt(this.steps_todo.length));
-    // console.log("max: "+max);
     this.max = parseInt(this.steps_todo.length);
   },
   methods: {
@@ -153,7 +135,7 @@ export default {
       if (temp == undefined) {
         temp = {};
       }
-      temp[this.r_id] = [this.value,this.steps_todo.length];
+      temp[this.r_id] = [this.value, this.steps_todo.length];
       sessionStorage.setItem("making_progress", JSON.stringify(temp));
       temp1 = sessionStorage.making_progress;
       console.log("temp1: " + temp1);

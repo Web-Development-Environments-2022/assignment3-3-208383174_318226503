@@ -80,7 +80,7 @@ const shared_data = {
     localStorage.setItem("user_id", user_id);
     this.user_id = user_id;
     console.log("login user_id", this.user_id);
-    let temp = {0:[0,0]};
+    let temp = { 0: [0, 0] };
     sessionStorage.setItem("making_progress", JSON.stringify(temp));
   },
   logout() {
@@ -93,8 +93,6 @@ const shared_data = {
     this.user_id = undefined;
   },
 };
-console.log(shared_data);
-// Vue.prototype.$root.store = shared_data;
 
 new Vue({
   router,
