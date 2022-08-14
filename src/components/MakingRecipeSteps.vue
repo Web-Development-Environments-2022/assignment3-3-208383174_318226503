@@ -3,8 +3,8 @@
     <h1>
       Instructions
     </h1>
-    <b-progress :max="max" height="2rem">
-      <b-progress-bar :value="value">
+    <b-progress variant="success" :max="max" height="2rem">
+      <b-progress-bar variant="success" :value="value">
         <span
           >Progress: <strong>{{ value.toFixed(2) }} / {{ max }}</strong></span
         >

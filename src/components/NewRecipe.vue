@@ -343,9 +343,18 @@ export default {
       console.dir(`submitting recipe ${this.form}`);
 
       await this.AddRecipe();
-      this.onReset();
+      // this.onReset();
     },
     async AddRecipe() {
+      this.$root.toast(
+        "Recipe Added",
+        "new recipe added successfully",
+        "success"
+      );
+      // confirm("new recipe added successfully");
+
+      // this.onReset();
+
       console.log("serving size " + this.form.servingSize);
       let vegan = false;
       let vegetarian = false;
@@ -381,12 +390,6 @@ export default {
             servingSize: this.form.servingSize,
           });
         console.log("serving size " + this.form.servingSize);
-        this.$root.toast(
-          "Recipe Added",
-          "new recipe added successfully",
-          "success"
-        );
-        confirm("new recipe added successfully");
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
@@ -424,7 +427,16 @@ export default {
       ) {
         return;
       }
-      if (this.form.amount != null && this.form.ingredientName == "") {
+      if (this.form.ingredientName == "") {
+        alert("Ingredient name is required");
+        return;
+      }
+      if (this.form.amount == null) {
+        alert("Ingredient amount is required");
+        return;
+      }
+      if (this.form.unit == "" || this.form.unit == null) {
+        alert("Ingredient unit is required");
         return;
       }
 

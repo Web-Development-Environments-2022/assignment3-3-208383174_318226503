@@ -56,15 +56,19 @@
           />
         </div>
         <div v-if="$root.store.username" id="buttons">
-          <span v-show="onlypreview">
-            <b-button type="submit" class="button" @click="onMakeNow">{{
-              make_button_text
+          <span>
+            <b-button class="button" @click="addToMeal()" :disabled="addToMealLabel=='Added to meal'">{{
+              addToMealLabel
             }}</b-button>
-            <span>
-              <b-button class="button" @click="addToMeal()">{{
-                addToMealLabel
-              }}</b-button>
-            </span>
+          </span>
+          <span v-show="onlypreview">
+            <b-button
+              type="submit"
+              class="button"
+              @click="onMakeNow"
+              title="this will add the recipe to your upcoming meal"
+              >{{ make_button_text }}</b-button
+            >
           </span>
           <div v-show="!onlypreview" id="make-amount">
             <h3>change the number of dishes</h3>
@@ -256,8 +260,9 @@ export default {
       this.mul_dishes += 1;
     },
     async addToMeal() {
-      this.addToMealLabel = "Added";
       let DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/users/upcommingMeal/";
+      this.addToMealLabel = "Added to meal";
+
       console.log(
         "this.$route.query.isPersonal in make now: " +
           this.$route.query.isPersonal
@@ -282,6 +287,9 @@ export default {
         }
       } catch (error) {
         console.log("error.response.status", error.response.status);
+        if(this.onlypreview){
+          alert("recipe already in current meal plan");
+        }
         return;
       }
     },
