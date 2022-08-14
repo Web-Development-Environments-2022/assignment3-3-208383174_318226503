@@ -167,7 +167,7 @@ export default {
 
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
-        console.log("error.response.status", error.response.status);
+        // console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
         return;
       }
@@ -236,7 +236,7 @@ export default {
 
       this.recipe = _recipe;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   },
   methods: {
@@ -286,7 +286,7 @@ export default {
           this.$router.replace("/NotFound");
         }
       } catch (error) {
-        console.log("error.response.status", error.response.status);
+        // console.log("error.response.status", error.response.status);
         if(this.onlypreview){
           alert("recipe already in current meal plan");
         }

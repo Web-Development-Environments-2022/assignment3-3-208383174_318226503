@@ -361,6 +361,7 @@ export default {
       let glutenFree = false;
 
       if (this.form.nutritious != undefined) {
+        console.log("this.form.nutritious: "+this.form.nutritious);
         this.form.nutritious.forEach((item) => {
           if (item === "vegan") {
             vegan = 1;
