@@ -343,7 +343,7 @@ export default {
       console.dir(`submitting recipe ${this.form}`);
 
       await this.AddRecipe();
-      // this.onReset();
+      this.onReset();
     },
     async AddRecipe() {
       this.$root.toast(
@@ -351,9 +351,6 @@ export default {
         "new recipe added successfully",
         "success"
       );
-      // confirm("new recipe added successfully");
-
-      // this.onReset();
 
       console.log("serving size " + this.form.servingSize);
       let vegan = false;
@@ -390,7 +387,6 @@ export default {
             instructions: this.instructionsArray,
             servingSize: this.form.servingSize,
           });
-        console.log("serving size " + this.form.servingSize);
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
