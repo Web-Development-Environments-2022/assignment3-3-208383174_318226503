@@ -17,7 +17,7 @@
           <li>save favorite recipes</li>
           <li>add personal recipes</li>
           <li>experience nostalgia and watch family recipes.</li>
-          <li>Plan their upcomming meal:
+          <li>Plan their upcoming meal:
             <ul>
               <li>add/remove recipes</li>
               <li>manage recipes order </li>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <h1>Your Upcomming Meal</h1>
+      <h1>Your upcoming Meal</h1>
       <div>
         <table class="table">
           <thead>
@@ -77,19 +77,19 @@ export default {
     };
   },
   mounted() {
-    this.getUpcommingMeal();
+    this.getupcomingMeal();
   },
   components: {
     RecipePreviewHorizontal,
     RecipeProgressBar,
   },
   methods: {
-    async getUpcommingMeal() {
+    async getupcomingMeal() {
       const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
       try {
         let res = await this.axios
           .create({ withCredentials: true })
-          .get(DOMAIN_PATH + "/users/upcommingMeal", {
+          .get(DOMAIN_PATH + "/users/upcomingMeal", {
             withCredentials: true,
           });
         this.todo_recipes = res.data;
@@ -114,7 +114,7 @@ export default {
           },
           { withCredentials: true }
         );
-        this.getUpcommingMeal();
+        this.getupcomingMeal();
       } catch (error) {
         console.log("ERROR !");
       }
@@ -135,7 +135,7 @@ export default {
           },
           { withCredentials: true }
         );
-        this.getUpcommingMeal();
+        this.getupcomingMeal();
       } catch (error) {
         console.log("ERROR !");
       }
@@ -148,7 +148,7 @@ export default {
           .delete(DOMAIN_PATH + "users/removeRecipeFromMeal", {
             data: { recipeId: r.recipe_preview.id },
           });
-        this.getUpcommingMeal();
+        this.getupcomingMeal();
       } catch (error) {
         console.log("ERROR !");
       }
@@ -164,7 +164,7 @@ export default {
         await this.axios
           .create({ withCredentials: true })
           .delete(DOMAIN_PATH + "users/removeAllRecipesFromMeal", {});
-        this.getUpcommingMeal();
+        this.getupcomingMeal();
         confirm("All recipes from current meal were successfully removed");
       } catch (error) {
         console.log("ERROR !");

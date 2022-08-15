@@ -87,14 +87,7 @@
                 >+</b-button
               >
             </div>
-            <b-icon
-              icon="check2-circle"
-              variant="outline-success"
-              type="submit"
-              @click="backToRecipe"
-              title="done"
-              >{{ make_button_text }}<i class="bi bi-camera-video"></i
-            ></b-icon>
+            
           </div>
         </div>
       </div>
@@ -113,6 +106,9 @@
           :instructions="recipe._instructions"
           :r_id="recipe.id"
         />
+         <b-button id="done-button" @click="backToRecipe">{{
+          "Done making recipe"
+        }}</b-button>
       </div>
       <div id="ingredients">
         <Ingredients
@@ -260,7 +256,7 @@ export default {
       this.mul_dishes += 1;
     },
     async addToMeal() {
-      let DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/users/upcommingMeal/";
+      let DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/users/upcomingMeal/";
       this.addToMealLabel = "Added to meal";
 
       console.log(
@@ -448,8 +444,7 @@ h3 {
 }
 
 #make-amount {
-  border: 1px solid rgb(234, 148, 37);
-  border-radius: 15px;
+  border-top: 1px solid rgb(234, 148, 37);
   width: fit-content;
   padding: 15px 45px 15px 45px;
   margin-top: 21px;
@@ -465,4 +460,22 @@ h3 {
   width: 34px;
   height: 34px;
 }
+
+
+#done-button {
+  background-color: transparent;
+  border: solid 1px rgb(111, 185, 100);
+  color: black;
+  margin-top: 10px;
+  text-align: -webkit-center;
+}
+#done-button:not(:disabled):not(.disabled):active {
+  background-color: rgb(111, 185, 100);
+  border: solid 1px rgb(111, 185, 100);
+  color: white;
+  margin-top: 10px;
+  text-align: -webkit-center;
+}
+
+
 </style>

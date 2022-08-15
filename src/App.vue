@@ -98,12 +98,12 @@ export default {
       try {
         let response = await this.axios
           .create({ withCredentials: true })
-          .get(DOMAIN_PATH + "/users/NumRecipesUpcommingMeal", {
+          .get(DOMAIN_PATH + "/users/NumRecipesupcomingMeal", {
             withCredentials: true,
           });
         this.numOfMeals = response.data.toString();
       } catch (error) {
-        console.log("no upcomming meals");
+        console.log("no upcoming meals");
       }
     },
     updateCart: function() {
