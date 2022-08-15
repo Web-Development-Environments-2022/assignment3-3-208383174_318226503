@@ -136,7 +136,7 @@ export default {
   border-color: #e0c0a6;
   flex-direction: row;
   height: auto;
-  min-width: 600px;
+  min-width: 605px;
   margin: 15px 0 20px 0;
 }
 
