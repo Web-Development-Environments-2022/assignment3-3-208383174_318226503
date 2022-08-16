@@ -62,7 +62,6 @@ export default {
   created() {
     this.max = 0;
     this.value = getSessionValue();
-    console.log("created this.value : " + this.value);
   },
   data() {
     return {
@@ -80,9 +79,7 @@ export default {
 
     if (this.getSessionValue() != 0) {
       minStep = this.getSessionValue()[0];
-      console.log("minStep : " + minStep);
       this.value = minStep;
-      console.log("mounted this.value : " + this.value);
     }
     for (let i = 0; i < this.instructions.length; i++) {
       str_step = `Step ${this.instructions[i].number}: ${this.instructions[i].step}`;
@@ -96,7 +93,6 @@ export default {
         isDone: isDone_,
       });
     }
-    console.log("this.steps_todo.length : " + parseInt(this.steps_todo.length));
     this.max = parseInt(this.steps_todo.length);
   },
   methods: {
@@ -108,10 +104,6 @@ export default {
     getSessionValue() {
       let ans = 0;
       try {
-        console.log(
-          "sessionStorage.making_progress[this.r_id] " +
-            JSON.parse(sessionStorage.making_progress)[this.r_id]
-        );
         ans = JSON.parse(sessionStorage.making_progress)[this.r_id];
         if (ans == undefined) {
           ans = 0;
@@ -123,15 +115,12 @@ export default {
       }
     },
     done(step) {
-      console.log("this.value : " + this.value);
       step.isDone = true;
       this.selected.push(parseInt(step.value));
       this.updateValueProgress();
       //save step
       let temp1 = sessionStorage.making_progress;
-      console.log("temp1: " + temp1);
       let temp = JSON.parse(temp1);
-      console.log("temp: " + temp);
       if (temp == undefined) {
         temp = {};
       }
@@ -153,9 +142,6 @@ export default {
   },
   computed: {
     state() {
-      console.log("this.selected:" + this.selected);
-      console.log("value: " + this.value);
-      console.log("max: " + this.max);
       let len = this.selected.length;
       if (len == 1) {
         this.updateValueProgress();
@@ -164,7 +150,6 @@ export default {
       if (len == 0) {
         return true;
       }
-      console.log(parseInt(this.selected[len - 1]));
       if (
         parseInt(this.selected[len - 1]) - parseInt(this.selected[len - 2]) ==
         1

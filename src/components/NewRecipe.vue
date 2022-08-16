@@ -339,11 +339,10 @@ export default {
       if (this.$v.form.$anyError) {
         return;
       }
-      console.log(`submitting recipe ${this.form.title}`);
-      console.dir(`submitting recipe ${this.form}`);
+      console.log(`submitting recipe`);
 
       await this.AddRecipe();
-      // this.onReset();
+      this.onReset();
     },
     async AddRecipe() {
       this.$root.toast(
@@ -351,11 +350,6 @@ export default {
         "new recipe added successfully",
         "success"
       );
-      // confirm("new recipe added successfully");
-
-      // this.onReset();
-
-      console.log("serving size " + this.form.servingSize);
       let vegan = false;
       let vegetarian = false;
       let glutenFree = false;
@@ -389,7 +383,6 @@ export default {
             instructions: this.instructionsArray,
             servingSize: this.form.servingSize,
           });
-        console.log("serving size " + this.form.servingSize);
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }
@@ -419,7 +412,6 @@ export default {
       this.showInstructionMeesage = false;
     },
     addIngredient() {
-      console.log("add Ingredient");
       if (
         this.$v.form.amount.$anyError ||
         this.$v.form.unit.$anyError ||
@@ -435,13 +427,6 @@ export default {
         alert("Ingredient amount is required");
         return;
       }
-      if (this.form.unit == "" || this.form.unit == null) {
-        alert("Ingredient unit is required");
-        return;
-      }
-
-      console.log("unit " + this.form.unit);
-      console.log(this.form.unit);
 
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
@@ -453,7 +438,6 @@ export default {
       (this.form.ingredientName = ""),
         (this.form.amount = null),
         (this.form.unit = null);
-      console.log(this.ingredients);
     },
 
     addInstructions() {
@@ -529,11 +513,6 @@ input.form-control {
 .modal-body {
   margin: auto;
   width: 99%;
-}
-
-.form-inline {
-  justify-content: space-around;
-  display: inline-flex;
 }
 
 .d-block,

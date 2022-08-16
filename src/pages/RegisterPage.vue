@@ -246,7 +246,6 @@ export default {
     },
   },
   mounted() {
-    console.log("mounted");
     this.countries.push(...countries);
   },
   methods: {
@@ -276,12 +275,10 @@ export default {
       }
     },
     onRegister() {
-      console.log("register method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      console.log("register method go");
       this.Register();
     },
     onReset() {

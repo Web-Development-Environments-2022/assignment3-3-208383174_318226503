@@ -60,10 +60,8 @@ export default {
 },
     methods: {
       onSubmit(event) {
-        console.log("you sumbitted");
         event.preventDefault()
         alert(JSON.stringify(this.form))
-        console.log("emitting")
         this.ingridents.push(9);
         this.ingridents.push({
           name:this.form.name, amount:this.form.amount, unit:this.form.unit,

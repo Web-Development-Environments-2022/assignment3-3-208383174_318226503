@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <h1>Your Upcomming Meal</h1>
+      <h1>Your upcoming Meal</h1>
       <div>
         <table class="table">
           <thead>
@@ -77,7 +77,7 @@ export default {
     };
   },
   mounted() {
-    this.getUpcommingMeal();
+    this.getupcomingMeal();
   },
   components: {
     RecipePreviewHorizontal,
@@ -89,19 +89,16 @@ export default {
       try {
         let res = await this.axios
           .create({ withCredentials: true })
-          .get(DOMAIN_PATH + "/users/upcommingMeal", {
+          .get(DOMAIN_PATH + "/users/upcomingMeal", {
             withCredentials: true,
           });
         this.todo_recipes = res.data;
-        console.log(this.todo_recipes);
       } catch (error) {
-        console.log("ERROR !");
+        console.log(error);
       }
     },
     async moveDown(r) {
       const DOMAIN_PATH = "http://localhost:3000/";
-      console.log("r.id is: " + r.recipe_preview.id);
-      console.log(" order is: " + r.order);
       if (r.order == this.todo_recipes.length) {
         return;
       }
@@ -114,15 +111,14 @@ export default {
           },
           { withCredentials: true }
         );
-        this.getUpcommingMeal();
+        console.log("order changed");
+        this.getupcomingMeal();
       } catch (error) {
-        console.log("ERROR !");
+        console.log(error);
       }
     },
     async moveUp(r) {
       const DOMAIN_PATH = "http://localhost:3000/";
-      console.log("r.id is: " + r.recipe_preview.id);
-      console.log(" order is: " + r.order);
       if (r.order == 1) {
         return;
       }
@@ -135,9 +131,10 @@ export default {
           },
           { withCredentials: true }
         );
-        this.getUpcommingMeal();
+        console.log("order changed");
+        this.getupcomingMeal();
       } catch (error) {
-        console.log("ERROR !");
+        console.log(error);
       }
     },
     async remove(r) {
@@ -148,9 +145,11 @@ export default {
           .delete(DOMAIN_PATH + "users/removeRecipeFromMeal", {
             data: { recipeId: r.recipe_preview.id },
           });
-        this.getUpcommingMeal();
+        let numOfMeals = localStorage.getItem("cart");
+        localStorage.setItem("cart", parseInt(numOfMeals) - 1);
+        this.getupcomingMeal();
       } catch (error) {
-        console.log("ERROR !");
+        console.log(error);
       }
     },
     async removeAll() {
@@ -164,10 +163,11 @@ export default {
         await this.axios
           .create({ withCredentials: true })
           .delete(DOMAIN_PATH + "users/removeAllRecipesFromMeal", {});
-        this.getUpcommingMeal();
+        this.getupcomingMeal();
+        localStorage.setItem("cart", 0);
         confirm("All recipes from current meal were successfully removed");
       } catch (error) {
-        console.log("ERROR !");
+        console.log(error);
       }
     },
   },
@@ -231,10 +231,5 @@ th {
 
 .table {
   margin-bottom: 0;
-}
-
-.table th,
-.table td {
-  // text-align: -webkit-center;
 }
 </style>

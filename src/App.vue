@@ -80,6 +80,7 @@ export default {
   components: { NewRecipe },
   methods: {
     async Logout() {
+      localStorage.setItem("cart", 0);
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
       const DOMAIN_PATH = "http://localhost:3000";
@@ -98,22 +99,23 @@ export default {
       try {
         let response = await this.axios
           .create({ withCredentials: true })
-          .get(DOMAIN_PATH + "/users/NumRecipesUpcommingMeal", {
+          .get(DOMAIN_PATH + "/users/NumRecipesupcomingMeal", {
             withCredentials: true,
           });
         this.numOfMeals = response.data.toString();
+        localStorage.setItem("cart", this.numOfMeals);
       } catch (error) {
-        console.log("no upcomming meals");
+        console.log("no upcoming meals");
       }
     },
     updateCart: function() {
       this.loop = setInterval(() => {
-        this.getNumOfMeals();
-      }, 10000);
-      console.log("this.numOfMeals: " + this.numOfMeals);
+        this.numOfMeals = localStorage.getItem("cart");
+      }, 5000);
     },
   },
   mounted() {
+    this.getNumOfMeals();
     this.updateCart();
   },
   data() {

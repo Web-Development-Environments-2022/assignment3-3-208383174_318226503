@@ -183,13 +183,12 @@ export default {
     },
   },
   mounted() {
-    console.log("mounted");
     this.cuisines.push(...cuisines);
     this.diets.push(...diets);
     this.intolerances.push(...intolerances);
     this.last_search = localStorage.last_search_str;
 
-    if (this.last_search && localStorage.username != undefined) {
+    if (this.last_search && localStorage.username == this.lastSearchUsername) {
       this.hasLastSearch = true;
     }
   },
@@ -255,7 +254,6 @@ export default {
       }
     },
     onSearch() {
-      console.log("search method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
@@ -275,7 +273,6 @@ export default {
       }
     },
     setDiet(dType) {
-      console.log(dType);
       if (dType != "All Diets" || dType != "Diet") {
         this.selectedDiet = dType;
       } else {
@@ -283,7 +280,6 @@ export default {
       }
     },
     setIntolerance(iType) {
-      console.log(iType);
       if (iType != "No Intolerances" || iType != "Intolerance") {
         this.selectedIntolerance = iType;
       } else {

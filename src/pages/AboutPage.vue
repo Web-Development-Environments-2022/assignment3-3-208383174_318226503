@@ -17,12 +17,13 @@
           <li>save favorite recipes</li>
           <li>add personal recipes</li>
           <li>experience nostalgia and watch family recipes.</li>
-          <li>Plan their upcomming meal:
+          <li>
+            Plan their upcoming meal:
             <ul>
               <li>add/remove recipes</li>
-              <li>manage recipes order </li>
+              <li>manage recipes order</li>
               <li>keep on track after the making progress of each recipe</li>
-            </ul> 
+            </ul>
           </li>
         </ul>
       </div>
@@ -66,7 +67,6 @@
 
 <style scoped>
 .container {
-  /* min-width: 800px; */
   background-color: white;
 }
 

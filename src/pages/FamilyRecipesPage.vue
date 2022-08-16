@@ -76,7 +76,7 @@
         </div>
       </div>
     </b-card>
-        <b-card
+    <b-card
       no-body
       class="overflow-hidden"
       style="max-width: 1200px; min-width: 1000px;"
@@ -152,7 +152,7 @@
         </div>
       </div>
     </b-card>
-        <b-card
+    <b-card
       no-body
       class="overflow-hidden"
       style="max-width: 1200px; min-width: 1000px;"
@@ -248,7 +248,7 @@ export default {
       recipe_3: null,
     };
   },
-  async mounted() {
+  async created() {
     let DOMAIN_PATH;
 
     try {
@@ -256,53 +256,47 @@ export default {
       DOMAIN_PATH = "http://localhost:3000/users/myFamilyRecipes";
       response = await this.axios.get(DOMAIN_PATH, { withCredentials: true });
       if (response.status !== 200) this.$router.replace("/NotFound");
-      console.log(response.data);
-        for (let i = 0; i < response.data.length; i++) {
-            let {
-            recipe_id,
-            user_id,
-            title,
-            image,
-            occasion,
-            owner,
-            readyInMinutes,
-            vegan,
-            vegetarian,
-            glutenFree,
-            servingSize,
-            ingredient_amount,
-            ingredient_sizing,
-            ingredients,
-            instructions,
+      for (let i = 0; i < response.data.length; i++) {
+        let {
+          recipe_id,
+          user_id,
+          title,
+          image,
+          occasion,
+          owner,
+          readyInMinutes,
+          vegan,
+          vegetarian,
+          glutenFree,
+          servingSize,
+          ingredient_amount,
+          ingredient_sizing,
+          ingredients,
+          instructions,
         } = response.data[i];
-        console.log("title : "+title);
 
-      let _recipe = {
-        recipe_id,
-        user_id,
-        title,
-        image,
-        occasion,
-        owner,
-        readyInMinutes,
-        vegan,
-        vegetarian,
-        glutenFree,
-        servingSize,
-        ingredient_amount,
-        ingredient_sizing,
-        ingredients,
-        instructions,
-      };
-      console.log("_recipe : "+_recipe);
-      this.recipes.push(_recipe);
-      console.log("this.recipes: "+this.recipes);
-    }
-     this.recipe_1 = this.recipes[0];
-     console.log("recipe_1: "+this.recipe_1);
-     this.recipe_2 = this.recipes[1];
-     this.recipe_3 = this.recipes[2];
-  
+        let _recipe = {
+          recipe_id,
+          user_id,
+          title,
+          image,
+          occasion,
+          owner,
+          readyInMinutes,
+          vegan,
+          vegetarian,
+          glutenFree,
+          servingSize,
+          ingredient_amount,
+          ingredient_sizing,
+          ingredients,
+          instructions,
+        };
+        this.recipes.push(_recipe);
+      }
+      this.recipe_1 = this.recipes[0];
+      this.recipe_2 = this.recipes[1];
+      this.recipe_3 = this.recipes[2];
     } catch (error) {
       console.log("error.response.status", error.response.status);
       this.$router.replace("/NotFound");

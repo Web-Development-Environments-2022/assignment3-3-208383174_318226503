@@ -57,9 +57,12 @@
         </div>
         <div v-if="$root.store.username" id="buttons">
           <span>
-            <b-button class="button" @click="addToMeal()" :disabled="addToMealLabel=='Added to meal'">{{
-              addToMealLabel
-            }}</b-button>
+            <b-button
+              class="button"
+              @click="addToMeal()"
+              :disabled="addToMealLabel == 'Added to meal'"
+              >{{ addToMealLabel }}</b-button
+            >
           </span>
           <span v-show="onlypreview">
             <b-button
@@ -87,14 +90,6 @@
                 >+</b-button
               >
             </div>
-            <b-icon
-              icon="check2-circle"
-              variant="outline-success"
-              type="submit"
-              @click="backToRecipe"
-              title="done"
-              >{{ make_button_text }}<i class="bi bi-camera-video"></i
-            ></b-icon>
           </div>
         </div>
       </div>
@@ -113,6 +108,9 @@
           :instructions="recipe._instructions"
           :r_id="recipe.id"
         />
+        <b-button id="done-button" @click="backToRecipe">{{
+          "Done making recipe"
+        }}</b-button>
       </div>
       <div id="ingredients">
         <Ingredients
@@ -146,17 +144,15 @@ export default {
       addToMealLabel: "Add to meal",
     };
   },
-  async mounted() {
+  async created() {
     let DOMAIN_PATH;
 
     try {
       let response;
 
       if (this.$route.query.isPersonal) {
-        console.log("personal");
         DOMAIN_PATH = "http://localhost:3000/users/personal/";
       } else {
-        console.log("not personal");
         DOMAIN_PATH = "http://localhost:3000/recipes/";
       }
 
@@ -167,13 +163,9 @@ export default {
 
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
-        console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
         return;
       }
-      // local sotrage- get recipe by id()
-      console.log(response.data);
-
       let {
         analyzedInstructions,
         extendedIngredients,
@@ -224,8 +216,6 @@ export default {
         id,
       };
 
-      console.log("first time");
-
       if (this.readyInMinutes === null || this.readyInMinutes === undefined) {
         this.readyInMinutes = "0";
       }
@@ -260,18 +250,9 @@ export default {
       this.mul_dishes += 1;
     },
     async addToMeal() {
+      let DOMAIN_PATH = "http://localhost:3000/users/upcomingMeal/";
       this.addToMealLabel = "Added to meal";
-      let DOMAIN_PATH = "http://localhost:3000/users/upcommingMeal/";
-      console.log(
-        "this.$route.query.isPersonal in make now: " +
-          this.$route.query.isPersonal
-      );
-      console.log(
-        DOMAIN_PATH +
-          this.recipe.id +
-          "?isPersonal=" +
-          this.$route.query.isPersonal
-      );
+
       try {
         response = await this.axios
           .create({ withCredentials: true })
@@ -284,11 +265,11 @@ export default {
         if (response.status !== 200) {
           this.$router.replace("/NotFound");
         }
+        console.log("update local storage(cart)");
+        let numOfMeals = localStorage.getItem("cart");
+        localStorage.setItem("cart", parseInt(numOfMeals) + 1);
       } catch (error) {
-        console.log("error.response.status", error.response.status);
-        if(this.onlypreview){
-          alert("recipe already in current meal plan");
-        }
+        console.log(error);
         return;
       }
     },
@@ -447,8 +428,7 @@ h3 {
 }
 
 #make-amount {
-  border: 1px solid rgb(234, 148, 37);
-  border-radius: 15px;
+  border-top: 1px solid rgb(234, 148, 37);
   width: fit-content;
   padding: 15px 45px 15px 45px;
   margin-top: 21px;
@@ -463,5 +443,20 @@ h3 {
   margin-top: 10px;
   width: 34px;
   height: 34px;
+}
+
+#done-button {
+  background-color: transparent;
+  border: solid 1px rgb(111, 185, 100);
+  color: black;
+  margin-top: 10px;
+  text-align: -webkit-center;
+}
+#done-button:not(:disabled):not(.disabled):active {
+  background-color: rgb(111, 185, 100);
+  border: solid 1px rgb(111, 185, 100);
+  color: white;
+  margin-top: 10px;
+  text-align: -webkit-center;
 }
 </style>
