@@ -427,10 +427,7 @@ export default {
         alert("Ingredient amount is required");
         return;
       }
-      if (this.form.unit == "" || this.form.unit == null) {
-        alert("Ingredient unit is required");
-        return;
-      }
+
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
       this.ingredients.push({
@@ -516,11 +513,6 @@ input.form-control {
 .modal-body {
   margin: auto;
   width: 99%;
-}
-
-.form-inline {
-  justify-content: space-around;
-  display: inline-flex;
 }
 
 .d-block,

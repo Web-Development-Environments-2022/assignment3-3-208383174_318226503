@@ -112,7 +112,6 @@ export default {
       this.loop = setInterval(() => {
         this.numOfMeals = localStorage.getItem("cart");
       }, 5000);
-      console.log("this.numOfMeals: " + this.numOfMeals);
     },
   },
   mounted() {
