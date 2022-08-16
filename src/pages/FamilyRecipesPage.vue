@@ -248,7 +248,7 @@ export default {
       recipe_3: null,
     };
   },
-  async mounted() {
+  async created() {
     let DOMAIN_PATH;
 
     try {
