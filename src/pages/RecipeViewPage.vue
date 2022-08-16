@@ -142,7 +142,7 @@ export default {
       addToMealLabel: "Add to meal",
     };
   },
-  async mounted() {
+  async created() {
     let DOMAIN_PATH;
 
     try {
