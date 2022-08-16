@@ -281,11 +281,14 @@ export default {
         if (response.status !== 200) {
           this.$router.replace("/NotFound");
         }
+        console.log("update local storage(cart)");
+        let numOfMeals = localStorage.getItem("cart");
+        localStorage.setItem("cart",parseInt(numOfMeals)+1);
       } catch (error) {
         // console.log("error.response.status", error.response.status);
-        if(this.onlypreview){
-          alert("recipe already in current meal plan");
-        }
+        // if(this.onlypreview){
+        //   alert("recipe already in current meal plan");
+        // }
         return;
       }
     },

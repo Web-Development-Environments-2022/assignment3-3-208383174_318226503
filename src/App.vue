@@ -102,18 +102,20 @@ export default {
             withCredentials: true,
           });
         this.numOfMeals = response.data.toString();
+        localStorage.setItem("cart",this.numOfMeals);
       } catch (error) {
         console.log("no upcoming meals");
       }
     },
     updateCart: function() {
       this.loop = setInterval(() => {
-        this.getNumOfMeals();
-      }, 10000);
+        this.numOfMeals = localStorage.getItem("cart");
+      }, 5);
       console.log("this.numOfMeals: " + this.numOfMeals);
     },
   },
   mounted() {
+    this.getNumOfMeals();
     this.updateCart();
   },
   data() {

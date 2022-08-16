@@ -114,6 +114,7 @@ export default {
           },
           { withCredentials: true }
         );
+        console.log("order changed");
         this.getupcomingMeal();
       } catch (error) {
         console.log("ERROR !");
@@ -135,6 +136,7 @@ export default {
           },
           { withCredentials: true }
         );
+        console.log("order changed");
         this.getupcomingMeal();
       } catch (error) {
         console.log("ERROR !");
@@ -148,6 +150,8 @@ export default {
           .delete(DOMAIN_PATH + "users/removeRecipeFromMeal", {
             data: { recipeId: r.recipe_preview.id },
           });
+        let numOfMeals = localStorage.getItem("cart");
+        localStorage.setItem("cart",parseInt(numOfMeals)-1);
         this.getupcomingMeal();
       } catch (error) {
         console.log("ERROR !");
@@ -165,6 +169,7 @@ export default {
           .create({ withCredentials: true })
           .delete(DOMAIN_PATH + "users/removeAllRecipesFromMeal", {});
         this.getupcomingMeal();
+        localStorage.setItem("cart",0);
         confirm("All recipes from current meal were successfully removed");
       } catch (error) {
         console.log("ERROR !");
