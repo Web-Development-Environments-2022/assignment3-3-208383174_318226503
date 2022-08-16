@@ -59,9 +59,6 @@ export default {
         unit: edited_ingredient_sizing[i],
       });
     }
-    console.log(
-      "aftr mounted, ingredients_all_info: " + this.ingredients_all_info
-    );
   },
 };
 </script>

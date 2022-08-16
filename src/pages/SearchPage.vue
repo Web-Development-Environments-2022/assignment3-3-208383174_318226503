@@ -183,7 +183,6 @@ export default {
     },
   },
   mounted() {
-    console.log("mounted");
     this.cuisines.push(...cuisines);
     this.diets.push(...diets);
     this.intolerances.push(...intolerances);
@@ -205,7 +204,6 @@ export default {
     async Search() {
       this.lastSearchUsername = localStorage.username;
       const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
-      console.log("search function");
       //get results
       try {
         let last_search_str = `Your last search was: ${this.userSearchTerm}\n
@@ -255,7 +253,6 @@ export default {
       }
     },
     onSearch() {
-      console.log("search method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
@@ -275,7 +272,6 @@ export default {
       }
     },
     setDiet(dType) {
-      console.log(dType);
       if (dType != "All Diets" || dType != "Diet") {
         this.selectedDiet = dType;
       } else {
@@ -283,7 +279,6 @@ export default {
       }
     },
     setIntolerance(iType) {
-      console.log(iType);
       if (iType != "No Intolerances" || iType != "Intolerance") {
         this.selectedIntolerance = iType;
       } else {

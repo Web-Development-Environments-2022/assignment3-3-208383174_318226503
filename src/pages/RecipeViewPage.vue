@@ -149,10 +149,8 @@ export default {
       let response;
 
       if (this.$route.query.isPersonal) {
-        console.log("personal");
         DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/users/personal/";
       } else {
-        console.log("not personal");
         DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/recipes/";
       }
 
@@ -163,13 +161,9 @@ export default {
 
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
-        // console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
         return;
       }
-      // local sotrage- get recipe by id()
-      console.log(response.data);
-
       let {
         analyzedInstructions,
         extendedIngredients,
@@ -220,8 +214,6 @@ export default {
         id,
       };
 
-      console.log("first time");
-
       if (this.readyInMinutes === null || this.readyInMinutes === undefined) {
         this.readyInMinutes = "0";
       }
@@ -232,7 +224,7 @@ export default {
 
       this.recipe = _recipe;
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   },
   methods: {
@@ -259,16 +251,6 @@ export default {
       let DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/users/upcomingMeal/";
       this.addToMealLabel = "Added to meal";
 
-      console.log(
-        "this.$route.query.isPersonal in make now: " +
-          this.$route.query.isPersonal
-      );
-      console.log(
-        DOMAIN_PATH +
-          this.recipe.id +
-          "?isPersonal=" +
-          this.$route.query.isPersonal
-      );
       try {
         response = await this.axios
           .create({ withCredentials: true })
@@ -284,12 +266,8 @@ export default {
         console.log("update local storage(cart)");
         let numOfMeals = localStorage.getItem("cart");
         localStorage.setItem("cart",parseInt(numOfMeals)+1);
-        console.log("localStorage.getItem(cart) "+localStorage.getItem("cart"));
       } catch (error) {
-        // console.log("error.response.status", error.response.status);
-        // if(this.onlypreview){
-        //   alert("recipe already in current meal plan");
-        // }
+        console.log(error)
         return;
       }
     },

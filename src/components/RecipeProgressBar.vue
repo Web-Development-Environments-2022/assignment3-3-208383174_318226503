@@ -30,11 +30,9 @@ export default {
     this.max = this.get_Session_Value()[1];
     this.value = this.get_Session_Value()[0];
     console.log("recipe progress bar this.value : " + this.value);
-    console.log("recipe progress bar this.max : " + this.max);
   },
   methods: {
     get_Session_Value() {
-      console.log(JSON.parse(sessionStorage.making_progress)[this.r_id]);
       return JSON.parse(sessionStorage.making_progress)[this.r_id];
     },
   },

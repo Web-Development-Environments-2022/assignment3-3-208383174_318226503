@@ -93,15 +93,12 @@ export default {
             withCredentials: true,
           });
         this.todo_recipes = res.data;
-        console.log(this.todo_recipes);
       } catch (error) {
-        console.log("ERROR !");
+        console.log(error);
       }
     },
     async moveDown(r) {
       const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/";
-      console.log("r.id is: " + r.recipe_preview.id);
-      console.log(" order is: " + r.order);
       if (r.order == this.todo_recipes.length) {
         return;
       }
@@ -117,13 +114,11 @@ export default {
         console.log("order changed");
         this.getupcomingMeal();
       } catch (error) {
-        console.log("ERROR !");
+        console.log(error);
       }
     },
     async moveUp(r) {
       const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/";
-      console.log("r.id is: " + r.recipe_preview.id);
-      console.log(" order is: " + r.order);
       if (r.order == 1) {
         return;
       }
@@ -139,7 +134,7 @@ export default {
         console.log("order changed");
         this.getupcomingMeal();
       } catch (error) {
-        console.log("ERROR !");
+        console.log(error);
       }
     },
     async remove(r) {
@@ -154,7 +149,7 @@ export default {
         localStorage.setItem("cart",parseInt(numOfMeals)-1);
         this.getupcomingMeal();
       } catch (error) {
-        console.log("ERROR !");
+        console.log(error);
       }
     },
     async removeAll() {
@@ -172,7 +167,7 @@ export default {
         localStorage.setItem("cart",0);
         confirm("All recipes from current meal were successfully removed");
       } catch (error) {
-        console.log("ERROR !");
+        console.log(error);
       }
     },
   },
@@ -238,8 +233,4 @@ th {
   margin-bottom: 0;
 }
 
-.table th,
-.table td {
-  // text-align: -webkit-center;
-}
 </style>

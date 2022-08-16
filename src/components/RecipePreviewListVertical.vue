@@ -41,7 +41,7 @@ export default {
     };
   },
   mounted() {
-    console.log("RecipePreviewListVertical mounted");
+    console.log("Recipe Preview List mounted");
     this.updateRecipes();
   },
   methods: {
@@ -61,8 +61,7 @@ export default {
           this.hasContent = false;
         }
       } catch (error) {
-        console.dir("error at RecipePreviewListVertical");
-        console.dir(error);
+        console.dir("error at Recipe Preview List");
       }
     },
   },

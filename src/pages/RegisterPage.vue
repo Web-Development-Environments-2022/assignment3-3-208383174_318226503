@@ -246,7 +246,6 @@ export default {
     },
   },
   mounted() {
-    console.log("mounted");
     this.countries.push(...countries);
   },
   methods: {
@@ -256,7 +255,6 @@ export default {
     },
     async Register() {
       const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
-      console.log("register function");
       try {
         const response = await this.axios.post(DOMAIN_PATH + "/Register", {
           username: this.form.username,
@@ -276,12 +274,10 @@ export default {
       }
     },
     onRegister() {
-      console.log("register method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      console.log("register method go");
       this.Register();
     },
     onReset() {

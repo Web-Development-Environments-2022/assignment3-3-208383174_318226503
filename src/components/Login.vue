@@ -102,7 +102,6 @@ export default {
         this.getNumOfMeals();
         this.$router.push("/");
       } catch (err) {
-        console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },

@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     async changeRandom() {
-      console.log("changing the random ");
+      console.log("changing the random recipes");
       await this.getRandom();
       this.componentKey += 1;
     },
@@ -60,7 +60,6 @@ export default {
         this.randomRecipes.push(...recipes);
       } catch (error) {
         console.dir("error at recipe preview list");
-        console.dir(error);
       }
     },
     async updateRecipes() {
@@ -76,7 +75,6 @@ export default {
         this.lastSeenRecipes.push(...recipes);
       } catch (error) {
         console.dir("error at recipe preview list");
-        console.dir(error);
       }
 
       await this.getRandom();

@@ -25,12 +25,6 @@
 <script>
 import RecipePreviewListVertical from "../components/RecipePreviewListVertical";
 export default {
-  created() {
-    console.log("Personal page created");
-  },
-  mounted() {
-    console.log("Personal page mounted");
-  },
   components: {
     RecipePreviewListVertical,
   },

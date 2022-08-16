@@ -339,8 +339,7 @@ export default {
       if (this.$v.form.$anyError) {
         return;
       }
-      console.log(`submitting recipe ${this.form.title}`);
-      console.dir(`submitting recipe ${this.form}`);
+      console.log(`submitting recipe`);
 
       await this.AddRecipe();
       this.onReset();
@@ -351,14 +350,11 @@ export default {
         "new recipe added successfully",
         "success"
       );
-
-      console.log("serving size " + this.form.servingSize);
       let vegan = false;
       let vegetarian = false;
       let glutenFree = false;
 
       if (this.form.nutritious != undefined) {
-        console.log("this.form.nutritious: "+this.form.nutritious);
         this.form.nutritious.forEach((item) => {
           if (item === "vegan") {
             vegan = 1;
@@ -416,7 +412,6 @@ export default {
       this.showInstructionMeesage = false;
     },
     addIngredient() {
-      console.log("add Ingredient");
       if (
         this.$v.form.amount.$anyError ||
         this.$v.form.unit.$anyError ||
@@ -436,10 +431,6 @@ export default {
         alert("Ingredient unit is required");
         return;
       }
-
-      console.log("unit " + this.form.unit);
-      console.log(this.form.unit);
-
       this.showIngridentsMeesage = true;
       this.IngridentsMeesage = this.form.ingredientName;
       this.ingredients.push({
@@ -450,7 +441,6 @@ export default {
       (this.form.ingredientName = ""),
         (this.form.amount = null),
         (this.form.unit = null);
-      console.log(this.ingredients);
     },
 
     addInstructions() {

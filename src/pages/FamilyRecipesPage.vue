@@ -256,7 +256,6 @@ export default {
       DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il/users/myFamilyRecipes";
       response = await this.axios.get(DOMAIN_PATH, { withCredentials: true });
       if (response.status !== 200) this.$router.replace("/NotFound");
-      console.log(response.data);
         for (let i = 0; i < response.data.length; i++) {
             let {
             recipe_id,
@@ -275,7 +274,6 @@ export default {
             ingredients,
             instructions,
         } = response.data[i];
-        console.log("title : "+title);
 
       let _recipe = {
         recipe_id,
@@ -294,12 +292,9 @@ export default {
         ingredients,
         instructions,
       };
-      console.log("_recipe : "+_recipe);
       this.recipes.push(_recipe);
-      console.log("this.recipes: "+this.recipes);
     }
      this.recipe_1 = this.recipes[0];
-     console.log("recipe_1: "+this.recipe_1);
      this.recipe_2 = this.recipes[1];
      this.recipe_3 = this.recipes[2];
   

@@ -66,7 +66,6 @@
 
 <style scoped>
 .container {
-  /* min-width: 800px; */
   background-color: white;
 }
 
