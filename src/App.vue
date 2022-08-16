@@ -80,6 +80,7 @@ export default {
   components: { NewRecipe },
   methods: {
     async Logout() {
+      localStorage.setItem("cart",0);
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
       const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
@@ -110,7 +111,7 @@ export default {
     updateCart: function() {
       this.loop = setInterval(() => {
         this.numOfMeals = localStorage.getItem("cart");
-      }, 5);
+      }, 5000);
       console.log("this.numOfMeals: " + this.numOfMeals);
     },
   },

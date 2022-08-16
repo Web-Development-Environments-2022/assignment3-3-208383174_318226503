@@ -284,6 +284,7 @@ export default {
         console.log("update local storage(cart)");
         let numOfMeals = localStorage.getItem("cart");
         localStorage.setItem("cart",parseInt(numOfMeals)+1);
+        console.log("localStorage.getItem(cart) "+localStorage.getItem("cart"));
       } catch (error) {
         // console.log("error.response.status", error.response.status);
         // if(this.onlypreview){

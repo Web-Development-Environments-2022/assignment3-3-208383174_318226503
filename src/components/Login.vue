@@ -99,6 +99,7 @@ export default {
           { withCredentials: true }
         );
         this.$root.store.login(this.form.username, response.data.user_id);
+        this.getNumOfMeals();
         this.$router.push("/");
       } catch (err) {
         console.log(err.response);
@@ -115,6 +116,19 @@ export default {
       console.log("login method go");
 
       this.Login();
+    },
+  async getNumOfMeals() {
+      const DOMAIN_PATH = "https://chenshahafrecipes.cs.bgu.ac.il";
+      try {
+        let response = await this.axios
+          .create({ withCredentials: true })
+          .get(DOMAIN_PATH + "/users/NumRecipesupcomingMeal", {
+            withCredentials: true,
+          });
+        localStorage.setItem("cart",response.data.toString());
+      } catch (error) {
+        console.log("no upcoming meals");
+      }
     },
   },
 };
